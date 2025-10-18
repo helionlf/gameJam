@@ -85,7 +85,7 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wm3rq"]
 size = Vector2(30, 19)
 
-[node name="Gun" type="Node2D"]
+[node name="Gun" type="Node2D" groups=["ArmaNoMundo"]]
 z_index = 1
 script = ExtResource("1_wm3rq")
 

@@ -4,3 +4,12 @@
 
 [node name="startGame" type="Node2D"]
 script = ExtResource("1_ta6bw")
+
+[node name="RestartTimer" type="Timer" parent="."]
+process_mode = 3
+wait_time = 0.5
+one_shot = true
+
+[node name="DeathViewTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
