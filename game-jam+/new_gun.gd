@@ -22,6 +22,7 @@ func _input(event: InputEvent) -> void:
 var rot_tween : Tween
 
 func atirar():
+	$Shot.play()
 	pode_atirar = false
 	#municao -= 1
 	timer_cooldown.start()
