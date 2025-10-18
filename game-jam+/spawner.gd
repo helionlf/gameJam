@@ -9,8 +9,11 @@ extends Node2D
 var item_spawnado_atual = null
 
 func _ready():
-	timer_respawn.timeout.connect(_on_timer_respawn_timeout)
+	$AnimatedSprite2D.play("default")
+	timer_respawn.timeout.connect(_on_timer_timeout)
 	spawnar_item()
+	print("oi")
+	
 
 func spawnar_item():
 	if scene_para_spawnar == null:
@@ -24,14 +27,18 @@ func spawnar_item():
 	
 	novo_item.global_position = ponto_spawn.global_position
 	
-	get_parent().add_child(novo_item)
+	get_parent().add_child.call_deferred(novo_item)
+
 	item_spawnado_atual = novo_item
 	
 	novo_item.tree_exiting.connect(_on_item_foi_pego)
 
+	print("SUCESSO: Spawner criou ", novo_item.name, " na posição ", novo_item.global_position)
+
+
 func _on_item_foi_pego():
 	item_spawnado_atual = null
-	timer_respawn.start()
+	$Timer.start()
 
-func _on_timer_respawn_timeout():
+func _on_timer_timeout() -> void:
 	spawnar_item()

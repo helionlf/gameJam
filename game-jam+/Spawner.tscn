@@ -1,7 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://byl6x3mxgoqus"]
+[gd_scene load_steps=6 format=3 uid="uid://byl6x3mxgoqus"]
 
 [ext_resource type="Script" uid="uid://dg0bsrfauptu1" path="res://spawner.gd" id="1_gnend"]
-[ext_resource type="PackedScene" uid="uid://d0gysruhfpwbv" path="res://Gun.tscn" id="2_1v3v6"]
 [ext_resource type="Texture2D" uid="uid://d3hef7dvbtqiu" path="res://Sprites/PlataformaHolder.png" id="2_5q6u0"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5i5hu"]
@@ -27,8 +26,8 @@ animations = [{
 }]
 
 [node name="Spawner" type="Node2D"]
+scale = Vector2(2.0000005, 2.0000005)
 script = ExtResource("1_gnend")
-scene_para_spawnar = ExtResource("2_1v3v6")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
@@ -36,6 +35,9 @@ sprite_frames = SubResource("SpriteFrames_aubng")
 frame_progress = 0.91501945
 
 [node name="PontoSpawn" type="Marker2D" parent="."]
-position = Vector2(0, -4)
+position = Vector2(0, -8.499998)
 
 [node name="Timer" type="Timer" parent="."]
+wait_time = 15.0
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

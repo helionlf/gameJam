@@ -54,8 +54,8 @@ func load_stage(index):
 	stage.add_child(players[0])
 	stage.add_child(players[1])
 
-	players[0].position = Vector2(386, 400)
-	players[1].position = Vector2(794, 400)
+	players[0].position = Vector2(400, 400)
+	players[1].position = Vector2(800, 400)
 
 func next_stage():
 	current_stage_index += 1
