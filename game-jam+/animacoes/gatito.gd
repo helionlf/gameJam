@@ -2,22 +2,25 @@ extends CharacterBody2D
 
 @onready var anim_control: Node2D = $"anim control"
 @onready var animation_player: AnimationPlayer = $"anim control/AnimationPlayer"
-
 @export var player_id: int
 @export var life: int
+
+var alive = true
 
 const INPUTS = {
 	1: {
 		"left": "ui_left_p1",
 		"right": "ui_right_p1",
 		"jump": "ui_jump_p1",
-		"meow": "meow_p1"
+		"meow": "meow_p1",
+		"pegar": "pegar_p1"
 	},
 	2: {
 		"left": "ui_left_p2",
 		"right": "ui_right_p2",
 		"jump": "ui_jump_p2",
-		"meow": "meow_p2"
+		"meow": "meow_p2",
+		"pegar": "pegar_p2"
 	},
 }
 
@@ -91,7 +94,7 @@ var equipado = null
 var hovering = []
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("pegar"):
+	if event.is_action_pressed(INPUTS[player_id]["pegar"]):
 		if len(hovering) and equipado == null and hovering[0].equipada == false: equipar(hovering[0])
 		
 func equipar(arma):
@@ -108,7 +111,6 @@ func set_skin(skin):
 
 func take_damage():
 	$MeowHit.pitch_scale = randf_range(0.5, 3) ** 0.5
-	
 	$MeowHit.play()
 	life -= 1
 	if player_id == 1:
@@ -119,5 +121,5 @@ func take_damage():
 	print(LifeManager.p1_life)
 	print(LifeManager.p2_life)
 	if life <= 0:
-		queue_free()
+		alive = false
 		print("Player morreu!")

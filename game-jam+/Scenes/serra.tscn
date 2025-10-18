@@ -1,0 +1,56 @@
+[gd_scene load_steps=8 format=3 uid="uid://c1bm5yf0n24v"]
+
+[ext_resource type="Script" uid="uid://dlj61sgdagisv" path="res://serra.gd" id="1_rowaj"]
+[ext_resource type="Texture2D" uid="uid://bqy0tcl0r1l1j" path="res://Sprites/serra.png" id="2_dw66u"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wwp8b"]
+size = Vector2(28, 27)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rw713"]
+size = Vector2(28, 27)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ig1er"]
+size = Vector2(25, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5rlsk"]
+atlas = ExtResource("2_dw66u")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_sbr0q"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5rlsk")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Serra" type="CharacterBody2D"]
+script = ExtResource("1_rowaj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_wwp8b")
+
+[node name="PikcupArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PikcupArea"]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_rw713")
+
+[node name="DamageArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea"]
+position = Vector2(0.5, 0)
+shape = SubResource("RectangleShape2D_ig1er")
+
+[node name="offset" type="Node2D" parent="."]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="offset"]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_sbr0q")
+
+[connection signal="body_entered" from="PikcupArea" to="." method="_on_pikcup_area_body_entered"]
+[connection signal="body_exited" from="PikcupArea" to="." method="_on_pikcup_area_body_exited"]
