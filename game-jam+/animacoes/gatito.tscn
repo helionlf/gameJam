@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://c50csqfl0555i"]
+[gd_scene load_steps=11 format=3 uid="uid://c50csqfl0555i"]
 
-[ext_resource type="Script" path="res://animacoes/gatito.gd" id="1_ams5u"]
+[ext_resource type="Script" uid="uid://c2gn6dpp8j7e3" path="res://animacoes/gatito.gd" id="1_ams5u"]
 [ext_resource type="Texture2D" uid="uid://ce2xa7wla1bht" path="res://animacoes/gatito.png" id="1_xqcia"]
 [ext_resource type="Texture2D" uid="uid://bkfmg3on06p5i" path="res://animacoes/paw.png" id="2_ams5u"]
 [ext_resource type="PackedScene" uid="uid://b1yyb3i2k0j7c" path="res://Gun.tscn" id="4_1mabb"]
+[ext_resource type="PackedScene" uid="uid://cl6jpfq6kcu2q" path="res://sword.tscn" id="5_6emt3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1mabb"]
 size = Vector2(16, 26)
@@ -111,14 +112,14 @@ _data = {
 &"run": SubResource("Animation_ams5u")
 }
 
-[node name="gatito" type="CharacterBody2D"]
+[node name="gatito" type="CharacterBody2D" groups=["player"]]
 script = ExtResource("1_ams5u")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1, -13)
 shape = SubResource("RectangleShape2D_1mabb")
 
-[node name="anim control" type="Node2D" parent="."]
+[node name="anim control" type="Node2D" parent="." groups=["player"]]
 script = SubResource("GDScript_ams5u")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="anim control"]
@@ -141,3 +142,5 @@ texture = ExtResource("2_ams5u")
 
 [node name="Gun" parent="anim control" instance=ExtResource("4_1mabb")]
 position = Vector2(20, -8)
+
+[node name="Sword" parent="anim control" instance=ExtResource("5_6emt3")]
