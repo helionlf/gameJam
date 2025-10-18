@@ -14,6 +14,7 @@ script/source = "extends Node2D
 @onready var body: Sprite2D = $body
 
 var verticaltween
+var tilttween
 
 func land():
 	if verticaltween: verticaltween.kill()
@@ -23,6 +24,21 @@ func land():
 
 func incline(x):
 	skew = x/3000.0
+
+func tilt():
+	if tilttween: tilttween.kill()
+	body.skew = -50*PI/180
+	tilttween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO)
+	tilttween.tween_property(body, \"skew\", 0, 0.3)
+
+func morrer():
+	body.offset = Vector2(12,-10.5)
+	body.texture = load(\"res://animacoes/dead gatito laranja.png\")
+	body.rotation_degrees = -60
+	var spintween = create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CIRC)
+	spintween.tween_property(body, \"rotation\", 0, 0.2)
+	await spintween.finished
+	land()
 "
 
 [sub_resource type="Animation" id="Animation_6emt3"]

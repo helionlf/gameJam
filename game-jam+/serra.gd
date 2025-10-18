@@ -1,4 +1,4 @@
-extends CharacterBody2D
+extends RigidBody2D
 
 # --- Constantes de Física (Comentadas por enquanto) ---
 # const GRAVIDADE = 1000.0
@@ -8,7 +8,7 @@ extends CharacterBody2D
 # --- Referências ---
 @onready var offset = $offset
 @onready var animated_sprite = $offset/AnimatedSprite2D
-@onready var pickup_area = $PikcupArea # <-- Área para pegar
+@onready var pickup_area: Area2D = $offset/PikcupArea
 # @onready var damage_area = $DamageArea # (Comentado)
 @onready var physics_collider = $CollisionShape2D 
 
@@ -16,18 +16,7 @@ extends CharacterBody2D
 var equipada: bool = false 
 
 func _ready():
-	# --- Estado 1: No Chão ---
-	# Desliga a física (o _physics_process não vai rodar)
-	set_physics_process(false) 
-	physics_collider.disabled = true 
-	# damage_area.monitoring = false # (Comentado)
-	
-	# Conecta os sinais da área de pickup
-	pickup_area.body_entered.connect(_on_pikcup_area_body_entered) 
-	pickup_area.body_exited.connect(_on_pikcup_area_body_exited) 
-	
-	# damage_area.body_entered.connect(_on_damage_area_body_entered) # (Comentado)
-	
+	freeze = true
 
 
 # --- Estado 2: Segurada (Igual à Arma) ---
@@ -36,7 +25,7 @@ func equipar():
 	set_physics_process(false) 
 	
 	# Posição de "segurar"
-	offset.position = Vector2(30, -9) 
+	offset.position = Vector2(30, -20) 
 	
 	pickup_area.queue_free()
 	physics_collider.disabled = true

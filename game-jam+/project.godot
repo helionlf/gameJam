@@ -20,6 +20,10 @@ config/icon="res://Teste/icon.svg"
 Global="*res://global.gd"
 LifeManager="*res://Scripts/LifeManager.gd"
 
+[display]
+
+window/stretch/mode="viewport"
+
 [global_group]
 
 player=""

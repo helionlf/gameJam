@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ew50s0p4clsx"
-path="res://.godot/imported/gatito_laranja.png-4dc3682add108fc7c15ef000a740415d.ctex"
+uid="uid://c70gux4l7rfhw"
+path="res://.godot/imported/dead gatito laranja.png-ea9e4732f9b3d29820f22c692d5aac13.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://animacoes/gatito_laranja.png"
-dest_files=["res://.godot/imported/gatito_laranja.png-4dc3682add108fc7c15ef000a740415d.ctex"]
+source_file="res://animacoes/dead gatito laranja.png"
+dest_files=["res://.godot/imported/dead gatito laranja.png-ea9e4732f9b3d29820f22c692d5aac13.ctex"]
 
 [params]
 

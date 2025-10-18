@@ -51,6 +51,8 @@ func _physics_process(delta: float) -> void:
 		falling = false
 		anim_control.land()
 	
+	if not alive: return
+	
 	var inputs = INPUTS[player_id]
 	var direction := Input.get_axis(inputs["left"], inputs["right"])
 	if Input.is_action_pressed(inputs["jump"]):
@@ -96,13 +98,15 @@ var hovering = []
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed(INPUTS[player_id]["pegar"]):
 		if len(hovering) and equipado == null and hovering[0].equipada == false: equipar(hovering[0])
-		
+
 func equipar(arma):
+	anim_control.scale.y = 1
 	arma.reparent(anim_control)
 	equipado = arma
 	arma.scale.x = orientation
 	arma.position = Vector2(0,0)
 	arma.equipar()
+	anim_control.land()
 func desequipar():
 	equipado = null
 
@@ -120,6 +124,12 @@ func take_damage():
 	print(life)
 	print(LifeManager.p1_life)
 	print(LifeManager.p2_life)
-	if life <= 0:
-		alive = false
-		print("Player morreu!")
+	die()
+
+func die():
+	animation_player.play("RESET")
+	alive = false
+	await get_tree().create_timer(0).timeout
+	$CollisionShape2D.disabled = true
+	print("Player morreu!")
+	anim_control.morrer()

@@ -27,6 +27,7 @@ func atirar():
 	#municao -= 1
 	timer_cooldown.start()
 	animated_sprite.play("Atirando")
+	get_node("..").tilt()
 	animated_sprite.rotation_degrees = -60
 	if rot_tween: rot_tween.kill()
 	rot_tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO)
@@ -39,6 +40,8 @@ func atirar():
 			alvo.take_damage()
 		var a = raycast.get_collision_point()
 		Global.spawnricochete(a,global_position)
+	else:
+		Global.spawnricochete(Vector2(get_node("../..").orientation*400+global_position.x,global_position.y-17),global_position)
 	get_node("../..").speed-=400*get_node("../..").orientation
 
 func _on_timer_timeout():
