@@ -1,5 +1,5 @@
 extends Node
-const RICOCHETE = preload("uid://bam20t6uxq8w1")
+const RICOCHETE = preload("res://ricochete.tscn")
 var mundo = null
 
 func spawnricochete(impactpos, weaponpos):
