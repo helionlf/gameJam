@@ -1,7 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://c50csqfl0555i"]
+[gd_scene load_steps=10 format=3 uid="uid://c50csqfl0555i"]
 
 [ext_resource type="Script" uid="uid://c2gn6dpp8j7e3" path="res://animacoes/gatito.gd" id="1_ams5u"]
 [ext_resource type="Texture2D" uid="uid://bkfmg3on06p5i" path="res://animacoes/paw.png" id="2_ams5u"]
+[ext_resource type="AudioStream" uid="uid://bun2gs5t1witm" path="res://Sounds/Cat_meow_trimmed.mp3" id="3_ams5u"]
+[ext_resource type="AudioStream" uid="uid://brb4a4txvhgog" path="res://Sounds/Cat_meow_exaggerated.mp3" id="4_1mabb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1mabb"]
 size = Vector2(16, 26)
@@ -135,3 +137,11 @@ texture = ExtResource("2_ams5u")
 [node name="Paw2" type="Sprite2D" parent="anim control"]
 position = Vector2(-2, -1.5)
 texture = ExtResource("2_ams5u")
+
+[node name="Meow" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_ams5u")
+volume_db = -10.0
+
+[node name="MeowHit" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_1mabb")
+volume_db = -10.0

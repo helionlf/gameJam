@@ -11,11 +11,13 @@ const INPUTS = {
 		"left": "ui_left_p1",
 		"right": "ui_right_p1",
 		"jump": "ui_jump_p1",
+		"meow": "meow_p1"
 	},
 	2: {
 		"left": "ui_left_p2",
 		"right": "ui_right_p2",
 		"jump": "ui_jump_p2",
+		"meow": "meow_p2"
 	},
 }
 
@@ -57,6 +59,8 @@ func _physics_process(delta: float) -> void:
 			velocity.y = JUMP_VELOCITY
 			if sign(direction) != sign(speed): direction *= -1
 			speed = -300*direction
+	if Input.is_action_just_pressed(inputs["meow"]):
+		$Meow.play()
 	if direction:
 		if airborne: speed += direction * accel * 0.8
 		else: speed += direction * accel
@@ -89,7 +93,7 @@ var hovering = []
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("pegar_p1"):
 		if len(hovering) and equipado == null and hovering[0].equipada == false: equipar(hovering[0])
-
+		
 func equipar(arma):
 	arma.reparent(anim_control)
 	equipado = arma
@@ -103,6 +107,9 @@ func set_skin(skin):
 	$"anim control/body".texture = skin
 
 func take_damage():
+	$MeowHit.pitch_scale = randf_range(0.5, 3) ** 0.5
+	
+	$MeowHit.play()
 	life -= 1
 	if player_id == 1:
 		LifeManager.p1_life = life

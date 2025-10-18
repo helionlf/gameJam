@@ -9,6 +9,7 @@ extends Node2D
 var item_spawnado_atual = null
 
 func _ready():
+	$AnimatedSprite2D.play("default")
 	timer_respawn.timeout.connect(_on_timer_respawn_timeout)
 	spawnar_item()
 
@@ -24,8 +25,9 @@ func spawnar_item():
 	
 	novo_item.global_position = ponto_spawn.global_position
 	
-	get_parent().add_child(novo_item)
+	get_parent().add_child.call_deferred(novo_item)
 	item_spawnado_atual = novo_item
+	print("spawno")
 	
 	novo_item.tree_exiting.connect(_on_item_foi_pego)
 

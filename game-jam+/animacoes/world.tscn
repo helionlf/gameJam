@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://w5nkmw7qf2ek"]
+[gd_scene load_steps=7 format=3 uid="uid://w5nkmw7qf2ek"]
 
-[ext_resource type="Script" uid="uid://c5x8866p084xv" path="res://animacoes/world.gd" id="1_3pljh"]
+[ext_resource type="Script" path="res://animacoes/world.gd" id="1_3pljh"]
 [ext_resource type="PackedScene" uid="uid://1g3lqsnmjrno" path="res://New_Gun.tscn" id="2_vlcve"]
+[ext_resource type="PackedScene" uid="uid://cbh38pvvc85j1" path="res://Spawner.tscn" id="4_ydu3x"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vlcve"]
 size = Vector2(586, 20)
@@ -32,5 +33,6 @@ shape = SubResource("RectangleShape2D_i5yw6")
 position = Vector2(285, -6.5)
 shape = SubResource("RectangleShape2D_3pljh")
 
-[node name="Gun" parent="." instance=ExtResource("2_vlcve")]
-position = Vector2(94, 121)
+[node name="Spawner" parent="." instance=ExtResource("4_ydu3x")]
+position = Vector2(-51, 143)
+scene_para_spawnar = ExtResource("2_vlcve")

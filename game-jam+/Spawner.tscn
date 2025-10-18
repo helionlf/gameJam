@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://cbh38pvvc85j1"]
 
-[ext_resource type="Script" path="res://spawner.gd" id="1_gnend"]
-[ext_resource type="PackedScene" uid="uid://b7trnod2mbg58" path="res://arma_no_chão.tscn" id="2_1v3v6"]
+[ext_resource type="Script" uid="uid://dg0bsrfauptu1" path="res://spawner.gd" id="1_gnend"]
+[ext_resource type="PackedScene" uid="uid://bfug57gydapg1" path="res://arma_no_chão.tscn" id="2_1v3v6"]
 [ext_resource type="Texture2D" uid="uid://d3hef7dvbtqiu" path="res://Sprites/PlataformaHolder.png" id="2_5q6u0"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5i5hu"]
@@ -39,3 +39,4 @@ frame_progress = 0.91501945
 position = Vector2(0, -4)
 
 [node name="Timer" type="Timer" parent="."]
+wait_time = 15.0
