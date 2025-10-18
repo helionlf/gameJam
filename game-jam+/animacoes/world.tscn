@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://w5nkmw7qf2ek"]
+[gd_scene load_steps=9 format=3 uid="uid://w5nkmw7qf2ek"]
 
-[ext_resource type="Script" path="res://animacoes/world.gd" id="1_3pljh"]
+[ext_resource type="Script" uid="uid://c5x8866p084xv" path="res://animacoes/world.gd" id="1_3pljh"]
 [ext_resource type="PackedScene" uid="uid://1g3lqsnmjrno" path="res://New_Gun.tscn" id="2_vlcve"]
-[ext_resource type="PackedScene" uid="uid://bmn46jbcu4saa" path="res://Scenes/axe.tscn" id="4_nskt6"]
+[ext_resource type="PackedScene" uid="uid://bivncvf1ud8jy" path="res://Scenes/axe.tscn" id="4_nskt6"]
 [ext_resource type="PackedScene" uid="uid://cbh38pvvc85j1" path="res://Spawner.tscn" id="4_ydu3x"]
+[ext_resource type="PackedScene" uid="uid://c50csqfl0555i" path="res://animacoes/gatito.tscn" id="5_ydu3x"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vlcve"]
 size = Vector2(586, 20)
@@ -40,3 +41,6 @@ scene_para_spawnar = ExtResource("2_vlcve")
 
 [node name="Axe" parent="." instance=ExtResource("4_nskt6")]
 position = Vector2(102, 131)
+
+[node name="gatito" parent="." instance=ExtResource("5_ydu3x")]
+position = Vector2(-142.2945, -34.79338)

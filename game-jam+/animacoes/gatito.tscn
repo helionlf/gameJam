@@ -1,6 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://c50csqfl0555i"]
+[gd_scene load_steps=11 format=3 uid="uid://c50csqfl0555i"]
 
 [ext_resource type="Script" uid="uid://c2gn6dpp8j7e3" path="res://animacoes/gatito.gd" id="1_ams5u"]
+[ext_resource type="Texture2D" uid="uid://ce2xa7wla1bht" path="res://animacoes/gatito.png" id="2_6emt3"]
 [ext_resource type="Texture2D" uid="uid://bkfmg3on06p5i" path="res://animacoes/paw.png" id="2_ams5u"]
 [ext_resource type="AudioStream" uid="uid://bun2gs5t1witm" path="res://Sounds/Cat_meow_trimmed.mp3" id="3_ams5u"]
 [ext_resource type="AudioStream" uid="uid://brb4a4txvhgog" path="res://Sounds/Cat_meow_exaggerated.mp3" id="4_1mabb"]
@@ -144,6 +145,7 @@ libraries = {
 
 [node name="body" type="Sprite2D" parent="anim control"]
 position = Vector2(0, -2)
+texture = ExtResource("2_6emt3")
 offset = Vector2(-3, -14.5)
 
 [node name="Paw" type="Sprite2D" parent="anim control"]

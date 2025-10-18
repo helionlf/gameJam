@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 @onready var anim_control: Node2D = $"anim control"
 @onready var animation_player: AnimationPlayer = $"anim control/AnimationPlayer"
-@export var player_id: int
+@export var player_id: int = 1
 @export var life: int
 
 var alive = true
