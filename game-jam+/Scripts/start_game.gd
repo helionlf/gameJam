@@ -9,8 +9,7 @@ var skins = [
 ]
 
 var stages = [
-	"res://animacoes/world.tscn"
-	#"res://Scenes/stage_moon.tscn",
+	"res://Scenes/stage_moon.tscn",
 	#"res://stages/Stage2.tscn",
 	#"res://stages/Stage3.tscn",
 	#"res://stages/Stage4.tscn"
@@ -55,8 +54,8 @@ func load_stage(index):
 	stage.add_child(players[0])
 	stage.add_child(players[1])
 
-	players[0].position = Vector2(100, 0)
-	players[1].position = Vector2(-100, 0)
+	players[0].position = Vector2(-120, 0)
+	players[1].position = Vector2(120, 0)
 
 func next_stage():
 	current_stage_index += 1
