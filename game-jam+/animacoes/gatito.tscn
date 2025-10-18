@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://c50csqfl0555i"]
+[gd_scene load_steps=10 format=3 uid="uid://c50csqfl0555i"]
 
-[ext_resource type="Script" uid="uid://c2gn6dpp8j7e3" path="res://animacoes/gatito.gd" id="1_ams5u"]
+[ext_resource type="Script" path="res://animacoes/gatito.gd" id="1_ams5u"]
 [ext_resource type="Texture2D" uid="uid://ce2xa7wla1bht" path="res://animacoes/gatito.png" id="1_xqcia"]
 [ext_resource type="Texture2D" uid="uid://bkfmg3on06p5i" path="res://animacoes/paw.png" id="2_ams5u"]
+[ext_resource type="PackedScene" uid="uid://b1yyb3i2k0j7c" path="res://Gun.tscn" id="4_1mabb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1mabb"]
 size = Vector2(16, 26)
@@ -21,8 +22,47 @@ func land():
 	verticaltween.tween_property(self, \"scale:y\", 1, 0.4)
 
 func incline(x):
-	skew = x/2000.0
+	skew = x/3000.0
 "
+
+[sub_resource type="Animation" id="Animation_6emt3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Paw:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(4, -1.5)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Paw2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-2, -1.5)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("body:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_ams5u"]
 resource_name = "run"
@@ -65,45 +105,6 @@ tracks/2/keys = {
 "values": [Vector2(1, 1), Vector2(1, 0.9), Vector2(1, 1), Vector2(1, 0.9)]
 }
 
-[sub_resource type="Animation" id="Animation_6emt3"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Paw:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(4, -1.5)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Paw2:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(-2, -1.5)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("body:scale")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_fm06d"]
 _data = {
 &"RESET": SubResource("Animation_6emt3"),
@@ -137,3 +138,6 @@ texture = ExtResource("2_ams5u")
 [node name="Paw2" type="Sprite2D" parent="anim control"]
 position = Vector2(-2, -1.5)
 texture = ExtResource("2_ams5u")
+
+[node name="Gun" parent="anim control" instance=ExtResource("4_1mabb")]
+position = Vector2(20, -8)
