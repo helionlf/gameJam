@@ -89,7 +89,7 @@ func _physics_process(delta: float) -> void:
 	anim_control.incline(speed)
 	
 	if equipado and Input.is_action_just_pressed(inputs["shoot"]):
-		equipado.atirar()
+		equipado.usar()
 	
 	if airborne and velocity.y > 0 and not falling:
 		falling = true
