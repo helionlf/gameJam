@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://bkqwp8dddyld3"]
+
+[ext_resource type="Script" path="res://sword_ground.gd" id="1_yhqut"]
+[ext_resource type="Texture2D" path="res://Sprites/sword_cut-ezgif.com-gif-to-sprite-converter.png" id="2_likk5"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e4kt1"]
+atlas = ExtResource("2_likk5")
+region = Rect2(50, 0, 25, 28)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_svkyq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e4kt1")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mki3l"]
+size = Vector2(9, 23)
+
+[node name="Sword_Ground" type="Area2D"]
+position = Vector2(6, -1)
+script = ExtResource("1_yhqut")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_svkyq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-5.5, 1.5)
+shape = SubResource("RectangleShape2D_mki3l")
