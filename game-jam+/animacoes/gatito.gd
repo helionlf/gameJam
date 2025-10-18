@@ -3,7 +3,7 @@ extends CharacterBody2D
 @onready var anim_control: Node2D = $"anim control"
 @onready var animation_player: AnimationPlayer = $"anim control/AnimationPlayer"
 @onready var arma_no_player: Node2D = $"anim control/Gun"
-@onready var espada_no_player: Area2D = $"anim control/sword"
+@onready var espada_no_player: Area2D = $"anim control/Sword"
 
 var tem_espada = false
 
