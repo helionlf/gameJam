@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://w5nkmw7qf2ek"]
+[gd_scene load_steps=7 format=3 uid="uid://w5nkmw7qf2ek"]
 
+[ext_resource type="Script" uid="uid://c5x8866p084xv" path="res://animacoes/world.gd" id="1_3pljh"]
 [ext_resource type="PackedScene" uid="uid://c50csqfl0555i" path="res://animacoes/gatito.tscn" id="1_i5yw6"]
-[ext_resource type="PackedScene" uid="uid://byl6x3mxgoqus" path="res://Spawner.tscn" id="2_vlcve"]
+[ext_resource type="PackedScene" uid="uid://1g3lqsnmjrno" path="res://New_Gun.tscn" id="2_vlcve"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vlcve"]
 size = Vector2(586, 20)
@@ -13,6 +14,7 @@ size = Vector2(17, 332)
 size = Vector2(21, 319)
 
 [node name="world" type="Node2D"]
+script = ExtResource("1_3pljh")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(2, 2)
@@ -34,5 +36,5 @@ shape = SubResource("RectangleShape2D_3pljh")
 [node name="gatito" parent="." groups=["player"] instance=ExtResource("1_i5yw6")]
 position = Vector2(-195, -199)
 
-[node name="Spawner" parent="." instance=ExtResource("2_vlcve")]
-position = Vector2(121, 146)
+[node name="Gun" parent="." instance=ExtResource("2_vlcve")]
+position = Vector2(94, 121)

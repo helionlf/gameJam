@@ -1,7 +1,7 @@
-[gd_scene load_steps=12 format=3 uid="uid://bcfj3thihaq6w"]
+[gd_scene load_steps=12 format=3 uid="uid://cl6jpfq6kcu2q"]
 
-[ext_resource type="Script" path="res://sword.gd" id="1_e4ynd"]
-[ext_resource type="Texture2D" path="res://Sprites/sword_cut-ezgif.com-gif-to-sprite-converter.png" id="2_r76a6"]
+[ext_resource type="Script" uid="uid://bs4ttmvus7r6m" path="res://sword.gd" id="1_e4ynd"]
+[ext_resource type="Texture2D" uid="uid://duk68w7j3vnqy" path="res://Sprites/sword_cut-ezgif.com-gif-to-sprite-converter.png" id="2_r76a6"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dwvek"]
 atlas = ExtResource("2_r76a6")

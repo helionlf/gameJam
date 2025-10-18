@@ -1,46 +1,44 @@
+[gd_scene load_steps=16 format=3 uid="uid://1g3lqsnmjrno"]
 
-[gd_scene load_steps=15 format=3 uid="uid://b1yyb3i2k0j7c"]
-
-[ext_resource type="Script" uid="uid://ddfmgitgqe3mp" path="res://gun.gd" id="1_fry05"]
-[ext_resource type="Texture2D" uid="uid://gwiks5t13y47" path="res://Sprites/pistol-Sheet.png" id="2_fry05"]
-[ext_resource type="Texture2D" uid="uid://cb14jijdhybq" path="res://Sprites/spritesheet.png" id="3_7c1qe"]
-
-[ext_resource type="Texture2D" uid="uid://dw88jgg5mai88" path="res://Sprites/Projectile.png" id="4_1psom"]
+[ext_resource type="Script" uid="uid://ds3c4pftl6fs" path="res://new_gun.gd" id="1_wm3rq"]
+[ext_resource type="Texture2D" uid="uid://gwiks5t13y47" path="res://Sprites/pistol-Sheet.png" id="2_jua05"]
+[ext_resource type="Texture2D" uid="uid://cb14jijdhybq" path="res://Sprites/spritesheet.png" id="3_c1tuw"]
+[ext_resource type="Texture2D" uid="uid://dw88jgg5mai88" path="res://Sprites/Projectile.png" id="4_u1484"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7c1qe"]
-atlas = ExtResource("2_fry05")
+atlas = ExtResource("2_jua05")
 region = Rect2(0, 0, 36, 22)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1psom"]
-atlas = ExtResource("2_fry05")
+atlas = ExtResource("2_jua05")
 region = Rect2(36, 0, 36, 22)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fry05"]
-atlas = ExtResource("2_fry05")
+atlas = ExtResource("2_jua05")
 region = Rect2(0, 0, 36, 22)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_i8pi3"]
-atlas = ExtResource("3_7c1qe")
+atlas = ExtResource("3_c1tuw")
 region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5rcv4"]
-atlas = ExtResource("3_7c1qe")
+atlas = ExtResource("3_c1tuw")
 region = Rect2(32, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_v70l2"]
-atlas = ExtResource("3_7c1qe")
+atlas = ExtResource("3_c1tuw")
 region = Rect2(64, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fo6nf"]
-atlas = ExtResource("3_7c1qe")
+atlas = ExtResource("3_c1tuw")
 region = Rect2(96, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_px5vy"]
-atlas = ExtResource("3_7c1qe")
+atlas = ExtResource("3_c1tuw")
 region = Rect2(128, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6np5s"]
-atlas = ExtResource("4_1psom")
+atlas = ExtResource("4_u1484")
 region = Rect2(24, 0, 8, 8)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_s2wow"]
@@ -81,58 +79,43 @@ animations = [{
 "loop": false,
 "name": &"Desapearing",
 "speed": 12.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_i8pi3")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_5rcv4")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_v70l2")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_fo6nf")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_px5vy")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_6np5s")
-}],
-"loop": false,
-"name": &"Desapearing",
-"speed": 5.0
 }]
 
-[node name="Gun" type="Node2D"]
-script = ExtResource("1_fry05")
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wm3rq"]
+size = Vector2(30, 19)
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="Gun" type="Node2D"]
+z_index = 1
+script = ExtResource("1_wm3rq")
+
+[node name="offset" type="Node2D" parent="."]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="offset"]
 texture_filter = 1
-position = Vector2(9.536743e-07, 0)
+position = Vector2(-8.640867, -0.6362872)
 scale = Vector2(0.7977293, 0.79772925)
 sprite_frames = SubResource("SpriteFrames_s2wow")
 animation = &"Atirando"
 offset = Vector2(12.53558, -1.2535584)
 
-[node name="Marker2D" type="Marker2D" parent="."]
-position = Vector2(21, -8)
+[node name="Marker2D" type="Marker2D" parent="offset"]
+position = Vector2(12.359131, -8.636288)
 scale = Vector2(0.7363713, 0.7363713)
 
+[node name="RayCast2D" type="RayCast2D" parent="offset"]
+position = Vector2(-9.640867, -7.6362877)
+target_position = Vector2(1000, 0)
+
+[node name="Area2D" type="Area2D" parent="offset"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="offset/Area2D"]
+position = Vector2(2, -1.5)
+shape = SubResource("RectangleShape2D_wm3rq")
+
 [node name="Timer" type="Timer" parent="."]
-wait_time = 0.3
+wait_time = 0.2
 one_shot = true
 
-[node name="TimerDesaparecer" type="Timer" parent="."]
-wait_time = 1.5
-one_shot = true
-
-[node name="RayCast2D" type="RayCast2D" parent="."]
-position = Vector2(-1, -7)
-target_position = Vector2(500, 0)
-collision_mask = 0
-
+[connection signal="body_entered" from="offset/Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="offset/Area2D" to="." method="_on_area_2d_body_exited"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
-[connection signal="timeout" from="TimerDesaparecer" to="." method="_on_timer_desaparecer_timeout"]

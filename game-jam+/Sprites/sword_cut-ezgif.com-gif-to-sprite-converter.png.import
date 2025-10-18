@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cb14jijdhybq"
-path="res://.godot/imported/spritesheet.png-8d1e45e7c563b1fc59afddcd8efeb8ef.ctex"
+uid="uid://duk68w7j3vnqy"
+path="res://.godot/imported/sword_cut-ezgif.com-gif-to-sprite-converter.png-1cac0e25bc0062229be107f0a62240f8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/spritesheet.png"
-dest_files=["res://.godot/imported/spritesheet.png-8d1e45e7c563b1fc59afddcd8efeb8ef.ctex"]
+source_file="res://Sprites/sword_cut-ezgif.com-gif-to-sprite-converter.png"
+dest_files=["res://.godot/imported/sword_cut-ezgif.com-gif-to-sprite-converter.png-1cac0e25bc0062229be107f0a62240f8.ctex"]
 
 [params]
 

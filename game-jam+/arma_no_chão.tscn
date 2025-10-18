@@ -1,7 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://b7trnod2mbg58"]
+[gd_scene load_steps=6 format=3 uid="uid://bfug57gydapg1"]
 
 [ext_resource type="Texture2D" uid="uid://gwiks5t13y47" path="res://Sprites/pistol-Sheet.png" id="1_jeyna"]
-[ext_resource type="Script" path="res://arma_no_chão.gd" id="1_ppqyr"]
+[ext_resource type="Script" uid="uid://d0e1tsqisqe34" path="res://arma_no_chão.gd" id="1_ppqyr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_548ms"]
 size = Vector2(23, 20)

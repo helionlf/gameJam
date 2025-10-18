@@ -1,3 +1,4 @@
+# EspadaNoChao.gd
 extends Area2D
 
 var player_dentro = null
@@ -15,5 +16,9 @@ func _on_body_exited(body):
 
 func _process(_delta):
 	if player_dentro != null and Input.is_action_just_pressed("pegar"):
-		player_dentro.equipar_arma_do_jogador()
+		
+		# --- MUDE ESTA LINHA ---
+		player_dentro.equipar_espada_do_jogador() # Mude de "arma" para "espada"
+		# ---------------------
+		
 		queue_free()
