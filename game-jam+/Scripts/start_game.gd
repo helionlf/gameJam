@@ -1,6 +1,8 @@
 extends Node2D
 
 @onready var PlayerScene = preload("res://animacoes/gatito.tscn")
+@onready var MenuScene = preload("res://Scenes/menu_selecao.tscn")
+
 
 var skins = [
 	preload("res://animacoes/gatito.png"),
@@ -16,13 +18,30 @@ var stages = [
 	#"res://stages/Stage4.tscn"
 ]
 
+var confirmed_players = []
 var current_stage_index = 0
 var players = []
 var game_started = false
 
-func _input(event):
-	if event is InputEventMouseButton and event.pressed and not game_started:
+func _ready():
+	show_menu()
+	
+func show_menu():
+	var menu = MenuScene.instantiate()
+	add_child(menu)
+	menu.player_joined.connect(_on_player_joined)
+	menu.start_pressed.connect(_on_start_pressed)
+
+func _on_start_pressed():
+	if confirmed_players.size() >= 2 and not game_started:
+		for child in get_children():
+			if child is Control:
+				child.queue_free()  # remove o menu da tela
 		start_game()
+
+func _on_player_joined(player_id):
+	print("Jogador %d entrou no jogo!" % player_id)
+	confirmed_players.append(player_id)
 
 func start_game():
 	game_started = true
