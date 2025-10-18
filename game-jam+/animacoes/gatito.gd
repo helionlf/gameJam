@@ -24,6 +24,13 @@ const INPUTS = {
 	},
 }
 
+const SKIN_MAP = {
+	preload("res://animacoes/gatito.png"): "res://animacoes/dead gatito.png",
+	preload("res://animacoes/gatito_branco.png"): "res://animacoes/dead gatito branco.png",
+	preload("res://animacoes/gatito_laranja.png"): "res://animacoes/gatito_laranja.png"
+}
+
+var my_death_texture_path: String
 var speed = 0
 const accel = 40
 const maxSPEED = 500
@@ -110,8 +117,13 @@ func equipar(arma):
 func desequipar():
 	equipado = null
 
-func set_skin(skin):
-	$"anim control/body".texture = skin
+func set_skin(skin_texture: Texture2D):
+	$"anim control/body".texture = skin_texture
+	
+	if SKIN_MAP.has(skin_texture):
+		my_death_texture_path = SKIN_MAP[skin_texture]
+	else:
+		my_death_texture_path = "res://animacoes/dead gatito laranja.png"
 
 func take_damage():
 	$MeowHit.pitch_scale = randf_range(0.5, 3) ** 0.5
@@ -132,4 +144,4 @@ func die():
 	await get_tree().create_timer(0).timeout
 	$CollisionShape2D.disabled = true
 	print("Player morreu!")
-	anim_control.morrer()
+	anim_control.morrer(my_death_texture_path)

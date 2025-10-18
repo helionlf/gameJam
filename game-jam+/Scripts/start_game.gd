@@ -15,6 +15,8 @@ var stages = [
 	#"res://stages/Stage4.tscn"
 ]
 
+
+
 var current_stage_index = 0
 var players = []
 var game_started = false
