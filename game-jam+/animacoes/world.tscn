@@ -33,7 +33,7 @@ shape = SubResource("RectangleShape2D_i5yw6")
 position = Vector2(285, -6.5)
 shape = SubResource("RectangleShape2D_3pljh")
 
-[node name="gatito" parent="." instance=ExtResource("1_i5yw6")]
+[node name="gatito" parent="." groups=["player"] instance=ExtResource("1_i5yw6")]
 position = Vector2(-195, -199)
 
 [node name="Gun" parent="." instance=ExtResource("2_vlcve")]

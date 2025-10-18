@@ -127,7 +127,6 @@ libraries = {
 
 [node name="body" type="Sprite2D" parent="anim control"]
 position = Vector2(0, -2)
-texture = ExtResource("1_xqcia")
 offset = Vector2(-3, -14.5)
 
 [node name="Paw" type="Sprite2D" parent="anim control"]

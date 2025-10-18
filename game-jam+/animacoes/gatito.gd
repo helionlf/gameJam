@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 @onready var anim_control: Node2D = $"anim control"
 @onready var animation_player: AnimationPlayer = $"anim control/AnimationPlayer"
+@onready var arma_no_player: Node2D = $"anim control/Gun"
 
 var speed = 0
 const accel = 40
