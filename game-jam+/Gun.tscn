@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://b1yyb3i2k0j7c"]
+[gd_scene load_steps=7 format=3 uid="uid://d0gysruhfpwbv"]
 
 [ext_resource type="Script" path="res://gun.gd" id="1_fry05"]
 [ext_resource type="Texture2D" uid="uid://gwiks5t13y47" path="res://Sprites/pistol-Sheet.png" id="2_fry05"]
