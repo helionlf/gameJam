@@ -28,6 +28,10 @@ var airborne = false
 var moving = false
 var falling = false
 var orientation = 1
+var controls_disabled = false
+
+var gun_scene = preload("res://Gun.tscn")
+var thrown_gun_scene = preload("res://ThrownGun.tscn")
 
 func _ready() -> void:
 	if player_id == 1:
@@ -36,6 +40,11 @@ func _ready() -> void:
 		life = LifeManager.p2_life
 
 func _physics_process(delta: float) -> void:
+	if controls_disabled:
+		velocity = velocity.move_toward(Vector2.ZERO, 100)
+		move_and_slide()
+		return
+
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
@@ -84,20 +93,41 @@ func _physics_process(delta: float) -> void:
 
 var equipado = null
 
-var hovering = []
 
-func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("pegar_p1"):
-		if len(hovering) and equipado == null and hovering[0].equipada == false: equipar(hovering[0])
+func equipar(arma_no_chao):
+	if equipado:
+		return
 
-func equipar(arma):
-	arma.reparent(anim_control)
-	equipado = arma
-	arma.scale.x = orientation
-	arma.position = Vector2(0,0)
-	arma.equipar()
+	var gun = gun_scene.instantiate()
+	anim_control.add_child(gun)
+	gun.position = Vector2(10, -15)
+	gun.equipar_arma()
+	equipado = gun
+	
+	arma_no_chao.queue_free()
+
 func desequipar():
-	equipado = null
+	if equipado:
+		equipado.queue_free()
+		equipado = null
+
+func _input(event):
+	if event.is_action_pressed("right_mouse_button"):
+		if equipado:
+			throw_weapon()
+
+func throw_weapon():
+	var thrown_gun = thrown_gun_scene.instantiate()
+	get_parent().add_child(thrown_gun)
+	thrown_gun.global_position = equipado.global_position
+	if orientation == -1:
+		thrown_gun.rotation_degrees = 180
+	
+	thrown_gun.linear_velocity = Vector2(500 * orientation, -200)
+	thrown_gun.thrower = self
+	thrown_gun.add_collision_exception_with(self)
+
+	desequipar()
 
 func set_skin(skin):
 	$"anim control/body".texture = skin
@@ -114,3 +144,11 @@ func take_damage():
 	if life <= 0:
 		queue_free()
 		print("Player morreu!")
+
+func disable_controls(duration):
+	controls_disabled = true
+	var timer = get_tree().create_timer(duration)
+	timer.timeout.connect(_on_enable_controls_timeout)
+
+func _on_enable_controls_timeout():
+	controls_disabled = false

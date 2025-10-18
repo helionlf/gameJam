@@ -24,7 +24,7 @@ animations = [{
 [node name="ArmaNoChão" type="Area2D"]
 script = ExtResource("1_ppqyr")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["player"]]
 shape = SubResource("RectangleShape2D_548ms")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

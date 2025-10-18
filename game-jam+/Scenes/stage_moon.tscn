@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://r8s8pj0xnic0"]
+[gd_scene load_steps=7 format=3 uid="uid://r8s8pj0xnic0"]
 
-[ext_resource type="PackedScene" uid="uid://b7trnod2mbg58" path="res://arma_no_chão.tscn" id="1_4lcrb"]
+[ext_resource type="PackedScene" uid="uid://bfug57gydapg1" path="res://arma_no_chão.tscn" id="1_4lcrb"]
 [ext_resource type="PackedScene" uid="uid://cbh38pvvc85j1" path="res://Spawner.tscn" id="2_5a2y6"]
+[ext_resource type="PackedScene" uid="uid://c50csqfl0555i" path="res://animacoes/gatito.tscn" id="3_trsgd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xdaev"]
 size = Vector2(586, 20)
@@ -19,6 +20,17 @@ offset_right = 1160.0
 offset_bottom = 655.0
 color = Color(0.3328807, 0.33288068, 0.33288068, 1)
 
+[node name="gatito" parent="ColorRect" instance=ExtResource("3_trsgd")]
+position = Vector2(526, 390)
+player_id = 1
+life = null
+
+[node name="ArmaNoChão" parent="." instance=ExtResource("1_4lcrb")]
+position = Vector2(468, 472)
+
+[node name="Spawner" parent="." instance=ExtResource("2_5a2y6")]
+position = Vector2(685, 529)
+
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2(586, 384)
 
@@ -33,9 +45,3 @@ shape = SubResource("RectangleShape2D_4lcrb")
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2(285, -6.5)
 shape = SubResource("RectangleShape2D_5a2y6")
-
-[node name="ArmaNoChão" parent="." instance=ExtResource("1_4lcrb")]
-position = Vector2(768, 520)
-
-[node name="Spawner" parent="." instance=ExtResource("2_5a2y6")]
-position = Vector2(685, 529)

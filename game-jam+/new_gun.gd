@@ -9,11 +9,14 @@ extends Node2D
 var municao: int = 10
 var pode_atirar: bool = true
 var equipada = false
+var player_dentro = null
 
 func equipar():
 	pode_atirar = true
 	equipada = true
 	offset.position = Vector2(30,-9)
+	if $Area2D:
+		$Area2D.queue_free()
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("Atirar") and pode_atirar and municao > 0 and equipada:
@@ -38,14 +41,19 @@ func atirar():
 			alvo.take_damage()
 		var a = raycast.get_collision_point()
 		Global.spawnricochete(a,global_position)
-	get_node("../..").speed-=400*get_node("../..").orientation
+	get_node("../../").speed-=400*get_node("../../").orientation
 
 func _on_timer_timeout():
 	pode_atirar = true
 
+func _process(_delta):
+	if player_dentro != null and Input.is_action_just_pressed("pegar_p1") and not equipada:
+		player_dentro.equipar(self)
+
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
-		body.hovering.append(self)
+		player_dentro = body
+
 func _on_area_2d_body_exited(body: Node2D) -> void:
-	if body.is_in_group("player"):
-		body.hovering.erase(self)
+	if body.is_in_group("player") and body == player_dentro:
+		player_dentro = null
