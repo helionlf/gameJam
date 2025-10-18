@@ -1,0 +1,47 @@
+[gd_scene load_steps=6 format=3 uid="uid://c50csqfl0555i"]
+
+[ext_resource type="Script" uid="uid://c2gn6dpp8j7e3" path="res://animacoes/gatito.gd" id="1_ams5u"]
+[ext_resource type="Texture2D" uid="uid://ce2xa7wla1bht" path="res://animacoes/gatito.png" id="1_xqcia"]
+[ext_resource type="Texture2D" uid="uid://bkfmg3on06p5i" path="res://animacoes/paw.png" id="2_ams5u"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1mabb"]
+size = Vector2(16, 26)
+
+[sub_resource type="GDScript" id="GDScript_ams5u"]
+resource_name = "anim control"
+script/source = "extends Node2D
+@onready var body: Sprite2D = $body
+
+var verticaltween : Tween
+
+func land():
+	if verticaltween: verticaltween.kill()
+	body.scale.y = 0.7
+	verticaltween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO)
+	
+"
+
+[node name="gatito" type="CharacterBody2D"]
+script = ExtResource("1_ams5u")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, -13)
+shape = SubResource("RectangleShape2D_1mabb")
+
+[node name="anim control" type="Node2D" parent="."]
+script = SubResource("GDScript_ams5u")
+
+[node name="body" type="Sprite2D" parent="anim control"]
+position = Vector2(0, -2)
+texture = ExtResource("1_xqcia")
+offset = Vector2(-3, -14.5)
+
+[node name="AnimationTree" type="AnimationTree" parent="anim control"]
+
+[node name="Paw" type="Sprite2D" parent="anim control"]
+position = Vector2(4, -1.5)
+texture = ExtResource("2_ams5u")
+
+[node name="Paw2" type="Sprite2D" parent="anim control"]
+position = Vector2(-2, -1.5)
+texture = ExtResource("2_ams5u")
