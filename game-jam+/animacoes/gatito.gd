@@ -4,6 +4,13 @@ extends CharacterBody2D
 @onready var animation_player: AnimationPlayer = $"anim control/AnimationPlayer"
 
 @export var player_id: int
+@export var life: int
+
+func _ready() -> void:
+	if player_id == 1:
+		life = LifeManager.p1_life
+	else:
+		life = LifeManager.p2_life
 
 const INPUTS = {
 	1: {
@@ -78,3 +85,13 @@ func _physics_process(delta: float) -> void:
 	
 func set_skin(skin):
 	$"anim control/body".texture = skin
+	
+func take_damage():
+	life -= 1
+	if player_id == 1:
+		LifeManager.p1_life = life
+	else:
+		LifeManager.p2_life = life
+	if life <= 0:
+		queue_free()
+		print("Player morreu!")
