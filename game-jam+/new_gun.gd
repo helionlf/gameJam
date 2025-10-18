@@ -33,9 +33,9 @@ func atirar():
 	raycast.force_raycast_update()
 	if raycast.is_colliding():
 		var alvo = raycast.get_collider()
-		if alvo.is_in_group("inimigo"):
+		if alvo.is_in_group("player"):
 			print(alvo)
-			alvo.take_damege()
+			alvo.take_damage()
 		var a = raycast.get_collision_point()
 		Global.spawnricochete(a,global_position)
 	get_node("../..").speed-=400*get_node("../..").orientation

@@ -88,7 +88,7 @@ var hovering = []
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("pegar_p1"):
-		if len(hovering) and equipado == null: equipar(hovering[0])
+		if len(hovering) and equipado == null and hovering[0].equipada == false: equipar(hovering[0])
 
 func equipar(arma):
 	arma.reparent(anim_control)
@@ -108,7 +108,6 @@ func take_damage():
 		LifeManager.p1_life = life
 	else:
 		LifeManager.p2_life = life
-		
 	print(life)
 	print(LifeManager.p1_life)
 	print(LifeManager.p2_life)
