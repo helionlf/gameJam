@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://bivncvf1ud8jy"]
+
+[ext_resource type="Texture2D" path="res://Sprites/axe.png" id="1_5sm5t"]
+[ext_resource type="Script" path="res://Scenes/axe.gd" id="1_aowxy"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6o4l1"]
+atlas = ExtResource("1_5sm5t")
+region = Rect2(0, 0, 30, 30)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2q7ty"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6o4l1")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_aowxy"]
+size = Vector2(20, 18)
+
+[node name="Axe" type="Area2D"]
+script = ExtResource("1_aowxy")
+
+[node name="Offset" type="Node2D" parent="."]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Offset"]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_2q7ty")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 2)
+shape = SubResource("RectangleShape2D_aowxy")
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
