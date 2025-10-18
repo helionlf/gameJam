@@ -2,6 +2,8 @@ extends CharacterBody2D
 
 @onready var anim_control: Node2D = $"anim control"
 @onready var animation_player: AnimationPlayer = $"anim control/AnimationPlayer"
+@onready var arma_no_player: Node2D = $"anim control/Gun"
+
 
 @export var player_id: int
 
@@ -78,3 +80,10 @@ func _physics_process(delta: float) -> void:
 	
 func set_skin(skin):
 	$"anim control/body".texture = skin
+
+func equipar_arma_do_jogador():
+	if arma_no_player.visible:
+		return
+
+	if arma_no_player:
+		arma_no_player.equipar_arma()

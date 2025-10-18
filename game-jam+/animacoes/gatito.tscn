@@ -110,14 +110,14 @@ _data = {
 &"run": SubResource("Animation_ams5u")
 }
 
-[node name="gatito" type="CharacterBody2D"]
+[node name="gatito" type="CharacterBody2D" groups=["player"]]
 script = ExtResource("1_ams5u")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1, -13)
 shape = SubResource("RectangleShape2D_1mabb")
 
-[node name="anim control" type="Node2D" parent="."]
+[node name="anim control" type="Node2D" parent="." groups=["player"]]
 script = SubResource("GDScript_ams5u")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="anim control"]

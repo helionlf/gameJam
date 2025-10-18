@@ -1,7 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://d0gysruhfpwbv"]
+[gd_scene load_steps=15 format=3 uid="uid://d0gysruhfpwbv"]
 
-[ext_resource type="Script" path="res://gun.gd" id="1_fry05"]
+[ext_resource type="Script" uid="uid://ddfmgitgqe3mp" path="res://gun.gd" id="1_fry05"]
 [ext_resource type="Texture2D" uid="uid://gwiks5t13y47" path="res://Sprites/pistol-Sheet.png" id="2_fry05"]
+[ext_resource type="Texture2D" uid="uid://cx0or4jeqghr8" path="res://Sprites/spritesheet.png" id="3_7c1qe"]
+[ext_resource type="Texture2D" uid="uid://dw88jgg5mai88" path="res://Sprites/Projectile.png" id="4_1psom"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7c1qe"]
 atlas = ExtResource("2_fry05")
@@ -14,6 +16,30 @@ region = Rect2(36, 0, 36, 22)
 [sub_resource type="AtlasTexture" id="AtlasTexture_fry05"]
 atlas = ExtResource("2_fry05")
 region = Rect2(0, 0, 36, 22)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i8pi3"]
+atlas = ExtResource("3_7c1qe")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5rcv4"]
+atlas = ExtResource("3_7c1qe")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v70l2"]
+atlas = ExtResource("3_7c1qe")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fo6nf"]
+atlas = ExtResource("3_7c1qe")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_px5vy"]
+atlas = ExtResource("3_7c1qe")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6np5s"]
+atlas = ExtResource("4_1psom")
+region = Rect2(24, 0, 8, 8)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_s2wow"]
 animations = [{
@@ -30,6 +56,29 @@ animations = [{
 "loop": false,
 "name": &"Atirando",
 "speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i8pi3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5rcv4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v70l2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fo6nf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_px5vy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6np5s")
+}],
+"loop": false,
+"name": &"Desapearing",
+"speed": 5.0
 }]
 
 [node name="Gun" type="Node2D"]
@@ -41,9 +90,19 @@ position = Vector2(5.2772403, -3.224979)
 scale = Vector2(0.7977293, 0.79772925)
 sprite_frames = SubResource("SpriteFrames_s2wow")
 animation = &"Atirando"
-frame = 1
-frame_progress = 1.0
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(1000, 12)
+collision_mask = 0
 
 [node name="Marker2D" type="Marker2D" parent="."]
 position = Vector2(21, -9)
 scale = Vector2(0.7363713, 0.7363713)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.3
+
+[node name="TimerDesaparecer" type="Timer" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="TimerDesaparecer" to="." method="_on_timer_desaparecer_timeout"]
