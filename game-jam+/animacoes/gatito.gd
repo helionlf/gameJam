@@ -13,14 +13,16 @@ const INPUTS = {
 		"right": "ui_right_p1",
 		"jump": "ui_jump_p1",
 		"meow": "meow_p1",
-		"pegar": "pegar_p1"
+		"pegar": "pegar_p1",
+		"shoot": "shoot_p1"
 	},
 	2: {
 		"left": "ui_left_p2",
 		"right": "ui_right_p2",
 		"jump": "ui_jump_p2",
 		"meow": "meow_p2",
-		"pegar": "pegar_p2"
+		"pegar": "pegar_p2",
+		"shoot": "shoot_p2"
 	},
 }
 
@@ -86,6 +88,9 @@ func _physics_process(delta: float) -> void:
 		animation_player.play("RESET")
 	anim_control.incline(speed)
 	
+	if equipado and Input.is_action_just_pressed(inputs["shoot"]):
+		equipado.atirar()
+	
 	if airborne and velocity.y > 0 and not falling:
 		falling = true
 		#anim_control.stretch()
@@ -107,6 +112,7 @@ func equipar(arma):
 	arma.position = Vector2(0,0)
 	arma.equipar()
 	anim_control.land()
+	
 func desequipar():
 	equipado = null
 
