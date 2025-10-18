@@ -1,0 +1,82 @@
+[gd_scene load_steps=12 format=3 uid="uid://bcfj3thihaq6w"]
+
+[ext_resource type="Script" path="res://sword.gd" id="1_e4ynd"]
+[ext_resource type="Texture2D" path="res://Sprites/sword_cut-ezgif.com-gif-to-sprite-converter.png" id="2_r76a6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dwvek"]
+atlas = ExtResource("2_r76a6")
+region = Rect2(0, 0, 25, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rx5id"]
+atlas = ExtResource("2_r76a6")
+region = Rect2(25, 0, 25, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v4ynp"]
+atlas = ExtResource("2_r76a6")
+region = Rect2(50, 0, 25, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_83fnj"]
+atlas = ExtResource("2_r76a6")
+region = Rect2(75, 0, 25, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fahsa"]
+atlas = ExtResource("2_r76a6")
+region = Rect2(100, 0, 25, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1o1wo"]
+atlas = ExtResource("2_r76a6")
+region = Rect2(0, 28, 25, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k4l2t"]
+atlas = ExtResource("2_r76a6")
+region = Rect2(50, 0, 25, 28)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_12tba"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dwvek")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rx5id")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v4ynp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_83fnj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fahsa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1o1wo")
+}],
+"loop": true,
+"name": &"Atk",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k4l2t")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u2t1x"]
+size = Vector2(20, 25)
+
+[node name="Sword" type="Area2D"]
+script = ExtResource("1_e4ynd")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_12tba")
+animation = &"Idle"
+frame_progress = 0.91696215
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1.5)
+shape = SubResource("RectangleShape2D_u2t1x")

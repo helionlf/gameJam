@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://b7trnod2mbg58"]
+
+[ext_resource type="Texture2D" uid="uid://gwiks5t13y47" path="res://Sprites/pistol-Sheet.png" id="1_jeyna"]
+[ext_resource type="Script" path="res://arma_no_chão.gd" id="1_ppqyr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_548ms"]
+size = Vector2(23, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ppqyr"]
+atlas = ExtResource("1_jeyna")
+region = Rect2(0, 0, 36, 22)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_548ms"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ppqyr")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="ArmaNoChão" type="Area2D"]
+script = ExtResource("1_ppqyr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_548ms")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.798, 0.798)
+sprite_frames = SubResource("SpriteFrames_548ms")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
