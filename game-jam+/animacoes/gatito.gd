@@ -26,7 +26,7 @@ const INPUTS = {
 
 var speed = 0
 const accel = 40
-const maxSPEED = 500
+const maxSPEED = 400
 const JUMP_VELOCITY = -400.0
 
 var airborne = false

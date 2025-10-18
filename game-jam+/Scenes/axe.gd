@@ -20,6 +20,7 @@ func _input(event: InputEvent) -> void:
 		atacar()
 
 func atacar():
+	pickup_collider.disabled = false
 	pode_atacar = false
 	var tween = create_tween().set_trans(Tween.TRANS_EXPO)
 	tween.tween_property(offset,"position", Vector2(25,-8),0.1).set_ease(Tween.EASE_IN)
@@ -27,12 +28,14 @@ func atacar():
 	tween.tween_property(offset,"position", Vector2(-10, -20),0.3).set_ease(Tween.EASE_IN_OUT)
 	tween.parallel().tween_property(offset,"rotation_degrees", -90, 0.3).set_ease(Tween.EASE_IN_OUT)
 	await get_tree().create_timer(0.4).timeout
+	pickup_collider.disabled = true
 	pode_atacar = true
 
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
-		body.hovering.append(self)
+		if not equipada: body.hovering.append(self)
+		elif body != get_node("../.."): body.take_damage()
 
 func _on_body_exited(body: Node2D) -> void:
 	if body.is_in_group("player"):
