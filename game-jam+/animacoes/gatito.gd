@@ -2,7 +2,21 @@ extends CharacterBody2D
 
 @onready var anim_control: Node2D = $"anim control"
 @onready var animation_player: AnimationPlayer = $"anim control/AnimationPlayer"
-@onready var arma_no_player: Node2D = $"anim control/Gun"
+
+@export var player_id: int
+
+const INPUTS = {
+	1: {
+		"left": "ui_left_p1",
+		"right": "ui_right_p1",
+		"jump": "ui_jump_p1",
+	},
+	2: {
+		"left": "ui_left_p2",
+		"right": "ui_right_p2",
+		"jump": "ui_jump_p2",
+	},
+}
 
 var speed = 0
 const accel = 40
@@ -25,8 +39,9 @@ func _physics_process(delta: float) -> void:
 		falling = false
 		anim_control.land()
 	
-	var direction := Input.get_axis("A", "D")
-	if Input.is_action_pressed("ui_accept"):
+	var inputs = INPUTS[player_id]
+	var direction := Input.get_axis(inputs["left"], inputs["right"])
+	if Input.is_action_pressed(inputs["jump"]):
 		if is_on_floor():
 			anim_control.land()
 			velocity.y = JUMP_VELOCITY
@@ -76,3 +91,6 @@ func equipar(arma):
 	arma.equipar()
 func desequipar():
 	equipado = null
+
+func set_skin(skin):
+	$"anim control/body".texture = skin
