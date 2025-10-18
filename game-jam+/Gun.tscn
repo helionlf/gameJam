@@ -1,0 +1,49 @@
+[gd_scene load_steps=7 format=3 uid="uid://cmygejn4ose5o"]
+
+[ext_resource type="Script" uid="uid://ddfmgitgqe3mp" path="res://gun.gd" id="1_fry05"]
+[ext_resource type="Texture2D" uid="uid://gwiks5t13y47" path="res://Teste/Sprites/pistol-Sheet.png" id="2_fry05"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7c1qe"]
+atlas = ExtResource("2_fry05")
+region = Rect2(0, 0, 36, 22)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1psom"]
+atlas = ExtResource("2_fry05")
+region = Rect2(36, 0, 36, 22)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fry05"]
+atlas = ExtResource("2_fry05")
+region = Rect2(0, 0, 36, 22)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_s2wow"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7c1qe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1psom")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fry05")
+}],
+"loop": false,
+"name": &"Atirando",
+"speed": 12.0
+}]
+
+[node name="Gun" type="Node2D"]
+script = ExtResource("1_fry05")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_s2wow")
+animation = &"Atirando"
+frame = 1
+frame_progress = 1.0
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(21, -7)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(8, 8)
