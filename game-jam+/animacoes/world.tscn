@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://w5nkmw7qf2ek"]
+[gd_scene load_steps=6 format=3 uid="uid://w5nkmw7qf2ek"]
 
 [ext_resource type="PackedScene" uid="uid://c50csqfl0555i" path="res://animacoes/gatito.tscn" id="1_i5yw6"]
+[ext_resource type="PackedScene" uid="uid://byl6x3mxgoqus" path="res://Spawner.tscn" id="2_vlcve"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vlcve"]
 size = Vector2(586, 20)
@@ -30,5 +31,8 @@ shape = SubResource("RectangleShape2D_i5yw6")
 position = Vector2(285, -6.5)
 shape = SubResource("RectangleShape2D_3pljh")
 
-[node name="gatito" parent="." instance=ExtResource("1_i5yw6")]
+[node name="gatito" parent="." groups=["player"] instance=ExtResource("1_i5yw6")]
 position = Vector2(-195, -199)
+
+[node name="Spawner" parent="." instance=ExtResource("2_vlcve")]
+position = Vector2(121, 146)
