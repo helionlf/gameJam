@@ -29,7 +29,7 @@ func desequipar():
 	set_process(false) 
 	collision_shape.disabled = true
 
-func _process(delta):
+func _process(_delta):
 	if Input.is_action_just_pressed("Atirar") and not is_attacking:
 		atacar()
 

@@ -2,10 +2,6 @@ extends CharacterBody2D
 
 @onready var anim_control: Node2D = $"anim control"
 @onready var animation_player: AnimationPlayer = $"anim control/AnimationPlayer"
-@onready var arma_no_player: Node2D = $"anim control/Gun"
-@onready var espada_no_player: Area2D = $"anim control/Sword"
-
-var tem_espada = false
 
 var speed = 0
 const accel = 40
@@ -29,15 +25,15 @@ func _physics_process(delta: float) -> void:
 		anim_control.land()
 	
 	var direction := Input.get_axis("A", "D")
-	if Input.is_action_just_pressed("ui_accept"):
+	if Input.is_action_pressed("ui_accept"):
 		if is_on_floor():
 			anim_control.land()
 			velocity.y = JUMP_VELOCITY
 		elif is_on_wall_only() and direction:
 			anim_control.land()
 			velocity.y = JUMP_VELOCITY
+			if sign(direction) != sign(speed): direction *= -1
 			speed = -300*direction
-	
 	if direction:
 		if airborne: speed += direction * accel * 0.8
 		else: speed += direction * accel
@@ -63,25 +59,19 @@ func _physics_process(delta: float) -> void:
 		#anim_control.stretch()
 	move_and_slide()
 
-func equipar_arma_do_jogador():
-	if arma_no_player.visible:
-		return
+var equipado = null
 
-	if arma_no_player:
-		arma_no_player.equipar_arma()
-		espada_no_player.desequipar()
+var hovering = []
 
-# --- ADICIONE ESTA NOVA FUNÇÃO ---
-func equipar_espada_do_jogador():
-	tem_espada = true # Agora o jogador "possui" a espada
-	
-	if espada_no_player.visible:
-		return
-	
-	espada_no_player.equipar()
-	arma_no_player.desequipar()
-# ---------------------------------
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("pegar"):
+		if len(hovering) and equipado == null: equipar(hovering[0])
 
-func _on_arma_desapareceu():
-	if tem_espada:
-		espada_no_player.equipar()
+func equipar(arma):
+	arma.reparent(anim_control)
+	equipado = arma
+	arma.scale.x = orientation
+	arma.position = Vector2(0,0)
+	arma.equipar()
+func desequipar():
+	equipado = null
