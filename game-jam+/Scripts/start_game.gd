@@ -47,6 +47,7 @@ func start_new_game() -> void:
 	game_started = true
 	is_restarting = false
 
+	skins.shuffle()
 	# Embaralha as fases no início do jogo
 	shuffled_stages = all_stages.duplicate()
 	shuffled_stages.shuffle()
@@ -60,15 +61,13 @@ func start_new_game() -> void:
 
 func create_players() -> void:
 	players.clear()
-	var shuffled_skins = skins.duplicate()
-	shuffled_skins.shuffle()
 	var p1 = null
 	var p2 = null
 
 	if LifeManager.p1_life > 0:
 		p1 = PlayerScene.instantiate()
 		p1.player_id = 1
-		p1.set_skin(shuffled_skins[0])
+		p1.set_skin(skins[0])
 		p1.player_died.connect(_on_player_died)
 		players.append(p1)
 
@@ -76,10 +75,10 @@ func create_players() -> void:
 		p2 = PlayerScene.instantiate()
 		p2.player_id = 2
 		var skin_index = 1 if p1 != null else 0
-		if skin_index < shuffled_skins.size():
-			p2.set_skin(shuffled_skins[skin_index])
+		if skin_index < skins.size():
+			p2.set_skin(skins[skin_index])
 		else:
-			p2.set_skin(shuffled_skins[0])
+			p2.set_skin(skins[0])
 		p2.player_died.connect(_on_player_died)
 		players.append(p2)
 

@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://ddqsgdashpvyl" path="res://Scripts/tutorial.gd" id="1_i6t4g"]
 [ext_resource type="PackedScene" uid="uid://cbh38pvvc85j1" path="res://Spawner.tscn" id="1_omtrn"]
-[ext_resource type="PackedScene" uid="uid://1g3lqsnmjrno" path="res://New_Gun.tscn" id="2_i6t4g"]
 [ext_resource type="AudioStream" uid="uid://b6vmly1ctgpi" path="res://Sounds/DavidKBD - Pink Bloom Pack - 01 - Pink Bloom.ogg" id="3_p8jf4"]
 [ext_resource type="Texture2D" uid="uid://cf6tsp6ms72sb" path="res://Assets/KEYBOARD/KEYS/W.png" id="5_8va2t"]
 [ext_resource type="Texture2D" uid="uid://b0g6hcrkkmxtl" path="res://Assets/PS4/CIRCLE.png" id="5_p8jf4"]
@@ -20,6 +19,7 @@
 [ext_resource type="Texture2D" uid="uid://bbe0ligl4spk5" path="res://Assets/KEYBOARD/KEYS/ARROWRIGHT.png" id="18_a2i7a"]
 [ext_resource type="Texture2D" uid="uid://7wnu6b4ygab8" path="res://Assets/KEYBOARD/KEYS/ENTER.png" id="19_0upaw"]
 [ext_resource type="Texture2D" uid="uid://by2n1tclamo5y" path="res://Assets/KEYBOARD/KEYS/M.png" id="20_1l0bo"]
+[ext_resource type="Texture2D" uid="uid://ctgbtcbcu6nwi" path="res://Assets/tutorial.png" id="21_pkgwa"]
 [ext_resource type="Texture2D" uid="uid://foar8o5hhl2y" path="res://Assets/KEYBOARD/KEYS/L.png" id="21_q25lh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p1f1o"]
@@ -62,7 +62,6 @@ shape = SubResource("RectangleShape2D_p1f1o")
 
 [node name="Spawner" parent="." instance=ExtResource("1_omtrn")]
 position = Vector2(100, 54)
-scene_para_spawnar = ExtResource("2_i6t4g")
 
 [node name="Musica" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_p8jf4")
@@ -438,6 +437,11 @@ offset_right = 654.0
 offset_bottom = 34.0
 theme_override_font_sizes/font_size = 9
 text = "Sair"
+
+[node name="negocio" type="Sprite2D" parent="."]
+show_behind_parent = true
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("21_pkgwa")
 
 [connection signal="pressed" from="Control/TextureButton" to="." method="_on_texture_button_pressed"]
 [connection signal="pressed" from="Control/Sair" to="." method="_on_sair_pressed"]

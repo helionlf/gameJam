@@ -1,7 +1,7 @@
 extends Node
 const RICOCHETE = preload("res://ricochete.tscn")
 var mundo = null
-const STARTSTUCK = preload("uid://clg6f61stknpp")
+const STARTSTUCK = preload("res://startstuck.tscn")
 
 func spawnricochete(impactpos, weaponpos):
 	var a = RICOCHETE.instantiate()
