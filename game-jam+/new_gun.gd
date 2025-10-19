@@ -13,7 +13,7 @@ var equipada = false
 func equipar():
 	pode_atirar = true
 	equipada = true
-	offset.position = Vector2(30,-9)
+	offset.position = Vector2(25,-9)
 
 #func _input(event: InputEvent) -> void:
 	#if event.is_action_pressed("Atirar") and pode_atirar and municao > 0 and equipada:
@@ -57,3 +57,6 @@ func _on_area_2d_body_exited(body: Node2D) -> void:
 
 func usar():
 	atirar()
+
+func arremessar():
+	pass

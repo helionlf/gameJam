@@ -1,10 +1,10 @@
 [gd_scene load_steps=14 format=3 uid="uid://r8s8pj0xnic0"]
 
-[ext_resource type="PackedScene" uid="uid://1g3lqsnmjrno" path="res://New_Gun.tscn" id="1_4lcrb"]
+[ext_resource type="PackedScene" uid="uid://1g3lqsnmjrno" path="res://kunai.tscn" id="1_4lcrb"]
 [ext_resource type="Script" uid="uid://brx3a8vpalcih" path="res://Scripts/stage_moon.gd" id="1_5a2y6"]
 [ext_resource type="Texture2D" uid="uid://dgs3th5tj3ay0" path="res://Assets/moon_background.png" id="2_n0ao3"]
 [ext_resource type="Texture2D" uid="uid://b478bay3fptpf" path="res://Assets/moon_foreground.png" id="3_5q57b"]
-[ext_resource type="PackedScene" uid="uid://c1bm5yf0n24v" path="res://Scenes/serra.tscn" id="5_5q57b"]
+[ext_resource type="PackedScene" uid="uid://c6a7so7h2tp1s" path="res://new_gun.tscn" id="6_601kr"]
 [ext_resource type="PackedScene" uid="uid://bivncvf1ud8jy" path="res://Scenes/axe.tscn" id="6_gkwns"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4lcrb"]
@@ -83,16 +83,13 @@ shape = SubResource("RectangleShape2D_601kr")
 position = Vector2(575.5, 148.5)
 shape = SubResource("RectangleShape2D_601kr")
 
-[node name="Gun" parent="." instance=ExtResource("1_4lcrb")]
-position = Vector2(-133, -63)
-
-[node name="Gun2" parent="." instance=ExtResource("1_4lcrb")]
-position = Vector2(130, -63)
-
-[node name="Serra" parent="." instance=ExtResource("5_5q57b")]
-position = Vector2(0, -33)
-
 [node name="Axe" parent="." instance=ExtResource("6_gkwns")]
 position = Vector2(-66.42978, -37.861755)
+
+[node name="kunai" parent="." instance=ExtResource("1_4lcrb")]
+position = Vector2(-161.09525, 48.539642)
+
+[node name="Gun" parent="." instance=ExtResource("6_601kr")]
+position = Vector2(78.88721, -40.612488)
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

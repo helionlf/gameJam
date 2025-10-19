@@ -112,7 +112,7 @@ func equipar(arma):
 	arma.position = Vector2(0,0)
 	arma.equipar()
 	anim_control.land()
-	
+
 func desequipar():
 	equipado = null
 
