@@ -6,7 +6,6 @@ extends Node2D
 @onready var animated_sprite: AnimatedSprite2D = $offset/AnimatedSprite2D
 @onready var pickup_area: Area2D = $Area2D
 
-# Carrega a cena da Flecha
 var flecha_scene = preload("res://Scenes/flecha.tscn")
 
 
@@ -14,17 +13,11 @@ var equipada = false
 var is_charging = false 
 var charge_power = 0.0 
 
-# --- Constantes de Força ---
 const MIN_POWER = 200.0 
 const MAX_POWER = 1000.0 
 const CHARGE_RATE = 700.0 
 
 func _ready():
-
-	pickup_area.body_entered.connect(_on_area_2d_body_entered)
-	pickup_area.body_exited.connect(_on_area_2d_body_exited)
-	
-	# Começa desligado
 	set_process(false)
 	set_process_input(false)
 
@@ -73,7 +66,6 @@ func atirar():
 	get_node("..").tilt()
 	get_node("../..").speed -= (charge_power / 3) * get_node("../..").orientation
 
-# --- Lógica de Pickup (Idêntica à sua arma) ---
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
 		body.hovering.append(self)

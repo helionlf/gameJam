@@ -14,5 +14,11 @@ one_shot = true
 wait_time = 2.0
 one_shot = true
 
+[node name="EndGameTimer" type="Timer" parent="."]
+process_mode = 3
+wait_time = 3.0
+one_shot = true
+
 [connection signal="timeout" from="RestartTimer" to="." method="_on_restart_timer_timeout"]
 [connection signal="timeout" from="DeathViewTimer" to="." method="_on_death_view_timer_timeout"]
+[connection signal="timeout" from="EndGameTimer" to="." method="_on_end_game_timer_timeout"]

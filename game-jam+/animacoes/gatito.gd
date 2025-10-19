@@ -148,5 +148,5 @@ func die():
 	await get_tree().create_timer(0).timeout
 	$CollisionShape2D.disabled = true
 	print("Player morreu!")
-	player_died.emit(self)
+	player_died.emit(player_id)
 	anim_control.morrer(my_death_texture_path)
