@@ -11,8 +11,12 @@ var municao: int = 10
 var pode_atirar: bool = true
 
 func _ready():
-	visible = false 
-	set_process(false)
+	if get_parent() is RigidBody2D:
+		visible = true
+		set_process(true)
+	else:
+		visible = false 
+		set_process(false)
 
 func equipar_arma():
 	visible = true
@@ -25,6 +29,9 @@ func desequipar():
 	set_process(false)
 
 func _process(_delta):
+	if get_parent() is RigidBody2D:
+		return
+
 	if Input.is_action_just_pressed("Atirar") and pode_atirar and municao > 0:
 		atirar()
 
