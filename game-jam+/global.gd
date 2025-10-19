@@ -9,4 +9,4 @@ func spawnricochete(impactpos, weaponpos):
 	a.global_position = impactpos
 	a.direcao = dir
 	a.scale.x = dir
-	a.trace(impactpos.x-weaponpos.x)
+	a.trace(impactpos-weaponpos)
