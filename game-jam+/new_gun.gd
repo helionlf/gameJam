@@ -13,7 +13,7 @@ var equipada = false
 func equipar():
 	pode_atirar = true
 	equipada = true
-	offset.position = Vector2(30,-9)
+	offset.position = Vector2(25,-9)
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("Atirar") and pode_atirar and municao > 0 and equipada:
@@ -39,7 +39,7 @@ func atirar():
 			print(alvo)
 			alvo.take_damage()
 		var a = raycast.get_collision_point()
-		Global.spawnricochete(a,global_position)
+		Global.spawnricochete(a,global_position-Vector2(0,+15))
 	else:
 		Global.spawnricochete(Vector2(get_node("../..").orientation*400+global_position.x,global_position.y-17),global_position)
 	get_node("../..").speed-=400*get_node("../..").orientation

@@ -19,11 +19,7 @@ var stages = [
 var current_stage_index = 0
 var players = []
 var game_started = false
-var is_restarting = false # <-- ADICIONADO (Evita que os 2 players morrendo ativem isso 2x)
-
-func _ready(): 
-	restart_timer.timeout.connect(_on_restart_timer_timeout)
-	death_view_timer.timeout.connect(_on_death_view_timer_timeout) # <-- ADICIONADO
+var is_restarting = false
 
 func _input(event):
 	if event is InputEventMouseButton and event.pressed and not game_started:

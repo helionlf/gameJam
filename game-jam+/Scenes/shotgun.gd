@@ -17,8 +17,8 @@ var equipada = false
 func equipar():
 	pode_atirar = true
 	equipada = true
-	offset.position = Vector2(30,-9)
-	municao = 2 
+	offset.position = Vector2(5,-9)
+	municao = 2
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("Atirar") and pode_atirar and municao > 0 and equipada:
@@ -31,14 +31,11 @@ func atirar():
 	pode_atirar = false
 	municao -= 1
 	timer_cooldown.start()
-	animated_sprite.play("Atirando")
 	get_node("..").tilt()
 	animated_sprite.rotation_degrees = -60
 	if rot_tween: rot_tween.kill()
 	rot_tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO)
 	rot_tween.tween_property(animated_sprite,"rotation",0,0.3)
-
-
 	checar_raio(ray_center)
 	checar_raio(ray_up)
 	checar_raio(ray_down)
@@ -47,9 +44,7 @@ func atirar():
 
 func checar_raio(ray: RayCast2D):
 	ray.force_raycast_update()
-	
 	var ponto_final_do_tiro
-	
 	if ray.is_colliding():
 		var alvo = ray.get_collider()
 		if alvo.is_in_group("player"):
@@ -62,7 +57,6 @@ func checar_raio(ray: RayCast2D):
 	var ponto_inicio_do_tiro = ponto_de_tiro.global_position
 	
 	Global.spawnricochete(ponto_final_do_tiro, ponto_inicio_do_tiro)
-	# ----------------------------
 
 func _on_timer_timeout():
 	pode_atirar = true
