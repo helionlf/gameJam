@@ -73,9 +73,7 @@ func _physics_process(delta: float) -> void:
 		anim_control.land()
 
 	if not alive: return
-
 	var inputs = INPUTS[player_id]
-	
 	var direction := Input.get_axis(inputs["left"], inputs["right"])
 	if Input.is_action_pressed(inputs["jump"]) and controle:
 		if is_on_floor():
@@ -118,12 +116,16 @@ func _input(event: InputEvent) -> void:
 		if len(hovering) and equipado == null and hovering[0].equipada == false: equipar(hovering[0])
 		elif equipado:
 			throw_weapon()
-	if equipado and event.is_action_pressed(INPUTS[player_id]["shoot"]):
+	if equipado and event.is_action_pressed(INPUTS[player_id]["shoot"]) and controle:
 		equipado.usar()
 	if event.is_action_pressed(INPUTS[player_id]["meow"]):
 		$Meow.play()
 
 func throw_weapon():
+	if equipado.sprite == "res://Sprites/kunai.png":
+		equipado.arremessar()
+		return
+	
 	var thrown_gun:RigidBody2D = THROWN_GUN.instantiate()
 	
 	print(equipado.sprite)
