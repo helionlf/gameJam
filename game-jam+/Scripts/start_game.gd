@@ -15,6 +15,16 @@ var skins = [
 
 var stages = [
 	"res://Scenes/stage_moon.tscn",
+	"res://Scenes/stage_preistorico.tscn",
+	"res://Scenes/stage_medieval.tscn",
+	"res://Scenes/stage_predio.tscn"
+]
+
+var spawn_positions = [
+	[Vector2(-120, 100), Vector2(120, 100.0)],
+	[Vector2(-253, -50), Vector2(-253, 59.0)], 
+	[Vector2(-178, 178), Vector2(113, 178.0)], 
+	[Vector2(-182, 133), Vector2(182, 133)], 
 ]
 
 var current_stage_index = 0
@@ -75,22 +85,51 @@ func load_stage(index) -> void:
 	for child in get_children():
 		if child.name.begins_with("Stage"):
 			old_stage = child
-			child.queue_free()
-
-	var stage = load(stages[index]).instantiate()
+			child.queue_free() # Marca a fase antiga para deleção
+	
+	if old_stage != null:
+		await old_stage.tree_exited 
+	# ------------------------------------
+	#var stage = load(stages[index]).instantiate()
+	#stage.name = "Stage_" + str(index + 1)
+	#add_child(stage)
+	
+	var stage_path = stages[index]
+	var stage = load(stage_path).instantiate()
 	stage.name = "Stage_" + str(index + 1)
 	add_child(stage)
-
-	for player_node in players:
-		stage.add_child(player_node)
-
-	if players.size() == 2:
-		players[0].position = Vector2(-120, 0)
-		players[1].position = Vector2(120, 0)
-	elif players.size() == 1:
-		players[0].position = Vector2(0, 0)
-
-	print("aaaa - Stage Loaded")
+	
+	match stage_path:
+		"res://Scenes/stage_moon.tscn":
+			players[0].position = spawn_positions[0][0]
+			players[1].position = spawn_positions[0][1]
+		"res://Scenes/stage_preistorico.tscn":
+			players[0].position = spawn_positions[1][0]
+			players[1].position = spawn_positions[1][1]
+		"res://Scenes/stage_medieval.tscn":
+			players[0].position = spawn_positions[2][0]
+			players[1].position = spawn_positions[2][1]
+		"res://Scenes/stage_predio.tscn":
+			players[0].position = spawn_positions[3][0]
+			players[1].position = spawn_positions[3][1]
+		_:
+			# fallback
+			players[0].position = Vector2(-120, 0)
+			players[1].position = Vector2(120, 0)
+	
+	stage.add_child(players[0])
+	stage.add_child(players[1])
+	
+	#if index < spawn_positions.size():
+		#print("Tomara q n chegue aqui, mas ta tudo bem")
+		#players[0].position = spawn_positions[index][0]
+		#players[1].position = spawn_positions[index][1]
+	#else:
+		#print("Tomara q n chegue aqui, mas ta tudo bem")
+		#players[0].position = Vector2(-120, 0)
+		#players[1].position = Vector2(120, 0)
+	#
+	#print("aaaa")
 
 
 func _on_player_died(id_do_jogador_que_morreu):
