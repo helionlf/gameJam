@@ -131,6 +131,7 @@ func set_skin(skin_texture: Texture2D):
 		my_death_texture_path = "res://animacoes/dead gatito laranja.png"
 
 func take_damage():
+	if not alive: return
 	print_stack()
 	$MeowHit.pitch_scale = randf_range(0.5, 3) ** 0.5
 	$MeowHit.play()
