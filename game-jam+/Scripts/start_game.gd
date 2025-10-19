@@ -14,12 +14,14 @@ var skins = [
 
 var stages = [
 	"res://Scenes/stage_moon.tscn",
-	"res://Scenes/stage_preistorico.tscn"
+	"res://Scenes/stage_preistorico.tscn",
+	"res://Scenes/stage_medieval.tscn"
 ]
 
 var spawn_positions = [
-	[Vector2(-120, 0), Vector2(120, 100.0)],
+	[Vector2(-120, 100), Vector2(120, 100.0)],
 	[Vector2(-253, -50), Vector2(-253, 59.0)], 
+	[Vector2(-178, 178), Vector2(113, 178.0)], 
 ]
 
 var current_stage_index = 0
@@ -89,6 +91,9 @@ func load_stage(index) -> void:
 		"res://Scenes/stage_preistorico.tscn":
 			players[0].position = spawn_positions[1][0]
 			players[1].position = spawn_positions[1][1]
+		"res://Scenes/stage_medieval.tscn":
+			players[0].position = spawn_positions[2][0]
+			players[1].position = spawn_positions[2][1]
 		_:
 			# fallback
 			players[0].position = Vector2(-120, 0)
