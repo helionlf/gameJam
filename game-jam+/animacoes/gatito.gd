@@ -53,7 +53,10 @@ func _ready() -> void:
 		life = LifeManager.p2_life
 
 func disable_controls(tempo):
+	$MeowHit.pitch_scale = randf_range(0.5, 3) ** 0.5
+	$MeowHit.play()
 	controle = false
+	Global.spawnestrelas(self)
 	await get_tree().create_timer(tempo).timeout
 	controle = true
 
@@ -142,6 +145,7 @@ func equipar(arma):
 	arma.position = Vector2(0,0)
 	arma.equipar()
 	anim_control.land()
+
 func desequipar():
 	equipado = null
 

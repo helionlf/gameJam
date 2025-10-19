@@ -41,7 +41,7 @@ func atirar():
 		var a = raycast.get_collision_point()
 		Global.spawnricochete(a,global_position-Vector2(0,+15))
 	else:
-		Global.spawnricochete(Vector2(get_node("../..").orientation*400+global_position.x,global_position.y-17),global_position-Vector2(0,+15))
+		Global.spawnricochete(Vector2(get_node("../..").orientation*1000+global_position.x,global_position.y-17),global_position-Vector2(0,+15))
 	get_node("../..").speed-=400*get_node("../..").orientation
 	await get_tree().create_timer(0.2).timeout
 	pode_atirar = true

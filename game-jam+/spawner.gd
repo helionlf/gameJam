@@ -1,8 +1,6 @@
 # spawner.gd
 extends Node2D
 
-var scene_para_spawnar
-
 @onready var timer_respawn = $Timer
 @onready var ponto_spawn = $PontoSpawn
 
@@ -17,19 +15,8 @@ func _process(delta: float) -> void:
 	$AnimatedSprite2D.rotation -= delta * 10
 
 func spawnar_item():
-	if scene_para_spawnar == null:
-		print("Erro no Spawner: Nenhuma cena foi definida no inspetor!")
-		return
-	
-	if item_spawnado_atual != null and is_instance_valid(item_spawnado_atual):
-		return
-
 	var novo_item = load(["res://Scenes/shotgun.tscn","res://New_Gun.tscn","res://Scenes/axe.tscn"].pick_random()).instantiate()
-	
 	novo_item.global_position = ponto_spawn.global_position
-
-	
-	
 	get_parent().add_child.call_deferred(novo_item)
 	item_spawnado_atual = novo_item
 	print("spawno")

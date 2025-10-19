@@ -1,6 +1,7 @@
 extends Node
 const RICOCHETE = preload("res://ricochete.tscn")
 var mundo = null
+const STARTSTUCK = preload("uid://clg6f61stknpp")
 
 func spawnricochete(impactpos, weaponpos):
 	var a = RICOCHETE.instantiate()
@@ -10,3 +11,8 @@ func spawnricochete(impactpos, weaponpos):
 	a.direcao = dir
 	a.scale.x = dir
 	a.trace(impactpos-weaponpos)
+
+func spawnestrelas(cato):
+	var a = STARTSTUCK.instantiate()
+	cato.add_child(a)
+	a.position = Vector2(0,-40)
