@@ -37,9 +37,6 @@ var game_started = false
 var is_restarting = false
 
 func _ready():
-	restart_timer.timeout.connect(_on_restart_timer_timeout)
-	death_view_timer.timeout.connect(_on_death_view_timer_timeout)
-	end_game_timer.timeout.connect(_on_end_game_timer_timeout)
 	randomize()
 
 func _input(event):
@@ -115,7 +112,7 @@ func load_stage(stage_path, spawn_index) -> void:
 	print("Stage Loaded: ", stage_path)
 
 
-func _on_player_died(id_do_jogador_que_morreu):
+func _on_player_died(id_do_jogador_que_morreu: int):
 	if is_restarting or not game_started:
 		return
 
