@@ -2,7 +2,7 @@ extends Node2D
 
 @onready var PlayerScene = preload("res://animacoes/gatito.tscn")
 @onready var restart_timer = $RestartTimer 
-@onready var death_view_timer = $DeathViewTimer # <-- ADICIONADO
+@onready var death_view_timer = $DeathViewTimer
 
 const VIDA_INICIAL = 3
 
@@ -90,7 +90,6 @@ func _on_player_died(_player_node):
 
 
 func _on_death_view_timer_timeout():
-	
 	get_tree().paused = true
 	print("Pausando! Iniciando contagem de 1.5s para reiniciar...")
 

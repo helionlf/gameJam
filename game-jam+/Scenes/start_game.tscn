@@ -13,3 +13,6 @@ one_shot = true
 [node name="DeathViewTimer" type="Timer" parent="."]
 wait_time = 2.0
 one_shot = true
+
+[connection signal="timeout" from="RestartTimer" to="." method="_on_restart_timer_timeout"]
+[connection signal="timeout" from="DeathViewTimer" to="." method="_on_death_view_timer_timeout"]
