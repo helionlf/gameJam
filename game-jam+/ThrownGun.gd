@@ -1,14 +1,11 @@
 extends RigidBody2D
 
-var thrower = null
 @onready var sprite_2d: Sprite2D = $Sprite2D
 
-const SOAPISTOLA = preload("uid://cdsfxxcyr2am0")
+var thrower = null
 
-
-func set_sprite(_nomedosprite):
-	
-	sprite_2d.texture = SOAPISTOLA
+func set_sprite(nomedosprite):
+	sprite_2d.texture = load(nomedosprite)
 
 func _ready():
 	contact_monitor = true

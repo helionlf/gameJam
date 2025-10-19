@@ -40,5 +40,5 @@ func _on_item_foi_pego():
 	item_spawnado_atual = null
 	timer_respawn.start()
 
-func _on_timer_respawn_timeout():
+func _on_timer_timeout() -> void:
 	spawnar_item()

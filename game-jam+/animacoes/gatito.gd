@@ -124,9 +124,9 @@ func throw_weapon():
 	var thrown_gun:RigidBody2D = THROWN_GUN.instantiate()
 	
 	print(equipado.sprite)
-	thrown_gun.set_sprite(equipado.sprite)
 	
 	get_parent().add_child(thrown_gun)
+	thrown_gun.set_sprite(equipado.sprite)
 	thrown_gun.global_position = equipado.global_position
 	thrown_gun.linear_velocity = Vector2(500*orientation,-250)
 	thrown_gun.thrower = self
