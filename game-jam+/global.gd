@@ -3,6 +3,8 @@ const RICOCHETE = preload("res://ricochete.tscn")
 var mundo = null
 const STARTSTUCK = preload("res://startstuck.tscn")
 
+var quemganhou = 0
+
 func spawnricochete(impactpos, weaponpos):
 	var a = RICOCHETE.instantiate()
 	mundo.add_child(a)

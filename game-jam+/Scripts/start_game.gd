@@ -4,9 +4,8 @@ extends Node2D
 @onready var restart_timer = $RestartTimer
 @onready var death_view_timer = $DeathViewTimer
 @onready var end_game_timer = $EndGameTimer
-@onready var VictoryScreenScene = preload("res://Scenes/tela_d_vitoria.tscn") # <-- ADICIONE (mude o caminho)
 
-const VIDA_INICIAL = 2
+const VIDA_INICIAL = 9
 
 var skins = [
 	preload("res://animacoes/gatito.png"),
@@ -196,10 +195,10 @@ func _on_end_game_timer_timeout():
 	if $Vida: $Vida.visible = false
 	if $Vida2: $Vida2.visible = false
 
-	var victory_screen = VictoryScreenScene.instantiate()
-	add_child(victory_screen)
 	var winner_id = 1 if LifeManager.p2_life <= 0 else 2 
-	victory_screen.show_victory(winner_id)
+	Global.quemganhou = winner_id
+	
+	get_tree().change_scene_to_file("res://Scenes/tela_d_vitoria.tscn")
 
 func restart_full_game():
 	get_tree().paused = false
