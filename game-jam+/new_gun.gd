@@ -15,9 +15,9 @@ func equipar():
 	equipada = true
 	offset.position = Vector2(25,-9)
 
-func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("Atirar") and pode_atirar and municao > 0 and equipada:
-		atirar()
+#func _input(event: InputEvent) -> void:
+	#if event.is_action_pressed("Atirar") and pode_atirar and municao > 0 and equipada:
+		#atirar()
 
 var rot_tween : Tween
 
@@ -53,3 +53,9 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 func _on_area_2d_body_exited(body: Node2D) -> void:
 	if body.is_in_group("player"):
 		body.hovering.erase(self)
+
+func usar():
+	atirar()
+
+func arremessar():
+	pass

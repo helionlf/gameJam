@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://bivncvf1ud8jy"]
 
-[ext_resource type="Texture2D" path="res://Sprites/axe.png" id="1_5sm5t"]
-[ext_resource type="Script" path="res://Scenes/axe.gd" id="1_aowxy"]
+[ext_resource type="Texture2D" uid="uid://b0innr21v3c8i" path="res://Sprites/axe.png" id="1_5sm5t"]
+[ext_resource type="Script" uid="uid://mne18hwf47t3" path="res://Scenes/axe.gd" id="1_aowxy"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6o4l1"]
 atlas = ExtResource("1_5sm5t")
@@ -19,9 +19,9 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_aowxy"]
-size = Vector2(20, 18)
+size = Vector2(29, 29)
 
-[node name="Axe" type="Area2D"]
+[node name="Axe" type="Node2D"]
 script = ExtResource("1_aowxy")
 
 [node name="Offset" type="Node2D" parent="."]
@@ -30,11 +30,11 @@ script = ExtResource("1_aowxy")
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_2q7ty")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-1, 2)
+[node name="Area2D" type="Area2D" parent="Offset"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Offset/Area2D"]
+position = Vector2(0.5, -0.5)
 shape = SubResource("RectangleShape2D_aowxy")
 
-[node name="Timer" type="Timer" parent="."]
-
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
-[connection signal="body_exited" from="." to="." method="_on_body_exited"]
+[connection signal="body_entered" from="Offset/Area2D" to="." method="_on_body_entered"]
+[connection signal="body_exited" from="Offset/Area2D" to="." method="_on_body_exited"]

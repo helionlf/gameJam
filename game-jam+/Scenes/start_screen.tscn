@@ -1,0 +1,73 @@
+[gd_scene load_steps=3 format=3 uid="uid://b74e2wuadmcal"]
+
+[ext_resource type="Script" path="res://Scripts/start_screen.gd" id="1_ainjc"]
+[ext_resource type="Texture2D" path="res://animacoes/logo.png" id="1_i8r30"]
+
+[node name="StartScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_ainjc")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.6371923, 0.6803223, 0.7579742, 1)
+
+[node name="logo" type="Sprite2D" parent="CanvasLayer"]
+position = Vector2(587, 258)
+scale = Vector2(3, 3)
+texture = ExtResource("1_i8r30")
+
+[node name="Start" type="Button" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -286.0
+offset_top = 48.0
+offset_right = -240.0
+offset_bottom = 79.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2, 2)
+text = "Start"
+
+[node name="Option" type="Button" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -67.0
+offset_top = 48.0
+offset_right = 8.0
+offset_bottom = 79.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2, 2)
+text = "Options"
+
+[node name="Quit" type="Button" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 227.0
+offset_top = 48.0
+offset_right = 269.0
+offset_bottom = 79.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2, 2)
+text = "Quit"
+
+[connection signal="pressed" from="CanvasLayer/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="CanvasLayer/Option" to="." method="_on_option_pressed"]
+[connection signal="pressed" from="CanvasLayer/Quit" to="." method="_on_quit_pressed"]
