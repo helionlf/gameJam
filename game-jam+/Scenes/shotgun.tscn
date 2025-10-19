@@ -1,0 +1,60 @@
+[gd_scene load_steps=7 format=3 uid="uid://b54x3l1nh6fws"]
+
+[ext_resource type="Texture2D" uid="uid://cc4bsud4sw8hv" path="res://Sprites/Shotgun.png" id="1_0ym6k"]
+[ext_resource type="Script" uid="uid://dumr6bqv6e881" path="res://Scenes/shotgun.gd" id="1_u0ide"]
+[ext_resource type="AudioStream" uid="uid://dajg4xvldk5tl" path="res://Sounds/762x54r Single Isolated WAV.wav" id="3_8claw"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u0ide"]
+atlas = ExtResource("1_0ym6k")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8claw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u0ide")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0vijm"]
+size = Vector2(20, 10)
+
+[node name="Shotgun" type="Node2D"]
+script = ExtResource("1_u0ide")
+
+[node name="offset" type="Node2D" parent="."]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="offset"]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_8claw")
+
+[node name="Marker2D" type="Marker2D" parent="offset"]
+
+[node name="RayCastCenter" type="RayCast2D" parent="offset"]
+target_position = Vector2(1000, 0)
+
+[node name="RayCastUp" type="RayCast2D" parent="offset"]
+rotation = -0.06981317
+target_position = Vector2(1000, 0)
+
+[node name="RayCastDown" type="RayCast2D" parent="offset"]
+rotation = 0.061086524
+target_position = Vector2(1000, 0)
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -2)
+shape = SubResource("RectangleShape2D_0vijm")
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="Shot" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_8claw")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

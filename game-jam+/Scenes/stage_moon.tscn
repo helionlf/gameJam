@@ -2,11 +2,11 @@
 
 [ext_resource type="PackedScene" uid="uid://1g3lqsnmjrno" path="res://New_Gun.tscn" id="1_4lcrb"]
 [ext_resource type="Script" uid="uid://brx3a8vpalcih" path="res://Scripts/stage_moon.gd" id="1_5a2y6"]
-[ext_resource type="PackedScene" uid="uid://byl6x3mxgoqus" path="res://Spawner.tscn" id="2_5a2y6"]
+[ext_resource type="PackedScene" uid="uid://cbh38pvvc85j1" path="res://Spawner.tscn" id="2_5a2y6"]
 [ext_resource type="Texture2D" uid="uid://dgs3th5tj3ay0" path="res://Assets/moon_background.png" id="2_n0ao3"]
 [ext_resource type="Texture2D" uid="uid://b478bay3fptpf" path="res://Assets/moon_foreground.png" id="3_5q57b"]
 [ext_resource type="AudioStream" uid="uid://b6vmly1ctgpi" path="res://Sounds/DavidKBD - Pink Bloom Pack - 01 - Pink Bloom.ogg" id="6_gkwns"]
-[ext_resource type="PackedScene" uid="uid://c4i11noshxjxm" path="res://Scenes/granada.tscn" id="7_601kr"]
+[ext_resource type="PackedScene" uid="uid://b54x3l1nh6fws" path="res://Scenes/shotgun.tscn" id="7_601kr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4lcrb"]
 size = Vector2(207, 45)
@@ -96,7 +96,7 @@ scene_para_spawnar = ExtResource("1_4lcrb")
 stream = ExtResource("6_gkwns")
 volume_db = -20.0
 
-[node name="Granada" parent="." instance=ExtResource("7_601kr")]
-position = Vector2(-44, -15)
+[node name="Shotgun" parent="." instance=ExtResource("7_601kr")]
+position = Vector2(-50, -9)
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
