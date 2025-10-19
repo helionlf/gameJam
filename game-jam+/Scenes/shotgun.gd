@@ -7,7 +7,6 @@ extends Node2D
 @onready var timer_cooldown = $Timer
 @onready var offset: Node2D = $offset
 @onready var animated_sprite: AnimatedSprite2D = $offset/AnimatedSprite2D
-
 @onready var ponto_de_tiro: Marker2D = $offset/Marker2D
 
 var municao: int = 2

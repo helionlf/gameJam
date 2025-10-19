@@ -19,11 +19,11 @@ var stages = [
 var current_stage_index = 0
 var players = []
 var game_started = false
-var is_restarting = false # <-- ADICIONADO (Evita que os 2 players morrendo ativem isso 2x)
+var is_restarting = false 
 
 func _ready(): 
 	restart_timer.timeout.connect(_on_restart_timer_timeout)
-	death_view_timer.timeout.connect(_on_death_view_timer_timeout) # <-- ADICIONADO
+	death_view_timer.timeout.connect(_on_death_view_timer_timeout) 
 
 func _input(event):
 	if event is InputEventMouseButton and event.pressed and not game_started:
@@ -53,8 +53,6 @@ func start_game() -> void:
 	await load_stage(current_stage_index)
 
 func load_stage(index) -> void:
-	
-	# --- Limpeza (como você já tem) ---
 	for arma in get_tree().get_nodes_in_group("ArmaNoMundo"):
 		arma.queue_free()
 
@@ -62,11 +60,10 @@ func load_stage(index) -> void:
 	for child in get_children():
 		if child.name.begins_with("Stage"):
 			old_stage = child
-			child.queue_free() # Marca a fase antiga para deleção
+			child.queue_free() 
 	
 	if old_stage != null:
 		await old_stage.tree_exited 
-	# ------------------------------------
 	var stage = load(stages[index]).instantiate()
 	stage.name = "Stage_" + str(index + 1)
 	add_child(stage)
