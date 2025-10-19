@@ -14,6 +14,12 @@ var skins = [
 
 var stages = [
 	"res://Scenes/stage_moon.tscn",
+	"res://Scenes/stage_preistorico.tscn"
+]
+
+var spawn_positions = [
+	[Vector2(-120, 0), Vector2(120, 100.0)],
+	[Vector2(-253, -50), Vector2(-253, 59.0)], 
 ]
 
 var current_stage_index = 0
@@ -67,15 +73,40 @@ func load_stage(index) -> void:
 	if old_stage != null:
 		await old_stage.tree_exited 
 	# ------------------------------------
-	var stage = load(stages[index]).instantiate()
+	#var stage = load(stages[index]).instantiate()
+	#stage.name = "Stage_" + str(index + 1)
+	#add_child(stage)
+	
+	var stage_path = stages[index]
+	var stage = load(stage_path).instantiate()
 	stage.name = "Stage_" + str(index + 1)
 	add_child(stage)
 	
+	match stage_path:
+		"res://Scenes/stage_moon.tscn":
+			players[0].position = spawn_positions[0][0]
+			players[1].position = spawn_positions[0][1]
+		"res://Scenes/stage_preistorico.tscn":
+			players[0].position = spawn_positions[1][0]
+			players[1].position = spawn_positions[1][1]
+		_:
+			# fallback
+			players[0].position = Vector2(-120, 0)
+			players[1].position = Vector2(120, 0)
+	
 	stage.add_child(players[0])
 	stage.add_child(players[1])
-	players[0].position = Vector2(-120, 0)
-	players[1].position = Vector2(120, 0)
-	print("aaaa")
+	
+	#if index < spawn_positions.size():
+		#print("Tomara q n chegue aqui, mas ta tudo bem")
+		#players[0].position = spawn_positions[index][0]
+		#players[1].position = spawn_positions[index][1]
+	#else:
+		#print("Tomara q n chegue aqui, mas ta tudo bem")
+		#players[0].position = Vector2(-120, 0)
+		#players[1].position = Vector2(120, 0)
+	#
+	#print("aaaa")
 
 
 func _on_player_died(_player_node):
