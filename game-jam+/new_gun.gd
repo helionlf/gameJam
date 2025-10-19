@@ -41,7 +41,7 @@ func atirar():
 		var a = raycast.get_collision_point()
 		Global.spawnricochete(a,global_position-Vector2(0,+15))
 	else:
-		Global.spawnricochete(Vector2(get_node("../..").orientation*400+global_position.x,global_position.y-17),global_position)
+		Global.spawnricochete(Vector2(get_node("../..").orientation*400+global_position.x,global_position.y-17),global_position-Vector2(0,+15))
 	get_node("../..").speed-=400*get_node("../..").orientation
 
 func _on_timer_timeout():
