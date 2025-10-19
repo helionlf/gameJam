@@ -21,7 +21,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Arco" type="Node2D"]
+[node name="Arco" type="Node2D" groups=["ArmaNoMundo"]]
 scale = Vector2(2.400001, 2.400001)
 script = ExtResource("1_vur6d")
 

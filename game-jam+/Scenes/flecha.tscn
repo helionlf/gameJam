@@ -21,7 +21,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Flecha" type="CharacterBody2D"]
+[node name="Flecha" type="CharacterBody2D" groups=["ArmaNoMundo"]]
 script = ExtResource("1_7p3hv")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
