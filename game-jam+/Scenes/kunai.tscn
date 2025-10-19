@@ -1,0 +1,62 @@
+[gd_scene load_steps=8 format=3 uid="uid://dqmi7jjf50y8b"]
+
+[ext_resource type="Script" uid="uid://dtwya1gttmxqe" path="res://kunai.gd" id="1_nxfn2"]
+[ext_resource type="Texture2D" uid="uid://dwwcp4aoj4utj" path="res://Sprites/FlechaPlaceHolder.png" id="2_4cp2t"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_37qbi"]
+size = Vector2(9, 3)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aixhf"]
+atlas = ExtResource("2_4cp2t")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nqfn7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aixhf")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d05gv"]
+size = Vector2(9, 5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qkptx"]
+size = Vector2(9, 3)
+
+[node name="Kunai" type="CharacterBody2D" groups=["ArmaNoMundo"]]
+scale = Vector2(1.9200001, 1.9200001)
+script = ExtResource("1_nxfn2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, -1.5)
+shape = SubResource("RectangleShape2D_37qbi")
+
+[node name="offset" type="Node2D" parent="." groups=["ArmaNoMundo"]]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="offset"]
+sprite_frames = SubResource("SpriteFrames_nqfn7")
+
+[node name="DamageArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea"]
+position = Vector2(0.5, -1.5)
+shape = SubResource("RectangleShape2D_d05gv")
+
+[node name="PickupArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea"]
+position = Vector2(0.5, -1.5)
+shape = SubResource("RectangleShape2D_qkptx")
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(1000, 0)
+
+[connection signal="body_entered" from="DamageArea" to="." method="_on_damage_area_body_entered"]
+[connection signal="body_entered" from="PickupArea" to="." method="_on_pickup_area_body_entered"]
+[connection signal="body_exited" from="PickupArea" to="." method="_on_pickup_area_body_exited"]
