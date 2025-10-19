@@ -1,0 +1,31 @@
+[gd_scene load_steps=2 format=3 uid="uid://cn4gt1p5os67a"]
+
+[ext_resource type="Script" uid="uid://b18p2k4mtxv6u" path="res://tela_d_vitoria.gd" id="1_iou0i"]
+
+[node name="TelaDVitoria" type="ColorRect"]
+offset_left = -574.0
+offset_top = -330.0
+offset_right = 576.0
+offset_bottom = 318.0
+color = Color(0.446777, 0.44677705, 0.44677705, 1)
+script = ExtResource("1_iou0i")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 379.0
+offset_top = 328.0
+offset_right = 743.0
+offset_bottom = 411.0
+text = "MENU"
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 257.0
+offset_top = 97.0
+offset_right = 863.0
+offset_bottom = 221.0
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(574, 326)
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

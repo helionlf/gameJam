@@ -1,9 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://b7byfv78sqtwa"]
+[gd_scene load_steps=9 format=3 uid="uid://b7byfv78sqtwa"]
 
 [ext_resource type="Script" uid="uid://cy8jqwirj8st6" path="res://Scripts/stage_medieval.gd" id="1_2vami"]
 [ext_resource type="Texture2D" uid="uid://bc2lt2mlxmsix" path="res://Assets/medieval.png" id="1_tme6k"]
 [ext_resource type="PackedScene" uid="uid://cbh38pvvc85j1" path="res://Spawner.tscn" id="2_2vami"]
-[ext_resource type="PackedScene" uid="uid://1g3lqsnmjrno" path="res://New_Gun.tscn" id="3_5rpk6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2p518"]
 size = Vector2(695, 47.5)
@@ -70,9 +69,7 @@ position = Vector2(-534, -301.5)
 shape = SubResource("RectangleShape2D_tme6k")
 
 [node name="Spawner" parent="." instance=ExtResource("2_2vami")]
-position = Vector2(-217, -76)
-scene_para_spawnar = ExtResource("3_5rpk6")
+position = Vector2(-217, -83)
 
 [node name="Spawner2" parent="." instance=ExtResource("2_2vami")]
-position = Vector2(216, -76)
-scene_para_spawnar = ExtResource("3_5rpk6")
+position = Vector2(216, -83)

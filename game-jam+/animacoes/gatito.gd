@@ -77,9 +77,11 @@ func _physics_process(delta: float) -> void:
 	var direction := Input.get_axis(inputs["left"], inputs["right"])
 	if Input.is_action_pressed(inputs["jump"]) and controle:
 		if is_on_floor():
+			$Jump.play()
 			anim_control.land()
 			velocity.y = JUMP_VELOCITY
 		elif is_on_wall_only() and direction:
+			$Jump.play()
 			anim_control.land()
 			velocity.y = JUMP_VELOCITY
 			if sign(direction) != sign(speed): direction *= -1
@@ -167,8 +169,10 @@ func take_damage():
 	life -= 1
 	if player_id == 1:
 		LifeManager.p1_life = life
+		LifeManager.life_changed.emit(player_id, life)
 	else:
 		LifeManager.p2_life = life
+		LifeManager.life_changed.emit(player_id, life)
 	print(life)
 	print(LifeManager.p1_life)
 	print(LifeManager.p2_life)
