@@ -32,8 +32,14 @@ func start_tutorial() -> void:
 
 
 func _on_texture_button_pressed() -> void:
-	if $Control.visible:
-		$Control.visible = false
+	if $Control/p1_controles.visible and $Control/p2_controles.visible:
+		$Control/p1_controles.visible = false
+		$Control/p2_controles.visible = false
 	else:
-		$Control.visible = true
+		$Control/p1_controles.visible = true
+		$Control/p2_controles.visible = true
 	
+
+
+func _on_sair_pressed() -> void:
+	pass # Replace with function body.
