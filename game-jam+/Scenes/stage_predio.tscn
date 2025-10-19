@@ -1,10 +1,9 @@
-[gd_scene load_steps=14 format=3 uid="uid://m8nbsur2tra6"]
+[gd_scene load_steps=13 format=3 uid="uid://cseh2civr4peb"]
 
 [ext_resource type="Script" uid="uid://iehknfwwmu7x" path="res://Scripts/stage_predio.gd" id="1_xac6u"]
 [ext_resource type="Texture2D" uid="uid://covkjsww77xjq" path="res://Assets/predio.png" id="2_rr1j1"]
 [ext_resource type="PackedScene" uid="uid://cbh38pvvc85j1" path="res://Spawner.tscn" id="3_s3156"]
 [ext_resource type="PackedScene" uid="uid://1g3lqsnmjrno" path="res://New_Gun.tscn" id="4_cokuq"]
-[ext_resource type="AudioStream" uid="uid://b6vmly1ctgpi" path="res://Sounds/DavidKBD - Pink Bloom Pack - 01 - Pink Bloom.ogg" id="5_y4p4c"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tylnb"]
 size = Vector2(525, 25.5)
@@ -100,9 +99,5 @@ scene_para_spawnar = ExtResource("4_cokuq")
 [node name="Spawner2" parent="." instance=ExtResource("3_s3156")]
 position = Vector2(63, 9)
 scene_para_spawnar = ExtResource("4_cokuq")
-
-[node name="Musica" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("5_y4p4c")
-volume_db = -20.0
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

@@ -6,7 +6,7 @@ extends Node2D
 
 @onready var animated_sprite: AnimatedSprite2D = $offset/AnimatedSprite2D
 
-var municao: int = 10
+var municao: int = 7
 var pode_atirar: bool = true
 var equipada = false
 
@@ -24,7 +24,7 @@ var rot_tween : Tween
 func atirar():
 	$Shot.play()
 	pode_atirar = false
-	#municao -= 1
+	municao -= 1
 	timer_cooldown.start()
 	animated_sprite.play("Atirando")
 	get_node("..").tilt()

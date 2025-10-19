@@ -6,7 +6,7 @@ extends Node2D
 
 @onready var timer_cooldown = $Timer
 @onready var offset: Node2D = $offset
-@onready var animated_sprite: AnimatedSprite2D = $offset/AnimatedSprite2D
+@onready var animated_sprite: Sprite2D = $offset/AnimatedSprite2D
 @onready var ponto_de_tiro: Marker2D = $offset/Marker2D
 
 var municao: int = 2
@@ -39,7 +39,8 @@ func atirar():
 	checar_raio(ray_up)
 	checar_raio(ray_down)
 	
-	get_node("../..").speed-=400*get_node("../..").orientation
+	get_node("../..").speed-=1000*get_node("../..").orientation
+
 
 func checar_raio(ray: RayCast2D):
 	ray.force_raycast_update()

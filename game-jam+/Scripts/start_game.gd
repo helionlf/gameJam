@@ -5,7 +5,7 @@ extends Node2D
 @onready var death_view_timer = $DeathViewTimer
 @onready var end_game_timer = $EndGameTimer
 
-const VIDA_INICIAL = 3
+const VIDA_INICIAL = 9
 
 var skins = [
 	preload("res://animacoes/gatito.png"),
@@ -13,7 +13,8 @@ var skins = [
 	preload("res://animacoes/gatito_laranja.png")
 ]
 
-var stages = [
+# Lista original de fases
+var all_stages = [
 	"res://Scenes/stage_moon.tscn",
 	"res://Scenes/stage_preistorico.tscn",
 	"res://Scenes/stage_medieval.tscn",
@@ -22,12 +23,15 @@ var stages = [
 
 var spawn_positions = [
 	[Vector2(-120, 100), Vector2(120, 100.0)],
-	[Vector2(-253, -50), Vector2(-253, 59.0)], 
-	[Vector2(-178, 178), Vector2(113, 178.0)], 
-	[Vector2(-182, 133), Vector2(182, 133)], 
+	[Vector2(-253, 170), Vector2(-253, 45)],
+	[Vector2(-178, 178), Vector2(113, 178.0)],
+	[Vector2(-182, 133), Vector2(182, 133)],
 ]
 
-var current_stage_index = 0
+# Lista embaralhada para a ordem das fases
+var shuffled_stages = []
+var current_shuffled_index = 0
+
 var players = []
 var game_started = false
 var is_restarting = false
@@ -36,9 +40,11 @@ func _ready():
 	restart_timer.timeout.connect(_on_restart_timer_timeout)
 	death_view_timer.timeout.connect(_on_death_view_timer_timeout)
 	end_game_timer.timeout.connect(_on_end_game_timer_timeout)
+	randomize()
 
 func _input(event):
 	if event is InputEventMouseButton and event.pressed and not game_started:
+		$Music.play()
 		LifeManager.p1_life = VIDA_INICIAL
 		LifeManager.p2_life = VIDA_INICIAL
 		start_new_game()
@@ -47,15 +53,21 @@ func start_new_game() -> void:
 	game_started = true
 	is_restarting = false
 
+	# Embaralha as fases no início do jogo
+	shuffled_stages = all_stages.duplicate()
+	shuffled_stages.shuffle()
+	current_shuffled_index = 0 # Começa na primeira fase embaralhada
+
 	create_players()
-	load_stage(current_stage_index)
+
+	var stage_path = shuffled_stages[current_shuffled_index]
+	var spawn_index = get_spawn_index_for_stage(stage_path)
+	load_stage(stage_path, spawn_index)
 
 func create_players() -> void:
 	players.clear()
-
 	var shuffled_skins = skins.duplicate()
 	shuffled_skins.shuffle()
-
 	var p1 = null
 	var p2 = null
 
@@ -77,7 +89,7 @@ func create_players() -> void:
 		p2.player_died.connect(_on_player_died)
 		players.append(p2)
 
-func load_stage(index) -> void:
+func load_stage(stage_path, spawn_index) -> void:
 	for arma in get_tree().get_nodes_in_group("ArmaNoMundo"):
 		arma.queue_free()
 
@@ -85,71 +97,48 @@ func load_stage(index) -> void:
 	for child in get_children():
 		if child.name.begins_with("Stage"):
 			old_stage = child
-			child.queue_free() # Marca a fase antiga para deleção
-	
-	if old_stage != null:
-		await old_stage.tree_exited 
-	# ------------------------------------
-	#var stage = load(stages[index]).instantiate()
-	#stage.name = "Stage_" + str(index + 1)
-	#add_child(stage)
-	
-	var stage_path = stages[index]
+			child.queue_free()
+
 	var stage = load(stage_path).instantiate()
-	stage.name = "Stage_" + str(index + 1)
+	stage.name = "Stage_" + stage_path.get_file().get_basename()
 	add_child(stage)
-	
-	match stage_path:
-		"res://Scenes/stage_moon.tscn":
-			players[0].position = spawn_positions[0][0]
-			players[1].position = spawn_positions[0][1]
-		"res://Scenes/stage_preistorico.tscn":
-			players[0].position = spawn_positions[1][0]
-			players[1].position = spawn_positions[1][1]
-		"res://Scenes/stage_medieval.tscn":
-			players[0].position = spawn_positions[2][0]
-			players[1].position = spawn_positions[2][1]
-		"res://Scenes/stage_predio.tscn":
-			players[0].position = spawn_positions[3][0]
-			players[1].position = spawn_positions[3][1]
-		_:
-			# fallback
-			players[0].position = Vector2(-120, 0)
-			players[1].position = Vector2(120, 0)
-	
-	stage.add_child(players[0])
-	stage.add_child(players[1])
-	
-	#if index < spawn_positions.size():
-		#print("Tomara q n chegue aqui, mas ta tudo bem")
-		#players[0].position = spawn_positions[index][0]
-		#players[1].position = spawn_positions[index][1]
-	#else:
-		#print("Tomara q n chegue aqui, mas ta tudo bem")
-		#players[0].position = Vector2(-120, 0)
-		#players[1].position = Vector2(120, 0)
-	#
-	#print("aaaa")
+
+	for player_node in players:
+		stage.add_child(player_node)
+
+	# Usa Vector2 global_position para garantir
+	if players.size() >= 1 and spawn_index < spawn_positions.size():
+		players[0].global_position = spawn_positions[spawn_index][0]
+	if players.size() == 2 and spawn_index < spawn_positions.size():
+		players[1].global_position = spawn_positions[spawn_index][1]
+
+	print("Stage Loaded: ", stage_path)
 
 
 func _on_player_died(id_do_jogador_que_morreu):
 	if is_restarting or not game_started:
 		return
 
-	if id_do_jogador_que_morreu == 1:
-		LifeManager.p1_life -= 1
-		print("P1 tem ", LifeManager.p1_life, " vidas restantes.")
-		if LifeManager.p1_life <= 0:
-			print("Jogador 1 foi eliminado!")
-	else:
-		LifeManager.p2_life -= 1
-		print("P2 tem ", LifeManager.p2_life, " vidas restantes.")
-		if LifeManager.p2_life <= 0:
-			print("Jogador 2 foi eliminado!")
+	var game_over = false
+	var lives_remaining = 0
 
-	is_restarting = true
-	print("Um jogador morreu! Esperando 2 segundos para reiniciar a rodada...")
-	death_view_timer.start()
+	if id_do_jogador_que_morreu == 1:
+		lives_remaining = LifeManager.p1_life
+		print("P1 tem ", lives_remaining, " vidas restantes.")
+		if lives_remaining <= 0:
+			game_over = true
+			handle_game_over(2)
+	else:
+		lives_remaining = LifeManager.p2_life
+		print("P2 tem ", lives_remaining, " vidas restantes.")
+		if lives_remaining <= 0:
+			game_over = true
+			handle_game_over(1)
+
+	if not game_over:
+		is_restarting = true
+		print("Um jogador morreu! Esperando 2 segundos para reiniciar a rodada...")
+		death_view_timer.start()
 
 func _on_death_view_timer_timeout():
 	print("Iniciando contagem de 1.5s para reiniciar...")
@@ -178,10 +167,24 @@ func cleanup_and_start_round() -> void:
 		get_tree().reload_current_scene()
 		return
 
-	load_stage(current_stage_index)
+	# --- LÓGICA DE TROCA DE FASE A CADA RODADA ---
+	# Avança para a próxima fase na lista embaralhada
+	current_shuffled_index += 1
+	# Se chegou ao fim da lista, volta para o início (loop)
+	if current_shuffled_index >= shuffled_stages.size():
+		current_shuffled_index = 0
+		# Opcional: Embaralhar de novo se quiser uma nova ordem após o loop
+		shuffled_stages.shuffle()
 
+	var next_stage_path = shuffled_stages[current_shuffled_index]
+	var next_spawn_index = get_spawn_index_for_stage(next_stage_path)
+	load_stage(next_stage_path, next_spawn_index)
+	# ---------------------------------------------
+
+	# Verifica se o jogo acabou APÓS carregar a nova fase
 	if players.size() == 1:
 		handle_game_over(players[0].player_id)
+
 
 func handle_game_over(winner_id):
 	print("🏁 FIM DE JOGO! Jogador ", winner_id, " venceu!")
@@ -190,6 +193,13 @@ func handle_game_over(winner_id):
 func _on_end_game_timer_timeout():
 	game_started = false
 	get_tree().reload_current_scene()
+
+func get_spawn_index_for_stage(stage_path):
+	# Precisamos encontrar o índice na lista ORIGINAL para pegar a posição correta
+	for i in range(all_stages.size()):
+		if all_stages[i] == stage_path:
+			return i
+	return 0
 
 func next_stage():
 	pass

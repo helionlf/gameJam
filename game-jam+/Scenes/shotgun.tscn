@@ -1,23 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://b54x3l1nh6fws"]
+[gd_scene load_steps=5 format=3 uid="uid://k62vprl84er6"]
 
 [ext_resource type="Texture2D" uid="uid://cc4bsud4sw8hv" path="res://Sprites/Shotgun.png" id="1_0ym6k"]
 [ext_resource type="Script" uid="uid://dumr6bqv6e881" path="res://Scenes/shotgun.gd" id="1_u0ide"]
 [ext_resource type="AudioStream" uid="uid://dajg4xvldk5tl" path="res://Sounds/762x54r Single Isolated WAV.wav" id="3_8claw"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_u0ide"]
-atlas = ExtResource("1_0ym6k")
-region = Rect2(0, 0, 64, 64)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_8claw"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_u0ide")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0vijm"]
 size = Vector2(47, 10)
@@ -27,9 +12,10 @@ script = ExtResource("1_u0ide")
 
 [node name="offset" type="Node2D" parent="."]
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="offset"]
+[node name="AnimatedSprite2D" type="Sprite2D" parent="offset"]
 texture_filter = 1
-sprite_frames = SubResource("SpriteFrames_8claw")
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("1_0ym6k")
 
 [node name="Marker2D" type="Marker2D" parent="offset"]
 
