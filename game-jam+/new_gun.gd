@@ -9,6 +9,8 @@ var municao: int = 7
 var pode_atirar: bool = true
 var equipada = false
 
+var sprite = "res://animacoes/soapistola.png"
+
 func equipar():
 	pode_atirar = true
 	equipada = true

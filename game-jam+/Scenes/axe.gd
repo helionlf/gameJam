@@ -8,6 +8,8 @@ extends Node2D
 var pode_atacar: bool = true
 var equipada: bool = false 
 
+var sprite = "res://Sprites/axe.png"
+
 func equipar():
 	pode_atacar = true
 	equipada = true

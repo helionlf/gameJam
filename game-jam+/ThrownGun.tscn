@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://dptk0gq1q1j7c"]
+[gd_scene load_steps=4 format=3 uid="uid://dptk0gq1q1j7c"]
 
 [ext_resource type="Script" uid="uid://dmmmg4sbxxvfe" path="res://ThrownGun.gd" id="1_abcde"]
+[ext_resource type="Texture2D" uid="uid://cdsfxxcyr2am0" path="res://animacoes/soapistola.png" id="2_nj0oj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_53j1s"]
 size = Vector2(27, 18)
@@ -8,11 +9,11 @@ size = Vector2(27, 18)
 [node name="ThrownGun" type="RigidBody2D"]
 script = ExtResource("1_abcde")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-texture_filter = 1
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_nj0oj")
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 2.0
 one_shot = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

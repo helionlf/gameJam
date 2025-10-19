@@ -13,6 +13,8 @@ var municao: int = 2
 var pode_atirar: bool = true
 var equipada = false
 
+var sprite = "res://Sprites/Shotgun.png"
+
 func equipar():
 	pode_atirar = true
 	equipada = true

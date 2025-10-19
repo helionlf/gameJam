@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 signal player_died(player_node)
+const THROWN_GUN = preload("uid://dptk0gq1q1j7c")
 
 @onready var anim_control: Node2D = $"anim control"
 @onready var animation_player: AnimationPlayer = $"anim control/AnimationPlayer"
@@ -51,8 +52,14 @@ func _ready() -> void:
 	else:
 		life = LifeManager.p2_life
 
+func disable_controls(tempo):
+	controle = false
+	await get_tree().create_timer(tempo).timeout
+	controle = true
+
+var controle = true
+
 func _physics_process(delta: float) -> void:
-	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 		if not airborne:
@@ -65,8 +72,9 @@ func _physics_process(delta: float) -> void:
 	if not alive: return
 
 	var inputs = INPUTS[player_id]
+	
 	var direction := Input.get_axis(inputs["left"], inputs["right"])
-	if Input.is_action_pressed(inputs["jump"]):
+	if Input.is_action_pressed(inputs["jump"]) and controle:
 		if is_on_floor():
 			anim_control.land()
 			velocity.y = JUMP_VELOCITY
@@ -75,9 +83,7 @@ func _physics_process(delta: float) -> void:
 			velocity.y = JUMP_VELOCITY
 			if sign(direction) != sign(speed): direction *= -1
 			speed = -300*direction
-	if Input.is_action_just_pressed(inputs["meow"]):
-		$Meow.play()
-	if direction:
+	if direction and controle:
 		if airborne: speed += direction * accel * 0.8
 		else: speed += direction * accel
 		speed = clamp(speed, -maxSPEED, maxSPEED)
@@ -91,16 +97,13 @@ func _physics_process(delta: float) -> void:
 			moving = true
 			anim_control.land()
 	else:
-		speed = move_toward(speed, 0, accel)
+		if controle or is_on_floor(): speed = move_toward(speed, 0, accel)
 		velocity.x = speed
 		moving = false
 		animation_player.play("RESET")
 	anim_control.incline(speed)
-	if equipado and Input.is_action_just_pressed(inputs["shoot"]):
-		equipado.usar()
 	if airborne and velocity.y > 0 and not falling:
 		falling = true
-		#anim_control.stretch()
 	move_and_slide()
 
 var equipado = null
@@ -110,6 +113,26 @@ var hovering = []
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed(INPUTS[player_id]["pegar"]):
 		if len(hovering) and equipado == null and hovering[0].equipada == false: equipar(hovering[0])
+		elif equipado:
+			throw_weapon()
+	if equipado and event.is_action_pressed(INPUTS[player_id]["shoot"]):
+		equipado.usar()
+	if event.is_action_pressed(INPUTS[player_id]["meow"]):
+		$Meow.play()
+
+func throw_weapon():
+	var thrown_gun:RigidBody2D = THROWN_GUN.instantiate()
+	
+	print(equipado.sprite)
+	thrown_gun.set_sprite(equipado.sprite)
+	
+	get_parent().add_child(thrown_gun)
+	thrown_gun.global_position = equipado.global_position
+	thrown_gun.linear_velocity = Vector2(500*orientation,-250)
+	thrown_gun.thrower = self
+	thrown_gun.add_collision_exception_with(self)
+	equipado.queue_free()
+	desequipar()
 
 func equipar(arma):
 	anim_control.scale.y = 1
