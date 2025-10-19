@@ -1,0 +1,85 @@
+[gd_scene load_steps=8 format=3 uid="uid://crd5yhjhv4kp0"]
+
+[ext_resource type="Script" uid="uid://ddqsgdashpvyl" path="res://Scripts/tutorial.gd" id="1_i6t4g"]
+[ext_resource type="PackedScene" uid="uid://cbh38pvvc85j1" path="res://Spawner.tscn" id="1_omtrn"]
+[ext_resource type="PackedScene" uid="uid://1g3lqsnmjrno" path="res://New_Gun.tscn" id="2_i6t4g"]
+[ext_resource type="AudioStream" uid="uid://b6vmly1ctgpi" path="res://Sounds/DavidKBD - Pink Bloom Pack - 01 - Pink Bloom.ogg" id="3_p8jf4"]
+[ext_resource type="Texture2D" uid="uid://b0g6hcrkkmxtl" path="res://Assets/PS4/CIRCLE.png" id="5_p8jf4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p1f1o"]
+size = Vector2(713, 56)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ys4pu"]
+size = Vector2(36, 293)
+
+[node name="tutorial" type="Node2D"]
+script = ExtResource("1_i6t4g")
+
+[node name="back" type="Sprite2D" parent="."]
+scale = Vector2(0.9, 0.9)
+
+[node name="obstacle" type="Sprite2D" parent="."]
+scale = Vector2(0.9, 0.9)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(1.7, 1.7)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(534, 317)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-532.5, -190)
+shape = SubResource("RectangleShape2D_p1f1o")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-196, -364)
+shape = SubResource("RectangleShape2D_ys4pu")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-870, -366)
+shape = SubResource("RectangleShape2D_ys4pu")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-531, -484)
+shape = SubResource("RectangleShape2D_p1f1o")
+
+[node name="Spawner" parent="." instance=ExtResource("1_omtrn")]
+position = Vector2(100, 54)
+scene_para_spawnar = ExtResource("2_i6t4g")
+
+[node name="Musica" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_p8jf4")
+volume_db = -20.0
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="c_p1" type="TextureRect" parent="Control"]
+modulate = Color(1, 1, 1, 0.49019608)
+layout_mode = 0
+offset_left = -320.0
+offset_top = -60.0
+offset_right = -191.0
+offset_bottom = 182.0
+texture = ExtResource("5_p8jf4")
+
+[node name="c_p2" type="TextureRect" parent="Control"]
+modulate = Color(1, 1, 1, 0.49019608)
+layout_mode = 0
+offset_left = 180.0
+offset_top = -60.0
+offset_right = 309.0
+offset_bottom = 182.0
+texture = ExtResource("5_p8jf4")
+
+[node name="TextureButton" type="TextureButton" parent="."]
+offset_left = 312.0
+offset_top = -183.0
+offset_right = 328.0
+offset_bottom = -167.0
+texture_normal = ExtResource("5_p8jf4")
+
+[connection signal="pressed" from="TextureButton" to="." method="_on_texture_button_pressed"]
