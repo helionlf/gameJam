@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://dptk0gq1q1j7c"]
+
+[ext_resource type="Script" uid="uid://dmmmg4sbxxvfe" path="res://ThrownGun.gd" id="1_abcde"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_53j1s"]
+size = Vector2(27, 18)
+
+[node name="ThrownGun" type="RigidBody2D"]
+script = ExtResource("1_abcde")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(3.5, -1)
+shape = SubResource("RectangleShape2D_53j1s")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

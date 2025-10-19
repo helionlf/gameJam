@@ -15,10 +15,8 @@ func _on_body_exited(body):
 		player_dentro = null 
 
 func _process(_delta):
-	if player_dentro != null and Input.is_action_just_pressed("pegar"):
+	if player_dentro != null and Input.is_action_just_pressed("pegar_p1"):
 		
-		# --- MUDE ESTA LINHA ---
-		player_dentro.equipar_espada_do_jogador() # Mude de "arma" para "espada"
-		# ---------------------
+		player_dentro.equipar(self) # Agora chama a função equipar do jogador, passando a espada
 		
 		queue_free()

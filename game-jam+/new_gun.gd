@@ -8,6 +8,7 @@ extends Node2D
 var municao: int = 7
 var pode_atirar: bool = true
 var equipada = false
+var player_dentro = null
 
 func equipar():
 	pode_atirar = true
@@ -47,7 +48,8 @@ func atirar():
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
-		body.hovering.append(self)
+		player_dentro = body
+
 func _on_area_2d_body_exited(body: Node2D) -> void:
 	if body.is_in_group("player"):
 		body.hovering.erase(self)

@@ -43,6 +43,17 @@ texture = ExtResource("3_5q57b")
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(1.7, 1.7)
 
+[node name="gatito" parent="ColorRect" instance=ExtResource("3_trsgd")]
+position = Vector2(526, 390)
+player_id = 1
+life = null
+
+[node name="ArmaNoChão" parent="." instance=ExtResource("1_4lcrb")]
+position = Vector2(468, 472)
+
+[node name="Spawner" parent="." instance=ExtResource("2_5a2y6")]
+position = Vector2(685, 529)
+
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2(534, 317)
 
