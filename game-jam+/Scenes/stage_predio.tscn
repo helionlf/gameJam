@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://iehknfwwmu7x" path="res://Scripts/stage_predio.gd" id="1_xac6u"]
 [ext_resource type="Texture2D" uid="uid://covkjsww77xjq" path="res://Assets/predio.png" id="2_rr1j1"]
 [ext_resource type="PackedScene" uid="uid://cbh38pvvc85j1" path="res://Spawner.tscn" id="3_s3156"]
-[ext_resource type="PackedScene" uid="uid://1g3lqsnmjrno" path="res://New_Gun.tscn" id="4_cokuq"]
+[ext_resource type="PackedScene" uid="uid://c6a7so7h2tp1s" path="res://New_Gun.tscn" id="4_cokuq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tylnb"]
 size = Vector2(525, 25.5)
@@ -93,11 +93,11 @@ position = Vector2(731, 125)
 shape = SubResource("RectangleShape2D_xcdiu")
 
 [node name="Spawner" parent="." instance=ExtResource("3_s3156")]
-position = Vector2(-72, 9)
+position = Vector2(-74, 5)
 scene_para_spawnar = ExtResource("4_cokuq")
 
 [node name="Spawner2" parent="." instance=ExtResource("3_s3156")]
-position = Vector2(63, 9)
+position = Vector2(62, 6)
 scene_para_spawnar = ExtResource("4_cokuq")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

@@ -1,7 +1,7 @@
 # spawner.gd
 extends Node2D
 
-@export var scene_para_spawnar: PackedScene
+var scene_para_spawnar
 
 @onready var timer_respawn = $Timer
 @onready var ponto_spawn = $PontoSpawn
@@ -9,9 +9,12 @@ extends Node2D
 var item_spawnado_atual = null
 
 func _ready():
-	$AnimatedSprite2D.play("default")
-	timer_respawn.timeout.connect(_on_timer_respawn_timeout)
+	await get_tree().create_timer(2).timeout
 	spawnar_item()
+
+
+func _process(delta: float) -> void:
+	$AnimatedSprite2D.rotation -= delta * 10
 
 func spawnar_item():
 	if scene_para_spawnar == null:
@@ -21,9 +24,11 @@ func spawnar_item():
 	if item_spawnado_atual != null and is_instance_valid(item_spawnado_atual):
 		return
 
-	var novo_item = scene_para_spawnar.instantiate()
+	var novo_item = load(["res://Scenes/shotgun.tscn","res://New_Gun.tscn","res://Scenes/axe.tscn"].pick_random()).instantiate()
 	
 	novo_item.global_position = ponto_spawn.global_position
+
+	
 	
 	get_parent().add_child.call_deferred(novo_item)
 	item_spawnado_atual = novo_item

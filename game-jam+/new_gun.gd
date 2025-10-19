@@ -1,7 +1,6 @@
 extends Node2D
 
 @onready var raycast: RayCast2D = $offset/RayCast2D
-@onready var timer_cooldown = $Timer
 @onready var offset: Node2D = $offset
 
 @onready var animated_sprite: AnimatedSprite2D = $offset/AnimatedSprite2D
@@ -25,7 +24,6 @@ func atirar():
 	$Shot.play()
 	pode_atirar = false
 	municao -= 1
-	timer_cooldown.start()
 	animated_sprite.play("Atirando")
 	get_node("..").tilt()
 	animated_sprite.rotation_degrees = -60
@@ -43,9 +41,9 @@ func atirar():
 	else:
 		Global.spawnricochete(Vector2(get_node("../..").orientation*400+global_position.x,global_position.y-17),global_position-Vector2(0,+15))
 	get_node("../..").speed-=400*get_node("../..").orientation
-
-func _on_timer_timeout():
+	await get_tree().create_timer(0.2).timeout
 	pode_atirar = true
+
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
@@ -55,7 +53,8 @@ func _on_area_2d_body_exited(body: Node2D) -> void:
 		body.hovering.erase(self)
 
 func usar():
-	atirar()
+	if pode_atirar and municao > 0 and equipada:
+		atirar()
 
 func arremessar():
 	pass

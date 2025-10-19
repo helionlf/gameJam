@@ -19,10 +19,6 @@ func equipar():
 	offset.position = Vector2(5,-9)
 	municao = 2
 
-func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("Atirar") and pode_atirar and municao > 0 and equipada:
-		atirar()
-
 var rot_tween : Tween
 
 func atirar():
@@ -40,6 +36,7 @@ func atirar():
 	checar_raio(ray_down)
 	
 	get_node("../..").speed-=1000*get_node("../..").orientation
+
 
 
 func checar_raio(ray: RayCast2D):
@@ -60,6 +57,11 @@ func checar_raio(ray: RayCast2D):
 
 func _on_timer_timeout():
 	pode_atirar = true
+
+func usar():
+	if pode_atirar and municao > 0 and equipada:
+		atirar()
+
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):

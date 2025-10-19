@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://1g3lqsnmjrno"]
+[gd_scene load_steps=5 format=3 uid="uid://48pxdkpdrt7s"]
 
 [ext_resource type="Texture2D" uid="uid://cmbqali2mh2oe" path="res://Sprites/kunai.png" id="2_o2euq"]
 [ext_resource type="AudioStream" uid="uid://f0k6wulemxhg" path="res://Sounds/22LR Single Isolated MP3.mp3" id="5_jua05"]
