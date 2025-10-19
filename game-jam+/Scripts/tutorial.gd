@@ -14,11 +14,6 @@ func _ready() -> void:
 	start_tutorial()
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-	
-
 func start_tutorial() -> void:
 	var shuffled_skins = skins.duplicate()
 	shuffled_skins.shuffle()
@@ -26,9 +21,16 @@ func start_tutorial() -> void:
 	var gatito = PlayerScene.instantiate()
 	gatito.player_id = 1
 	gatito.set_skin(shuffled_skins[0])
+	add_child(gatito)
 	
-	self.add_child(gatito)
 	gatito.position = Vector2(-120, 0)
+	
+	gatito = PlayerScene.instantiate()
+	gatito.player_id = 2
+	gatito.set_skin(shuffled_skins[0])
+	add_child(gatito)
+	
+	gatito.position = Vector2(120, 0)
 
 
 func _on_texture_button_pressed() -> void:
@@ -42,4 +44,4 @@ func _on_texture_button_pressed() -> void:
 
 
 func _on_sair_pressed() -> void:
-	pass # Replace with function body.
+	get_tree().change_scene_to_file("res://Scenes/start_screen.tscn")
