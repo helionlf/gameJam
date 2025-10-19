@@ -49,8 +49,6 @@ func start_game() -> void:
 	await load_stage(current_stage_index)
 
 func load_stage(index) -> void:
-	
-	# --- Limpeza (como você já tem) ---
 	for arma in get_tree().get_nodes_in_group("ArmaNoMundo"):
 		arma.queue_free()
 
@@ -58,11 +56,10 @@ func load_stage(index) -> void:
 	for child in get_children():
 		if child.name.begins_with("Stage"):
 			old_stage = child
-			child.queue_free() # Marca a fase antiga para deleção
+			child.queue_free() 
 	
 	if old_stage != null:
 		await old_stage.tree_exited 
-	# ------------------------------------
 	var stage = load(stages[index]).instantiate()
 	stage.name = "Stage_" + str(index + 1)
 	add_child(stage)
