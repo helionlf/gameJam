@@ -38,13 +38,10 @@ var is_restarting = false
 
 func _ready():
 	randomize()
-
-func _input(event):
-	if event is InputEventMouseButton and event.pressed and not game_started:
-		$Music.play()
-		LifeManager.p1_life = VIDA_INICIAL
-		LifeManager.p2_life = VIDA_INICIAL
-		start_new_game()
+	$Music.play()
+	LifeManager.p1_life = VIDA_INICIAL
+	LifeManager.p2_life = VIDA_INICIAL
+	start_new_game()
 
 func start_new_game() -> void:
 	game_started = true
@@ -90,6 +87,7 @@ func load_stage(stage_path, spawn_index) -> void:
 	for arma in get_tree().get_nodes_in_group("ArmaNoMundo"):
 		arma.queue_free()
 
+	@warning_ignore("unused_variable")
 	var old_stage = null
 	for child in get_children():
 		if child.name.begins_with("Stage"):
@@ -147,30 +145,21 @@ func _on_restart_timer_timeout() -> void:
 
 func cleanup_and_start_round() -> void:
 	players.clear()
-
 	var old_stage = null
 	for child in get_children():
 		if child.name.begins_with("Stage"):
 			old_stage = child
 			child.queue_free()
-
 	if old_stage != null:
 		await old_stage.tree_exited
-
 	create_players()
-
 	if players.is_empty():
 		print("ERRO INESPERADO: Nenhum jogador criado após restart! Voltando ao menu...")
 		get_tree().reload_current_scene()
 		return
-
-	# --- LÓGICA DE TROCA DE FASE A CADA RODADA ---
-	# Avança para a próxima fase na lista embaralhada
 	current_shuffled_index += 1
-	# Se chegou ao fim da lista, volta para o início (loop)
 	if current_shuffled_index >= shuffled_stages.size():
 		current_shuffled_index = 0
-		# Opcional: Embaralhar de novo se quiser uma nova ordem após o loop
 		shuffled_stages.shuffle()
 
 	var next_stage_path = shuffled_stages[current_shuffled_index]
@@ -192,7 +181,6 @@ func _on_end_game_timer_timeout():
 	get_tree().reload_current_scene()
 
 func get_spawn_index_for_stage(stage_path):
-	# Precisamos encontrar o índice na lista ORIGINAL para pegar a posição correta
 	for i in range(all_stages.size()):
 		if all_stages[i] == stage_path:
 			return i

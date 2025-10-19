@@ -1,12 +1,26 @@
 [gd_scene load_steps=3 format=3 uid="uid://b74e2wuadmcal"]
 
-[ext_resource type="Script" path="res://Scripts/start_screen.gd" id="1_ainjc"]
-[ext_resource type="Texture2D" path="res://animacoes/logo.png" id="1_i8r30"]
+[ext_resource type="Texture2D" uid="uid://drbgr73g4dqg5" path="res://animacoes/logo.png" id="1_i8r30"]
+
+[sub_resource type="GDScript" id="GDScript_i8r30"]
+resource_name = "menu"
+script/source = "extends Control
+
+
+func _on_quit_pressed() -> void:
+	get_tree().quit()
+func _on_option_pressed() -> void:
+	pass
+
+
+func _on_start_pressed() -> void:
+	get_tree().change_scene_to_file(\"res://Scenes/start_game.tscn\")
+"
 
 [node name="StartScreen" type="Control"]
 layout_mode = 3
 anchors_preset = 0
-script = ExtResource("1_ainjc")
+script = SubResource("GDScript_i8r30")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -51,7 +65,7 @@ offset_bottom = 79.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(2, 2)
-text = "Options"
+text = "Tutorial"
 
 [node name="Quit" type="Button" parent="CanvasLayer"]
 anchors_preset = 8
