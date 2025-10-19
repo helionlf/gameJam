@@ -4,8 +4,9 @@ extends Node2D
 @onready var restart_timer = $RestartTimer
 @onready var death_view_timer = $DeathViewTimer
 @onready var end_game_timer = $EndGameTimer
+@onready var VictoryScreenScene = preload("res://Scenes/tela_d_vitoria.tscn") # <-- ADICIONE (mude o caminho)
 
-const VIDA_INICIAL = 9
+const VIDA_INICIAL = 2
 
 var skins = [
 	preload("res://animacoes/gatito.png"),
@@ -173,12 +174,12 @@ func cleanup_and_start_round() -> void:
 
 
 func handle_game_over(winner_id):
+	if not game_started:
+		return
+	game_started = false 
 	print("🏁 FIM DE JOGO! Jogador ", winner_id, " venceu!")
-	end_game_timer.start()
+	end_game_timer.start() 
 
-func _on_end_game_timer_timeout():
-	game_started = false
-	get_tree().reload_current_scene()
 
 func get_spawn_index_for_stage(stage_path):
 	for i in range(all_stages.size()):
@@ -188,3 +189,19 @@ func get_spawn_index_for_stage(stage_path):
 
 func next_stage():
 	pass
+
+func _on_end_game_timer_timeout():
+	for arma in get_tree().get_nodes_in_group("ArmaNoMundo"):
+		arma.queue_free()
+
+	if $Vida: $Vida.visible = false
+	if $Vida2: $Vida2.visible = false
+
+	var victory_screen = VictoryScreenScene.instantiate()
+	add_child(victory_screen)
+	var winner_id = 1 if LifeManager.p2_life <= 0 else 2 
+	victory_screen.show_victory(winner_id)
+
+func restart_full_game():
+	get_tree().paused = false
+	get_tree().reload_current_scene()
