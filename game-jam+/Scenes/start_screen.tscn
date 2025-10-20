@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://b74e2wuadmcal"]
+[gd_scene load_steps=4 format=3 uid="uid://b74e2wuadmcal"]
 
 [ext_resource type="Texture2D" uid="uid://drbgr73g4dqg5" path="res://animacoes/logo.png" id="1_i8r30"]
+[ext_resource type="FontFile" uid="uid://dmf7whals1qvs" path="res://Assets/Pixellari.ttf" id="2_ainjc"]
 
 [sub_resource type="GDScript" id="GDScript_i8r30"]
 resource_name = "menu"
@@ -31,7 +32,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.6371923, 0.6803223, 0.7579742, 1)
+color = Color(0.84705883, 0.62352943, 0.39607844, 1)
 
 [node name="logo" type="Sprite2D" parent="CanvasLayer"]
 position = Vector2(587, 258)
@@ -46,12 +47,19 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -286.0
 offset_top = 48.0
-offset_right = -240.0
+offset_right = -207.0
 offset_bottom = 79.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(2, 2)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0.9254902, 0.81960785, 0.7137255, 1)
+theme_override_colors/font_pressed_color = Color(0.9999997, 0.89576465, 0.34898207, 1)
+theme_override_colors/font_hover_color = Color(0.9254902, 0.81960785, 0.7137255, 1)
+theme_override_fonts/font = ExtResource("2_ainjc")
+theme_override_font_sizes/font_size = 24
 text = "Start"
+flat = true
 
 [node name="Option" type="Button" parent="CanvasLayer"]
 anchors_preset = 8
@@ -59,14 +67,20 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -67.0
+offset_left = -65.0
 offset_top = 48.0
-offset_right = 8.0
-offset_bottom = 79.0
+offset_right = 26.0
+offset_bottom = 80.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(2, 2)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0.9254902, 0.81960785, 0.7137255, 1)
+theme_override_colors/font_hover_color = Color(0.9254902, 0.81960785, 0.7137255, 1)
+theme_override_fonts/font = ExtResource("2_ainjc")
+theme_override_font_sizes/font_size = 24
 text = "Tutorial"
+flat = true
 
 [node name="Quit" type="Button" parent="CanvasLayer"]
 anchors_preset = 8
@@ -74,14 +88,20 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 227.0
+offset_left = 193.0
 offset_top = 48.0
-offset_right = 269.0
-offset_bottom = 79.0
+offset_right = 245.0
+offset_bottom = 80.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(2, 2)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0.9254902, 0.81960785, 0.7137255, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.9254902, 0.81960785, 0.7137255, 1)
+theme_override_fonts/font = ExtResource("2_ainjc")
+theme_override_font_sizes/font_size = 24
 text = "Quit"
+flat = true
 
 [connection signal="pressed" from="CanvasLayer/Start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="CanvasLayer/Option" to="." method="_on_option_pressed"]
