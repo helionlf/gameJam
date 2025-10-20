@@ -2,6 +2,7 @@ extends Node2D
 
 
 @onready var PlayerScene = preload("res://animacoes/gatito.tscn")
+@onready var btn = $Control/TextureButton
 
 var skins = [
 	preload("res://animacoes/gatito.png"),
@@ -12,6 +13,14 @@ var skins = [
 func _ready() -> void:
 	Global.mundo = self
 	start_tutorial()
+	btn.text = "Esconder"
+	
+
+func _process(delta: float) -> void:
+	if $Control/p1_controles.visible and $Control/p2_controles.visible:
+		btn.text = "Esconder"
+	else:
+		btn.text = "Mostrar"
 
 
 func start_tutorial() -> void:
