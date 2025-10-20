@@ -1,13 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://cn4gt1p5os67a"]
+[gd_scene load_steps=3 format=3 uid="uid://cn4gt1p5os67a"]
 
 [ext_resource type="Script" uid="uid://b18p2k4mtxv6u" path="res://tela_d_vitoria.gd" id="1_iou0i"]
+[ext_resource type="FontFile" uid="uid://dmf7whals1qvs" path="res://Assets/Pixellari.ttf" id="2_uq68d"]
 
 [node name="TelaDVitoria" type="ColorRect"]
 offset_left = -574.0
 offset_top = -330.0
 offset_right = 576.0
 offset_bottom = 318.0
-color = Color(0.446777, 0.44677705, 0.44677705, 1)
+color = Color(0.84705883, 0.62352943, 0.39607844, 1)
 script = ExtResource("1_iou0i")
 
 [node name="Button" type="Button" parent="."]
@@ -16,16 +17,25 @@ offset_left = 394.0
 offset_top = 328.0
 offset_right = 758.0
 offset_bottom = 411.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0.9254902, 0.81960785, 0.7137255, 1)
+theme_override_colors/font_pressed_color = Color(1, 0.89411765, 0.34901962, 1)
+theme_override_colors/font_hover_color = Color(0.9254902, 0.81960785, 0.7137255, 1)
+theme_override_fonts/font = ExtResource("2_uq68d")
+theme_override_font_sizes/font_size = 40
 text = "MENU"
+flat = true
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
-offset_left = 257.0
-offset_top = 97.0
-offset_right = 863.0
-offset_bottom = 221.0
+offset_left = 259.0
+offset_top = 194.0
+offset_right = 945.0
+offset_bottom = 318.0
+theme_override_fonts/font = ExtResource("2_uq68d")
 theme_override_font_sizes/font_size = 70
-text = "PLAYER TAL VENCEU"
+text = "PLAYER x VENCEU"
+horizontal_alignment = 1
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(574, 326)
