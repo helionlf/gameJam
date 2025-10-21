@@ -26,30 +26,36 @@ func _process(delta: float) -> void:
 				print(alvo)
 				alvo.take_damage()
 			else:
-				global_position = raycast.get_collision_point()+Vector2(voando*-22,0)
+				global_position = raycast.get_collision_point()+Vector2(voando*-18,0)
 				voando = 0
 		global_position.x+=voando*delta*1500
 		
 
-func equipar():
+func equipar(): # tendo muito problema com corrigir o fato que se ela tiver pra esquerda, buga equipando
+	# nao é scale, não é global scale, eu nao to entendendo sapoha pra botar um if que corrige
 	equipada = true
-	offset.position = Vector2(10,-9)
+	skew = 0
+	offset.position = Vector2(-10,-9)
+	raycast.clear_exceptions()
 
 func atirar():
 	if equipada:
+		raycast.add_exception(get_node(\"../..\"))
 		gasta = true
 		offset.rotation = 0
+		offset.position = Vector2(0,0)
 		voando = get_node(\"../..\").orientation
+		global_position+= Vector2(-10*get_node(\"../..\").orientation,-9)
 		equipada = false
 		get_node(\"../..\").velocity.y = -150
 		get_node(\"../..\").speed = -voando*400
 		get_node(\"../..\").desequipar()
 		reparent(get_node(\"../../..\"))
 		global_position.x+=voando*5
-		global_scale = Vector2(1,1)
+		global_scale = Vector2(1*voando,1)
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
-	if body.is_in_group(\"player\") and not gasta:
+	if body.is_in_group(\"player\"):# and not gasta:
 		body.hovering.append(self)
 func _on_area_2d_body_exited(body: Node2D) -> void:
 	if body.is_in_group(\"player\"):

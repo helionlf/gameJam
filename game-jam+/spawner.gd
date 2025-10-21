@@ -24,7 +24,6 @@ func spawnar_item():
 	get_parent().add_child.call_deferred(novo_item)
 	item_spawnado_atual = novo_item
 	print("spawno")
-	
 	novo_item.tree_exiting.connect(_on_item_foi_pego)
 
 func _on_item_foi_pego():

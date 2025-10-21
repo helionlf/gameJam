@@ -71,7 +71,6 @@ func _physics_process(delta: float) -> void:
 		airborne = false
 		falling = false
 		anim_control.land()
-
 	if not alive: return
 	var inputs = INPUTS[player_id]
 	var direction := Input.get_axis(inputs["left"], inputs["right"])
@@ -142,6 +141,7 @@ func throw_weapon():
 	desequipar()
 
 func equipar(arma):
+	print("kunai scale x: "+str(arma.offset.global_scale.x)+" // orientation: "+str(orientation))
 	anim_control.scale.y = 1
 	arma.reparent(anim_control)
 	equipado = arma
