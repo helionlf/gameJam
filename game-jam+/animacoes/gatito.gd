@@ -141,7 +141,6 @@ func throw_weapon():
 	desequipar()
 
 func equipar(arma):
-	print("kunai scale x: "+str(arma.offset.global_scale.x)+" // orientation: "+str(orientation))
 	anim_control.scale.y = 1
 	arma.reparent(anim_control)
 	equipado = arma

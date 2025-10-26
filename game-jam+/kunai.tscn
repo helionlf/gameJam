@@ -29,14 +29,16 @@ func _process(delta: float) -> void:
 				global_position = raycast.get_collision_point()+Vector2(voando*-18,0)
 				voando = 0
 		global_position.x+=voando*delta*1500
-		
 
 func equipar(): # tendo muito problema com corrigir o fato que se ela tiver pra esquerda, buga equipando
-	# nao é scale, não é global scale, eu nao to entendendo sapoha pra botar um if que corrige
-	equipada = true
-	skew = 0
-	offset.position = Vector2(-10,-9)
-	raycast.clear_exceptions()
+	var a = load(\"res://kunai.tscn\").instantiate()
+	get_parent().add_child(a)
+	a.equipada = true
+	a.skew = 0
+	a.offset.position = Vector2(-10,-9)
+	a.raycast.clear_exceptions()
+	get_node(\"../..\").equipado = a
+	queue_free()
 
 func atirar():
 	if equipada:

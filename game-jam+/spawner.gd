@@ -17,9 +17,9 @@ func _process(delta: float) -> void:
 func spawnar_item():
 	if item_spawnado_atual != null:
 		return
-	var novo_item = load(["res://Scenes/shotgun.tscn","res://New_Gun.tscn","res://Scenes/axe.tscn","res://kunai.tscn"].pick_random()).instantiate()
+	#var novo_item = load(["res://Scenes/shotgun.tscn","res://New_Gun.tscn","res://Scenes/axe.tscn","res://kunai.tscn"].pick_random()).instantiate()
 	
-	#var novo_item = load(["res://kunai.tscn"].pick_random()).instantiate()
+	var novo_item = load(["res://kunai.tscn"].pick_random()).instantiate()
 	novo_item.global_position = ponto_spawn.global_position
 	get_parent().add_child.call_deferred(novo_item)
 	item_spawnado_atual = novo_item
