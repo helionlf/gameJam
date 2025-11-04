@@ -33,7 +33,7 @@ var all_stages = [
 #]
 
 var spawn_positions = [
-	[Vector2(0, 0), Vector2(0, -20)],
+	[Vector2(0, 0), Vector2(-100, -20)],
 ]
 
 # Lista embaralhada para a ordem das fases
