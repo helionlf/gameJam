@@ -39,7 +39,6 @@ func atirar():
 			print(alvo)
 			alvo.take_damage()
 		elif alvo.is_in_group("tilemap"):
-			print(alvo)
 			alvo.destroy(raycast.get_collision_point()+Vector2(get_node("../..").orientation,0))
 		var a = raycast.get_collision_point()
 		Global.spawnricochete(a,global_position-Vector2(0,+15))

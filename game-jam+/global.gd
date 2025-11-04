@@ -20,7 +20,8 @@ func spawnestrelas(cato):
 	cato.add_child(a)
 	a.position = Vector2(0,-40)
 
-func spawndestruction(tile,glob):
+func spawndestruction(tile,glob, color = Color.WHITE):
 	var a = DESTRUCTION_PARTICLE.instantiate()
 	tile.add_child(a)
+	a.modulate = color
 	a.global_position = glob
