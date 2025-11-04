@@ -14,18 +14,26 @@ var skins = [
 ]
 
 # Lista original de fases
+#var all_stages = [
+	#"res://Scenes/stage_moon.tscn",
+	#"res://Scenes/stage_preistorico.tscn",
+	#"res://Scenes/stage_medieval.tscn",
+	#"res://Scenes/stage_predio.tscn"
+#]
+
 var all_stages = [
-	"res://Scenes/stage_moon.tscn",
-	"res://Scenes/stage_preistorico.tscn",
-	"res://Scenes/stage_medieval.tscn",
-	"res://Scenes/stage_predio.tscn"
+	"res://Scenes/stage_tilemap.tscn",
 ]
 
+#var spawn_positions = [
+	#[Vector2(-120, 100), Vector2(120, 100.0)],
+	#[Vector2(-253, 170), Vector2(-253, 45)],
+	#[Vector2(-178, 178), Vector2(113, 178.0)],
+	#[Vector2(-182, 133), Vector2(182, 133)],
+#]
+
 var spawn_positions = [
-	[Vector2(-120, 100), Vector2(120, 100.0)],
-	[Vector2(-253, 170), Vector2(-253, 45)],
-	[Vector2(-178, 178), Vector2(113, 178.0)],
-	[Vector2(-182, 133), Vector2(182, 133)],
+	[Vector2(0, 0), Vector2(0, -20)],
 ]
 
 # Lista embaralhada para a ordem das fases
