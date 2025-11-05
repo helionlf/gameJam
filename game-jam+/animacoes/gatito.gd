@@ -51,6 +51,7 @@ func _ready() -> void:
 		life = LifeManager.p1_life
 	else:
 		life = LifeManager.p2_life
+	if Global.camera: Global.camera.players.append(self)
 
 func disable_controls(tempo):
 	$MeowHit.pitch_scale = randf_range(0.5, 3) ** 0.5
@@ -112,6 +113,11 @@ var equipado = null
 
 var hovering = []
 
+func hover(n):
+	hovering.append(n)
+	if equipado == null and hovering[0].equipada == false:
+		call_deferred("equipar",hovering[0])
+
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed(INPUTS[player_id]["pegar"]):
 		if len(hovering) and equipado == null and hovering[0].equipada == false: equipar(hovering[0])
@@ -151,6 +157,7 @@ func equipar(arma):
 
 func desequipar():
 	equipado = null
+	if len(hovering) and equipado == null and hovering[0].equipada == false: equipar(hovering[0])
 
 func set_skin(skin_texture: Texture2D):
 	$"anim control/body".texture = skin_texture

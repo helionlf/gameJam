@@ -4,6 +4,8 @@ var mundo = null
 const STARTSTUCK = preload("res://startstuck.tscn")
 const DESTRUCTION_PARTICLE = preload("uid://2tyhp4qw48x5")
 
+var camera
+
 var quemganhou = 0
 
 func spawnricochete(impactpos, weaponpos):

@@ -41,6 +41,7 @@ offset_bottom = -154.0
 player_id = 2
 
 [node name="Camera2D" type="Camera2D" parent="."]
+enabled = false
 zoom = Vector2(1.7, 1.7)
 
 [connection signal="timeout" from="RestartTimer" to="." method="_on_restart_timer_timeout"]

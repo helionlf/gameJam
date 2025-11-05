@@ -54,18 +54,20 @@ func doshoot(dmg):
 	else:
 		Global.spawnricochete(Vector2(get_node("../..").orientation*1000+global_position.x,global_position.y-17),global_position-Vector2(0,+15))
 
-
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
-		body.hovering.append(self)
+		body.hover(self)
 
 func _on_area_2d_body_exited(body: Node2D) -> void:
 	if body.is_in_group("player"):
 		body.hovering.erase(self)
 
 func usar():
-	if pode_atirar and municao > 0 and equipada:
-		atirar()
+	if pode_atirar and equipada:
+		if municao > 0:
+			atirar()
+		else:
+			get_node("../..").throw_weapon()
 
 func arremessar():
 	pass
