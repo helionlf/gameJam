@@ -135,6 +135,7 @@ _data = {
 }
 
 [node name="gatito" type="CharacterBody2D" groups=["player"]]
+collision_layer = 2
 script = ExtResource("1_ams5u")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
