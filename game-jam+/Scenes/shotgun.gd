@@ -33,28 +33,32 @@ func atirar():
 	if rot_tween: rot_tween.kill()
 	rot_tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO)
 	rot_tween.tween_property(animated_sprite,"rotation",0,0.3)
-	checar_raio(ray_center)
-	checar_raio(ray_up)
-	checar_raio(ray_down)
-	
+	checar_raio(ray_center,2)
+	checar_raio(ray_up,2)
+	checar_raio(ray_down,2)
 	get_node("../..").speed-=1000*get_node("../..").orientation
 
-
-
-func checar_raio(ray: RayCast2D):
+func checar_raio(ray: RayCast2D, dano): # dando erro quando dois raios vao checar o mesmo bloco com 0 de vida por algum motivo
 	ray.force_raycast_update()
 	var ponto_final_do_tiro
 	if ray.is_colliding():
 		var alvo = ray.get_collider()
 		if alvo.is_in_group("player"):
-			print(alvo)
 			alvo.take_damage()
+		elif alvo.is_in_group("tilemap"):
+			var remaining = alvo.get_parent().damage(ray.get_collision_point()+Vector2(get_node("../..").orientation,0),dano)
+			if remaining[1]:
+				
+				ray_center.add_exception(remaining[1])
+				ray_down.add_exception(remaining[1])
+				ray_up.add_exception(remaining[1])
+			if remaining[0]:
+				checar_raio(ray,remaining[0])
+				return
 		ponto_final_do_tiro = ray.get_collision_point()
 	else:
 		ponto_final_do_tiro = ray.to_global(ray.target_position)
-
 	var ponto_inicio_do_tiro = ponto_de_tiro.global_position
-	
 	Global.spawnricochete(ponto_final_do_tiro, ponto_inicio_do_tiro)
 
 func _on_timer_timeout():
@@ -64,11 +68,9 @@ func usar():
 	if pode_atirar and municao > 0 and equipada:
 		atirar()
 
-
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
-		body.hovering.append(self)
-		
+		body.hover(self)
 func _on_area_2d_body_exited(body: Node2D) -> void:
 	if body.is_in_group("player"):
 		body.hovering.erase(self)

@@ -59,7 +59,7 @@ const materialhps = {
 var mapdamage = {}
 var tiletomapcoll = {}
 
-func damage(glob,dmgvalue = 1):
+func damage(glob,dmgvalue = 1): # for some reason, error happens when 
 	Global.spawndestruction(self,glob, globaltocolor(glob))
 	var remainingdmg = dmgvalue
 	var coord = globtomap(glob)
@@ -72,7 +72,6 @@ func damage(glob,dmgvalue = 1):
 		set_cell(coord)
 		ignore = tiletomapcoll[coord]
 		tiletomapcoll[coord].queue_free()
-		tiletomapcoll.erase(coord)
 		mapdamage.erase(coord)
 	return [max(0,remainingdmg),ignore]
 
@@ -86,8 +85,8 @@ func coordtomaterial(mapcoord):
 	for i in atlasmaterials.keys():
 		if atlasmaterials[i].has(atlascoord):
 			return i
-	print("atlascoord undefined!: "+str(atlascoord))
-	return null
+	push_warning("atlascoord undefined!: "+str(atlascoord))
+	return 0
 
 func globtomap(glob):
 	return local_to_map(to_local(glob))
