@@ -33,9 +33,9 @@ func atirar():
 	get_node("../..").speed-=1000*get_node("../..").orientation
 
 func boom(dano): # dando erro quando dois raios vao checar o mesmo bloco com 0 de vida por algum motivo
-	Global.spawnricochete(Global.fire(get_node("../.."),dano,5,3000,global_position,global_rotation,get_node("../..")),global_position-Vector2(0,+15))
-	Global.spawnricochete(Global.fire(get_node("../.."),dano,5,3000,global_position,global_rotation+PI/12,get_node("../..")),global_position-Vector2(0,+15))
-	Global.spawnricochete(Global.fire(get_node("../.."),dano,5,3000,global_position,global_rotation-PI/12,get_node("../..")),global_position-Vector2(0,+15))
+	Global.spawnricochete(Global.fire(get_node("../.."),dano,5,3000,global_position-Vector2(0,+15),global_rotation,get_node("../..")),global_position-Vector2(0,+15))
+	Global.spawnricochete(Global.fire(get_node("../.."),dano,5,3000,global_position-Vector2(0,+15),global_rotation+PI/12,get_node("../..")),global_position-Vector2(0,+15))
+	Global.spawnricochete(Global.fire(get_node("../.."),dano,5,3000,global_position-Vector2(0,+15),global_rotation-PI/12,get_node("../..")),global_position-Vector2(0,+15))
 
 
 func _on_timer_timeout():

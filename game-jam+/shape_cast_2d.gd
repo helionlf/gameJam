@@ -18,6 +18,7 @@ func fire(damage,girth,length,globpos,globrot,player):
 				Global.spawndestruction(alvo.get_parent(),get_collision_point(0),alvo.color())
 				damage = alvo.damage(damage)
 				add_exception(alvo)
+			else: add_exception(alvo)
 			force_shapecast_update()
 		if damage == 0 and is_colliding():
 			return get_collision_point(0)
