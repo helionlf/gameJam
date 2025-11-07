@@ -1,0 +1,460 @@
+[gd_scene load_steps=25 format=3 uid="uid://crd5yhjhv4kp0"]
+
+[ext_resource type="Script" uid="uid://ddqsgdashpvyl" path="res://Scripts/tutorial.gd" id="1_i6t4g"]
+[ext_resource type="PackedScene" uid="uid://cbh38pvvc85j1" path="res://Spawner.tscn" id="1_omtrn"]
+[ext_resource type="AudioStream" uid="uid://b6vmly1ctgpi" path="res://Sounds/DavidKBD - Pink Bloom Pack - 01 - Pink Bloom.ogg" id="3_p8jf4"]
+[ext_resource type="Texture2D" uid="uid://cf6tsp6ms72sb" path="res://Assets/KEYBOARD/KEYS/W.png" id="5_8va2t"]
+[ext_resource type="Texture2D" uid="uid://b0g6hcrkkmxtl" path="res://Assets/PS4/CIRCLE.png" id="5_p8jf4"]
+[ext_resource type="Texture2D" uid="uid://6pfrshnsc5m" path="res://Assets/KEYBOARD/KEYS/A.png" id="6_8mnmb"]
+[ext_resource type="Texture2D" uid="uid://c6vntki7xjq58" path="res://Assets/KEYBOARD/KEYS/D.png" id="7_koko0"]
+[ext_resource type="Texture2D" uid="uid://brfg61dxvbmt4" path="res://Assets/KEYBOARD/KEYS/F.png" id="8_lsb8r"]
+[ext_resource type="Texture2D" uid="uid://hkc5kafr2cca" path="res://Assets/KEYBOARD/KEYS/G.png" id="9_pkgwa"]
+[ext_resource type="Texture2D" uid="uid://nvpjbch4ti7n" path="res://Assets/KEYBOARD/KEYS/Q.png" id="10_t6ver"]
+[ext_resource type="Texture2D" uid="uid://bb2ewu4clo654" path="res://Assets/PS4/LEFTSTICK.png" id="11_pkgwa"]
+[ext_resource type="Texture2D" uid="uid://dffompkgqgdri" path="res://Assets/PS4/X.png" id="12_radxo"]
+[ext_resource type="Texture2D" uid="uid://37t2vjflsoeg" path="res://Assets/PS4/SQUARE.png" id="14_1cu4j"]
+[ext_resource type="Texture2D" uid="uid://c2f7hg8dgkcoq" path="res://Assets/PS4/TRIANGLE.png" id="15_djl3p"]
+[ext_resource type="Texture2D" uid="uid://bf3f82bdxt634" path="res://Assets/KEYBOARD/KEYS/ARROWUP.png" id="16_73805"]
+[ext_resource type="Texture2D" uid="uid://cdya3v0yd41qw" path="res://Assets/KEYBOARD/KEYS/ARROWLEFT.png" id="17_lh8ri"]
+[ext_resource type="Texture2D" uid="uid://bbe0ligl4spk5" path="res://Assets/KEYBOARD/KEYS/ARROWRIGHT.png" id="18_a2i7a"]
+[ext_resource type="Texture2D" uid="uid://7wnu6b4ygab8" path="res://Assets/KEYBOARD/KEYS/ENTER.png" id="19_0upaw"]
+[ext_resource type="Texture2D" uid="uid://by2n1tclamo5y" path="res://Assets/KEYBOARD/KEYS/M.png" id="20_1l0bo"]
+[ext_resource type="Texture2D" uid="uid://ctgbtcbcu6nwi" path="res://Assets/tutorial.png" id="21_pkgwa"]
+[ext_resource type="Texture2D" uid="uid://foar8o5hhl2y" path="res://Assets/KEYBOARD/KEYS/L.png" id="21_q25lh"]
+[ext_resource type="FontFile" uid="uid://dmf7whals1qvs" path="res://Assets/Pixellari.ttf" id="21_radxo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p1f1o"]
+size = Vector2(713, 56)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ys4pu"]
+size = Vector2(36, 293)
+
+[node name="tutorial" type="Node2D"]
+script = ExtResource("1_i6t4g")
+
+[node name="back" type="Sprite2D" parent="."]
+scale = Vector2(0.9, 0.9)
+
+[node name="obstacle" type="Sprite2D" parent="."]
+scale = Vector2(0.9, 0.9)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(1.7, 1.7)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+visible = false
+position = Vector2(534, 317)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-532.5, -190)
+shape = SubResource("RectangleShape2D_p1f1o")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-196, -364)
+shape = SubResource("RectangleShape2D_ys4pu")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-870, -366)
+shape = SubResource("RectangleShape2D_ys4pu")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-531, -484)
+shape = SubResource("RectangleShape2D_p1f1o")
+
+[node name="Spawner" parent="." instance=ExtResource("1_omtrn")]
+position = Vector2(100, 54)
+
+[node name="Musica" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_p8jf4")
+volume_db = -20.0
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -347.0
+offset_top = -198.0
+offset_right = 348.0
+offset_bottom = 198.0
+
+[node name="p1_controles" type="ColorRect" parent="Control"]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 137.0
+offset_right = 159.0
+offset_bottom = 373.0
+color = Color(0, 0, 0, 0.28235295)
+
+[node name="W" type="Sprite2D" parent="Control/p1_controles"]
+position = Vector2(16, 16)
+texture = ExtResource("5_8va2t")
+
+[node name="A" type="Sprite2D" parent="Control/p1_controles"]
+position = Vector2(16, 31)
+texture = ExtResource("6_8mnmb")
+
+[node name="D" type="Sprite2D" parent="Control/p1_controles"]
+position = Vector2(16, 46)
+texture = ExtResource("7_koko0")
+
+[node name="F" type="Sprite2D" parent="Control/p1_controles"]
+position = Vector2(16, 72)
+texture = ExtResource("8_lsb8r")
+
+[node name="H" type="Sprite2D" parent="Control/p1_controles"]
+position = Vector2(16, 87)
+texture = ExtResource("9_pkgwa")
+
+[node name="Q" type="Sprite2D" parent="Control/p1_controles"]
+position = Vector2(16, 102)
+texture = ExtResource("10_t6ver")
+
+[node name="Label" type="Label" parent="Control/p1_controles"]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 8.0
+offset_right = 109.0
+offset_bottom = 31.0
+theme_override_font_sizes/font_size = 9
+text = "Pula e escala parede"
+
+[node name="Label2" type="Label" parent="Control/p1_controles"]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 24.0
+offset_right = 113.0
+offset_bottom = 47.0
+theme_override_font_sizes/font_size = 9
+text = "Anda para esquerda"
+
+[node name="Label3" type="Label" parent="Control/p1_controles"]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 38.0
+offset_right = 114.0
+offset_bottom = 61.0
+theme_override_font_sizes/font_size = 9
+text = "Anda para direita"
+
+[node name="Label4" type="Label" parent="Control/p1_controles"]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 64.0
+offset_right = 114.0
+offset_bottom = 87.0
+theme_override_font_sizes/font_size = 9
+text = "Pegar/largar arma"
+
+[node name="Label5" type="Label" parent="Control/p1_controles"]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 79.0
+offset_right = 114.0
+offset_bottom = 102.0
+theme_override_font_sizes/font_size = 9
+text = "Atirar"
+
+[node name="Label6" type="Label" parent="Control/p1_controles"]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 94.0
+offset_right = 114.0
+offset_bottom = 117.0
+theme_override_font_sizes/font_size = 9
+text = "Miar
+"
+
+[node name="joystick" type="Sprite2D" parent="Control/p1_controles"]
+position = Vector2(16, 145)
+texture = ExtResource("11_pkgwa")
+
+[node name="x" type="Sprite2D" parent="Control/p1_controles"]
+position = Vector2(16, 160)
+texture = ExtResource("12_radxo")
+
+[node name="bola" type="Sprite2D" parent="Control/p1_controles"]
+position = Vector2(16, 189)
+texture = ExtResource("5_p8jf4")
+
+[node name="quadrado" type="Sprite2D" parent="Control/p1_controles"]
+position = Vector2(16, 206)
+texture = ExtResource("14_1cu4j")
+
+[node name="triangulo" type="Sprite2D" parent="Control/p1_controles"]
+position = Vector2(16, 223)
+texture = ExtResource("15_djl3p")
+
+[node name="Label7" type="Label" parent="Control/p1_controles"]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 137.0
+offset_right = 114.0
+offset_bottom = 160.0
+theme_override_font_sizes/font_size = 9
+text = "Movimentação"
+
+[node name="Label8" type="Label" parent="Control/p1_controles"]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 153.0
+offset_right = 113.0
+offset_bottom = 176.0
+theme_override_font_sizes/font_size = 9
+text = "Pula e escala parede"
+
+[node name="Label10" type="Label" parent="Control/p1_controles"]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 183.0
+offset_right = 114.0
+offset_bottom = 206.0
+theme_override_font_sizes/font_size = 9
+text = "Pegar/largar arma"
+
+[node name="Label11" type="Label" parent="Control/p1_controles"]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 198.0
+offset_right = 114.0
+offset_bottom = 221.0
+theme_override_font_sizes/font_size = 9
+text = "Atirar"
+
+[node name="Label12" type="Label" parent="Control/p1_controles"]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 213.0
+offset_right = 114.0
+offset_bottom = 242.0
+theme_override_font_sizes/font_size = 9
+text = "Miar
+"
+
+[node name="Label9" type="Label" parent="Control/p1_controles"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = -18.0
+offset_right = 90.0
+offset_bottom = 5.0
+theme_override_font_sizes/font_size = 9
+text = "Jogador 1"
+
+[node name="Label13" type="Label" parent="Control/p1_controles"]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 110.0
+offset_right = 109.0
+offset_bottom = 133.0
+theme_override_font_sizes/font_size = 9
+text = "ou"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="p2_controles" type="ColorRect" parent="Control"]
+layout_mode = 0
+offset_left = 536.0
+offset_top = 137.0
+offset_right = 670.0
+offset_bottom = 373.0
+color = Color(0, 0, 0, 0.28235295)
+
+[node name="W" type="Sprite2D" parent="Control/p2_controles"]
+position = Vector2(16, 16)
+texture = ExtResource("16_73805")
+
+[node name="A" type="Sprite2D" parent="Control/p2_controles"]
+position = Vector2(16, 31)
+texture = ExtResource("17_lh8ri")
+
+[node name="D" type="Sprite2D" parent="Control/p2_controles"]
+position = Vector2(16, 46)
+texture = ExtResource("18_a2i7a")
+
+[node name="F" type="Sprite2D" parent="Control/p2_controles"]
+position = Vector2(16, 72)
+texture = ExtResource("19_0upaw")
+
+[node name="H" type="Sprite2D" parent="Control/p2_controles"]
+position = Vector2(16, 87)
+texture = ExtResource("20_1l0bo")
+
+[node name="Q" type="Sprite2D" parent="Control/p2_controles"]
+position = Vector2(16, 102)
+texture = ExtResource("21_q25lh")
+
+[node name="Label" type="Label" parent="Control/p2_controles"]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 8.0
+offset_right = 109.0
+offset_bottom = 31.0
+theme_override_font_sizes/font_size = 9
+text = "Pula e escala parede"
+
+[node name="Label2" type="Label" parent="Control/p2_controles"]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 24.0
+offset_right = 113.0
+offset_bottom = 47.0
+theme_override_font_sizes/font_size = 9
+text = "Anda para esquerda"
+
+[node name="Label3" type="Label" parent="Control/p2_controles"]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 38.0
+offset_right = 114.0
+offset_bottom = 61.0
+theme_override_font_sizes/font_size = 9
+text = "Anda para direita"
+
+[node name="Label4" type="Label" parent="Control/p2_controles"]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 64.0
+offset_right = 114.0
+offset_bottom = 87.0
+theme_override_font_sizes/font_size = 9
+text = "Pegar/largar arma"
+
+[node name="Label5" type="Label" parent="Control/p2_controles"]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 79.0
+offset_right = 114.0
+offset_bottom = 102.0
+theme_override_font_sizes/font_size = 9
+text = "Atirar"
+
+[node name="Label6" type="Label" parent="Control/p2_controles"]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 94.0
+offset_right = 114.0
+offset_bottom = 117.0
+theme_override_font_sizes/font_size = 9
+text = "Miar
+"
+
+[node name="joystick" type="Sprite2D" parent="Control/p2_controles"]
+position = Vector2(16, 145)
+texture = ExtResource("11_pkgwa")
+
+[node name="x" type="Sprite2D" parent="Control/p2_controles"]
+position = Vector2(16, 160)
+texture = ExtResource("12_radxo")
+
+[node name="bola" type="Sprite2D" parent="Control/p2_controles"]
+position = Vector2(16, 189)
+texture = ExtResource("5_p8jf4")
+
+[node name="quadrado" type="Sprite2D" parent="Control/p2_controles"]
+position = Vector2(16, 206)
+texture = ExtResource("14_1cu4j")
+
+[node name="triangulo" type="Sprite2D" parent="Control/p2_controles"]
+position = Vector2(16, 223)
+texture = ExtResource("15_djl3p")
+
+[node name="Label7" type="Label" parent="Control/p2_controles"]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 137.0
+offset_right = 114.0
+offset_bottom = 160.0
+theme_override_font_sizes/font_size = 9
+text = "Movimentação"
+
+[node name="Label8" type="Label" parent="Control/p2_controles"]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 153.0
+offset_right = 113.0
+offset_bottom = 176.0
+theme_override_font_sizes/font_size = 9
+text = "Pula e escala parede"
+
+[node name="Label10" type="Label" parent="Control/p2_controles"]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 183.0
+offset_right = 114.0
+offset_bottom = 206.0
+theme_override_font_sizes/font_size = 9
+text = "Pegar/largar arma"
+
+[node name="Label11" type="Label" parent="Control/p2_controles"]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 198.0
+offset_right = 114.0
+offset_bottom = 221.0
+theme_override_font_sizes/font_size = 9
+text = "Atirar"
+
+[node name="Label12" type="Label" parent="Control/p2_controles"]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 213.0
+offset_right = 114.0
+offset_bottom = 242.0
+theme_override_font_sizes/font_size = 9
+text = "Miar
+"
+
+[node name="Label9" type="Label" parent="Control/p2_controles"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = -18.0
+offset_right = 90.0
+offset_bottom = 5.0
+theme_override_font_sizes/font_size = 9
+text = "Jogador 2"
+
+[node name="Label13" type="Label" parent="Control/p2_controles"]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 110.0
+offset_right = 109.0
+offset_bottom = 133.0
+theme_override_font_sizes/font_size = 9
+text = "ou"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureButton" type="Button" parent="Control"]
+layout_mode = 0
+offset_left = 303.0
+offset_top = 44.0
+offset_right = 399.0
+offset_bottom = 75.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0.9254902, 0.81960785, 0.7137255, 1)
+theme_override_colors/font_pressed_color = Color(1, 0.89411765, 0.34901962, 1)
+theme_override_colors/font_hover_color = Color(0.9254902, 0.81960785, 0.7137255, 1)
+theme_override_fonts/font = ExtResource("21_radxo")
+theme_override_font_sizes/font_size = 15
+text = "esconder"
+flat = true
+
+[node name="Sair" type="Button" parent="Control"]
+layout_mode = 0
+offset_left = 332.0
+offset_top = 17.0
+offset_right = 368.0
+offset_bottom = 41.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0.9254902, 0.81960785, 0.7137255, 1)
+theme_override_colors/font_pressed_color = Color(1, 0.89411765, 0.34901962, 1)
+theme_override_fonts/font = ExtResource("21_radxo")
+theme_override_font_sizes/font_size = 15
+text = "Sair"
+flat = true
+
+[node name="negocio" type="Sprite2D" parent="."]
+show_behind_parent = true
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("21_pkgwa")
+
+[connection signal="pressed" from="Control/TextureButton" to="." method="_on_texture_button_pressed"]
+[connection signal="pressed" from="Control/Sair" to="." method="_on_sair_pressed"]

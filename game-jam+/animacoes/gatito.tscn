@@ -1,7 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://c50csqfl0555i"]
+[gd_scene load_steps=12 format=3 uid="uid://c50csqfl0555i"]
 
 [ext_resource type="Script" uid="uid://c2gn6dpp8j7e3" path="res://animacoes/gatito.gd" id="1_ams5u"]
+[ext_resource type="Texture2D" uid="uid://ce2xa7wla1bht" path="res://animacoes/gatito.png" id="2_6emt3"]
 [ext_resource type="Texture2D" uid="uid://bkfmg3on06p5i" path="res://animacoes/paw.png" id="2_ams5u"]
+[ext_resource type="AudioStream" uid="uid://bun2gs5t1witm" path="res://Sounds/Cat_meow_trimmed.mp3" id="3_ams5u"]
+[ext_resource type="AudioStream" uid="uid://brb4a4txvhgog" path="res://Sounds/Cat_meow_exaggerated.mp3" id="4_1mabb"]
+[ext_resource type="AudioStream" uid="uid://dhu0lobdrpte0" path="res://Sounds/jump (1).wav" id="6_fm06d"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1mabb"]
 size = Vector2(16, 26)
@@ -12,6 +16,7 @@ script/source = "extends Node2D
 @onready var body: Sprite2D = $body
 
 var verticaltween
+var tilttween
 
 func land():
 	if verticaltween: verticaltween.kill()
@@ -21,6 +26,26 @@ func land():
 
 func incline(x):
 	skew = x/3000.0
+
+func tilt():
+	if tilttween: tilttween.kill()
+	body.skew = -50*PI/180
+	tilttween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO)
+	tilttween.tween_property(body, \"skew\", 0, 0.3)
+
+func morrer(death_texture_path: String):
+	if death_texture_path != null and death_texture_path != \"\":
+		body.texture = load(death_texture_path)
+	else:
+		body.texture = load(\"res://animacoes/dead gatito laranja.png\")
+	
+	# O resto da sua animação continua igual
+	body.offset = Vector2(12,-10.5)
+	body.rotation_degrees = -60
+	var spintween = create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CIRC)
+	spintween.tween_property(body, \"rotation\", 0, 0.2)
+	await spintween.finished
+	land()
 "
 
 [sub_resource type="Animation" id="Animation_6emt3"]
@@ -110,6 +135,7 @@ _data = {
 }
 
 [node name="gatito" type="CharacterBody2D" groups=["player"]]
+collision_layer = 2
 script = ExtResource("1_ams5u")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -126,6 +152,7 @@ libraries = {
 
 [node name="body" type="Sprite2D" parent="anim control"]
 position = Vector2(0, -2)
+texture = ExtResource("2_6emt3")
 offset = Vector2(-3, -14.5)
 
 [node name="Paw" type="Sprite2D" parent="anim control"]
@@ -135,3 +162,15 @@ texture = ExtResource("2_ams5u")
 [node name="Paw2" type="Sprite2D" parent="anim control"]
 position = Vector2(-2, -1.5)
 texture = ExtResource("2_ams5u")
+
+[node name="Meow" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_ams5u")
+volume_db = -10.0
+
+[node name="MeowHit" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_1mabb")
+volume_db = -10.0
+
+[node name="Jump" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_fm06d")
+volume_db = -20.0

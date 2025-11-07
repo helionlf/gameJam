@@ -1,0 +1,33 @@
+[gd_scene load_steps=3 format=3 uid="uid://clg6f61stknpp"]
+
+[ext_resource type="Texture2D" uid="uid://cdwp214x1cpit" path="res://animacoes/estrelinha.png" id="1_18dt0"]
+
+[sub_resource type="GDScript" id="GDScript_18dt0"]
+script/source = "extends Node2D
+
+@onready var estrelinha: Sprite2D = $Estrelinha
+@onready var estrelinha_2: Sprite2D = $Estrelinha2
+
+var counter = 0
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	counter+= delta*10
+	estrelinha.position.x = sin(counter)*15
+	estrelinha_2.position.x = sin(-counter)*15
+
+func _ready() -> void:
+	await get_tree().create_timer(1).timeout
+	queue_free()
+"
+
+[node name="startstuck" type="Node2D"]
+script = SubResource("GDScript_18dt0")
+
+[node name="Estrelinha" type="Sprite2D" parent="."]
+position = Vector2(11, 0)
+texture = ExtResource("1_18dt0")
+
+[node name="Estrelinha2" type="Sprite2D" parent="."]
+position = Vector2(-11, 0)
+texture = ExtResource("1_18dt0")

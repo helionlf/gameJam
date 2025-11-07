@@ -1,41 +1,20 @@
-[gd_scene load_steps=7 format=3 uid="uid://cbh38pvvc85j1"]
+[gd_scene load_steps=3 format=3 uid="uid://cbh38pvvc85j1"]
 
-[ext_resource type="Script" path="res://spawner.gd" id="1_gnend"]
-[ext_resource type="PackedScene" uid="uid://b7trnod2mbg58" path="res://arma_no_chão.tscn" id="2_1v3v6"]
-[ext_resource type="Texture2D" uid="uid://d3hef7dvbtqiu" path="res://Sprites/PlataformaHolder.png" id="2_5q6u0"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_5i5hu"]
-atlas = ExtResource("2_5q6u0")
-region = Rect2(0, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_lyyrg"]
-atlas = ExtResource("2_5q6u0")
-region = Rect2(0, 32, 32, 32)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_aubng"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_5i5hu")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_lyyrg")
-}],
-"loop": true,
-"name": &"default",
-"speed": 6.0
-}]
+[ext_resource type="Script" uid="uid://dg0bsrfauptu1" path="res://spawner.gd" id="1_gnend"]
+[ext_resource type="Texture2D" uid="uid://cb55xr4sbh1ig" path="res://Sprites/spawner.png" id="3_5q6u0"]
 
 [node name="Spawner" type="Node2D"]
 script = ExtResource("1_gnend")
-scene_para_spawnar = ExtResource("2_1v3v6")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
-sprite_frames = SubResource("SpriteFrames_aubng")
-frame_progress = 0.91501945
+texture = ExtResource("3_5q6u0")
 
 [node name="PontoSpawn" type="Marker2D" parent="."]
 position = Vector2(0, -4)
 
 [node name="Timer" type="Timer" parent="."]
+wait_time = 7.0
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -1,67 +1,213 @@
 extends Node2D
 
 @onready var PlayerScene = preload("res://animacoes/gatito.tscn")
+@onready var restart_timer = $RestartTimer
+@onready var death_view_timer = $DeathViewTimer
+@onready var end_game_timer = $EndGameTimer
+
+const VIDA_INICIAL = 9
 
 var skins = [
 	preload("res://animacoes/gatito.png"),
 	preload("res://animacoes/gatito_branco.png"),
-	preload("res://animacoes/gatito_laranja.png")   
+	preload("res://animacoes/gatito_laranja.png")
 ]
 
-var stages = [
-	"res://animacoes/world.tscn"
+# Lista original de fases
+#var all_stages = [
 	#"res://Scenes/stage_moon.tscn",
-	#"res://stages/Stage2.tscn",
-	#"res://stages/Stage3.tscn",
-	#"res://stages/Stage4.tscn"
+	#"res://Scenes/stage_preistorico.tscn",
+	#"res://Scenes/stage_medieval.tscn",
+	#"res://Scenes/stage_predio.tscn"
+#]
+
+var all_stages = [
+	"res://Scenes/stage_tilemap.tscn",
 ]
 
-var current_stage_index = 0
+#var spawn_positions = [
+	#[Vector2(-120, 100), Vector2(120, 100.0)],
+	#[Vector2(-253, 170), Vector2(-253, 45)],
+	#[Vector2(-178, 178), Vector2(113, 178.0)],
+	#[Vector2(-182, 133), Vector2(182, 133)],
+#]
+
+var spawn_positions = [
+	[Vector2(0, 0), Vector2(-100, -20)],
+]
+
+# Lista embaralhada para a ordem das fases
+var shuffled_stages = []
+var current_shuffled_index = 0
+
 var players = []
 var game_started = false
+var is_restarting = false
 
-func _input(event):
-	if event is InputEventMouseButton and event.pressed and not game_started:
-		start_game()
+func _ready():
+	randomize()
+	$Music.play()
+	LifeManager.p1_life = VIDA_INICIAL
+	LifeManager.p2_life = VIDA_INICIAL
+	start_new_game()
 
-func start_game():
+func start_new_game() -> void:
 	game_started = true
+	is_restarting = false
 
-	stages.shuffle()
-	var shuffled_skins = skins.duplicate()
-	shuffled_skins.shuffle()
+	skins.shuffle()
+	# Embaralha as fases no início do jogo
+	shuffled_stages = all_stages.duplicate()
+	shuffled_stages.shuffle()
+	current_shuffled_index = 0 # Começa na primeira fase embaralhada
 
-	var p1 = PlayerScene.instantiate()
-	p1.player_id = 1
-	p1.set_skin(shuffled_skins[0])
+	create_players()
 
-	var p2 = PlayerScene.instantiate()
-	p2.player_id = 2
-	p2.set_skin(shuffled_skins[1])
+	var stage_path = shuffled_stages[current_shuffled_index]
+	var spawn_index = get_spawn_index_for_stage(stage_path)
+	load_stage(stage_path, spawn_index)
 
-	players = [p1, p2]
+func create_players() -> void:
+	players.clear()
+	var p1 = null
+	var p2 = null
 
-	load_stage(current_stage_index)
+	if LifeManager.p1_life > 0:
+		p1 = PlayerScene.instantiate()
+		p1.player_id = 1
+		p1.set_skin(skins[0])
+		p1.player_died.connect(_on_player_died)
+		players.append(p1)
 
-func load_stage(index):
+	if LifeManager.p2_life > 0:
+		p2 = PlayerScene.instantiate()
+		p2.player_id = 2
+		var skin_index = 1 if p1 != null else 0
+		if skin_index < skins.size():
+			p2.set_skin(skins[skin_index])
+		else:
+			p2.set_skin(skins[0])
+		p2.player_died.connect(_on_player_died)
+		players.append(p2)
+
+func load_stage(stage_path, spawn_index) -> void:
+	for arma in get_tree().get_nodes_in_group("ArmaNoMundo"):
+		arma.queue_free()
+
+	@warning_ignore("unused_variable")
+	var old_stage = null
 	for child in get_children():
 		if child.name.begins_with("Stage"):
+			old_stage = child
 			child.queue_free()
 
-	var stage = load(stages[index]).instantiate()
-	stage.name = "Stage_" + str(index + 1)
+	var stage = load(stage_path).instantiate()
+	stage.name = "Stage_" + stage_path.get_file().get_basename()
 	add_child(stage)
 
-	stage.add_child(players[0])
-	stage.add_child(players[1])
+	for player_node in players:
+		stage.add_child(player_node)
 
-	players[0].position = Vector2(100, 0)
-	players[1].position = Vector2(-100, 0)
+	# Usa Vector2 global_position para garantir
+	if players.size() >= 1 and spawn_index < spawn_positions.size():
+		players[0].global_position = spawn_positions[spawn_index][0]
+	if players.size() == 2 and spawn_index < spawn_positions.size():
+		players[1].global_position = spawn_positions[spawn_index][1]
+
+	print("Stage Loaded: ", stage_path)
+
+
+func _on_player_died(id_do_jogador_que_morreu: int):
+	if is_restarting or not game_started:
+		return
+
+	var game_over = false
+	var lives_remaining = 0
+
+	if id_do_jogador_que_morreu == 1:
+		lives_remaining = LifeManager.p1_life
+		print("P1 tem ", lives_remaining, " vidas restantes.")
+		if lives_remaining <= 0:
+			game_over = true
+			handle_game_over(2)
+	else:
+		lives_remaining = LifeManager.p2_life
+		print("P2 tem ", lives_remaining, " vidas restantes.")
+		if lives_remaining <= 0:
+			game_over = true
+			handle_game_over(1)
+
+	if not game_over:
+		is_restarting = true
+		print("Um jogador morreu! Esperando 2 segundos para reiniciar a rodada...")
+		death_view_timer.start()
+
+func _on_death_view_timer_timeout():
+	print("Iniciando contagem de 1.5s para reiniciar...")
+	restart_timer.start()
+
+func _on_restart_timer_timeout() -> void:
+	is_restarting = false
+	await cleanup_and_start_round()
+
+func cleanup_and_start_round() -> void:
+	players.clear()
+	var old_stage = null
+	for child in get_children():
+		if child.name.begins_with("Stage"):
+			old_stage = child
+			child.queue_free()
+	if old_stage != null:
+		await old_stage.tree_exited
+	create_players()
+	if players.is_empty():
+		print("ERRO INESPERADO: Nenhum jogador criado após restart! Voltando ao menu...")
+		get_tree().reload_current_scene()
+		return
+	current_shuffled_index += 1
+	if current_shuffled_index >= shuffled_stages.size():
+		current_shuffled_index = 0
+		shuffled_stages.shuffle()
+
+	var next_stage_path = shuffled_stages[current_shuffled_index]
+	var next_spawn_index = get_spawn_index_for_stage(next_stage_path)
+	load_stage(next_stage_path, next_spawn_index)
+	# ---------------------------------------------
+
+	# Verifica se o jogo acabou APÓS carregar a nova fase
+	if players.size() == 1:
+		handle_game_over(players[0].player_id)
+
+
+func handle_game_over(winner_id):
+	if not game_started:
+		return
+	game_started = false 
+	print("🏁 FIM DE JOGO! Jogador ", winner_id, " venceu!")
+	end_game_timer.start() 
+
+
+func get_spawn_index_for_stage(stage_path):
+	for i in range(all_stages.size()):
+		if all_stages[i] == stage_path:
+			return i
+	return 0
 
 func next_stage():
-	current_stage_index += 1
-	if current_stage_index < stages.size():
-		load_stage(current_stage_index)
-	else:
-		print("🏁 Jogo finalizado!")
-		#Voltar ao menu
+	pass
+
+func _on_end_game_timer_timeout():
+	for arma in get_tree().get_nodes_in_group("ArmaNoMundo"):
+		arma.queue_free()
+
+	if $Vida: $Vida.visible = false
+	if $Vida2: $Vida2.visible = false
+
+	var winner_id = 1 if LifeManager.p2_life <= 0 else 2 
+	Global.quemganhou = winner_id
+	
+	get_tree().change_scene_to_file("res://Scenes/tela_d_vitoria.tscn")
+
+func restart_full_game():
+	get_tree().paused = false
+	get_tree().reload_current_scene()

@@ -1,0 +1,103 @@
+[gd_scene load_steps=13 format=3 uid="uid://cseh2civr4peb"]
+
+[ext_resource type="Script" uid="uid://iehknfwwmu7x" path="res://Scripts/stage_predio.gd" id="1_xac6u"]
+[ext_resource type="Texture2D" uid="uid://covkjsww77xjq" path="res://Assets/predio.png" id="2_rr1j1"]
+[ext_resource type="PackedScene" uid="uid://cbh38pvvc85j1" path="res://Spawner.tscn" id="3_s3156"]
+[ext_resource type="PackedScene" uid="uid://c6a7so7h2tp1s" path="res://Scenes/New_Gun.tscn" id="4_cokuq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tylnb"]
+size = Vector2(525, 25.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c87nh"]
+size = Vector2(15, 243.875)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ve3fq"]
+size = Vector2(322, 13)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uqhjj"]
+size = Vector2(154, 14)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_itn48"]
+size = Vector2(157, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xac6u"]
+size = Vector2(14, 244)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uk06k"]
+size = Vector2(1440, 21)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xcdiu"]
+size = Vector2(28.5, 382.5)
+
+[node name="stage_predio" type="Node2D"]
+script = ExtResource("1_xac6u")
+
+[node name="back" type="Sprite2D" parent="."]
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("2_rr1j1")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(1.7, 1.7)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(534, 317)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-534.5, -137.25)
+shape = SubResource("RectangleShape2D_tylnb")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-789.5, -272.0625)
+shape = SubResource("RectangleShape2D_c87nh")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-279, -272)
+shape = SubResource("RectangleShape2D_c87nh")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-534, -294)
+shape = SubResource("RectangleShape2D_ve3fq")
+
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-705, -387)
+shape = SubResource("RectangleShape2D_uqhjj")
+
+[node name="CollisionShape2D6" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-363, -387)
+shape = SubResource("RectangleShape2D_uqhjj")
+
+[node name="CollisionShape2D7" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-703.5, -219)
+shape = SubResource("RectangleShape2D_itn48")
+
+[node name="CollisionShape2D8" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-364, -219)
+shape = SubResource("RectangleShape2D_itn48")
+
+[node name="CollisionShape2D9" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-534, -272)
+shape = SubResource("RectangleShape2D_xac6u")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(2, 311)
+shape = SubResource("RectangleShape2D_uk06k")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-705, 112)
+shape = SubResource("RectangleShape2D_xcdiu")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(731, 125)
+shape = SubResource("RectangleShape2D_xcdiu")
+
+[node name="Spawner" parent="." instance=ExtResource("3_s3156")]
+position = Vector2(-74, 5)
+scene_para_spawnar = ExtResource("4_cokuq")
+
+[node name="Spawner2" parent="." instance=ExtResource("3_s3156")]
+position = Vector2(62, 6)
+scene_para_spawnar = ExtResource("4_cokuq")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

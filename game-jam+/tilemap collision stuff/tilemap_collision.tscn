@@ -1,0 +1,78 @@
+[gd_scene load_steps=8 format=3 uid="uid://dqok14p4olqdi"]
+
+[ext_resource type="Texture2D" uid="uid://dfwh2ncw2wx5j" path="res://animacoes/fracture sheet.png" id="1_cyn4o"]
+
+[sub_resource type="GDScript" id="GDScript_chqm6"]
+script/source = "extends StaticBody2D
+
+var coord = Vector2(0,0)
+var maxhp = 0
+var hp = 0
+var dead = false
+
+@onready var fracture_sheet: AnimatedSprite2D = $FractureSheet
+
+func damage(damg):
+	if dead: return damg
+	var remdamg = damg
+	remdamg = max(0,remdamg-hp)
+	hp = max(0,hp-damg)
+	fracture_sheet.visible = true
+	fracture_sheet.set_frame(min(floor(float(hp)/maxhp)*3,2))
+	if hp == 0:
+		dead = true
+		get_parent().set_cell(coord)
+		queue_free()
+	return remdamg
+
+func sethp(n):
+	maxhp = n
+	hp = n
+
+func color():
+	return get_parent().coordtocolor(coord)
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jjl3o"]
+size = Vector2(16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lwt74"]
+atlas = ExtResource("1_cyn4o")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sps2q"]
+atlas = ExtResource("1_cyn4o")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a7etl"]
+atlas = ExtResource("1_cyn4o")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qgrgn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lwt74")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sps2q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a7etl")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="tilemap collision" type="StaticBody2D" groups=["tilemap"]]
+script = SubResource("GDScript_chqm6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_jjl3o")
+
+[node name="FractureSheet" type="AnimatedSprite2D" parent="."]
+visible = false
+sprite_frames = SubResource("SpriteFrames_qgrgn")
+frame = 1
+frame_progress = 0.6545411
