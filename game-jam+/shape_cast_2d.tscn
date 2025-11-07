@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://b0m56bueosisd"]
+
+[ext_resource type="Script" uid="uid://cscq1fqcakju4" path="res://shape_cast_2d.gd" id="1_x0qug"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_inobc"]
+size = Vector2(10, 2)
+
+[node name="ShapeCast2D" type="ShapeCast2D"]
+shape = SubResource("RectangleShape2D_inobc")
+target_position = Vector2(50, 0)
+collision_mask = 3
+script = ExtResource("1_x0qug")

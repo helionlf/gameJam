@@ -3,6 +3,7 @@ const RICOCHETE = preload("res://ricochete.tscn")
 var mundo = null
 const STARTSTUCK = preload("res://startstuck.tscn")
 const DESTRUCTION_PARTICLE = preload("uid://2tyhp4qw48x5")
+const SHAPE_CAST_2D = preload("uid://b0m56bueosisd")
 
 var camera
 
@@ -22,8 +23,13 @@ func spawnestrelas(cato):
 	cato.add_child(a)
 	a.position = Vector2(0,-40)
 
-func spawndestruction(tile,glob, color = Color.WHITE):
+func spawndestruction(parent,glob, color = Color.WHITE):
 	var a = DESTRUCTION_PARTICLE.instantiate()
-	tile.add_child(a)
+	parent.add_child(a)
 	a.modulate = color
 	a.global_position = glob
+
+func fire(parent,damage,girth,length,globpos,globrot,player = null):
+	var a = SHAPE_CAST_2D.instantiate()
+	parent.add_child(a)
+	return a.fire(damage,girth,length,globpos,globrot, player)

@@ -1,0 +1,51 @@
+[gd_scene load_steps=7 format=3 uid="uid://cf523byyj63av"]
+
+[ext_resource type="Script" uid="uid://crct7hycicber" path="res://granade.gd" id="1_hy050"]
+[ext_resource type="Texture2D" uid="uid://d0ibw6gtfyy5b" path="res://granade sheet.png" id="2_c8hxr"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ptxpk"]
+atlas = ExtResource("2_c8hxr")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ymrd4"]
+atlas = ExtResource("2_c8hxr")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_u4y2h"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ptxpk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ymrd4")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wm3rq"]
+size = Vector2(18, 18)
+
+[node name="granade" type="Node2D"]
+z_index = 1
+script = ExtResource("1_hy050")
+
+[node name="offset" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="offset"]
+texture_filter = 1
+scale = Vector2(0.6, 0.6)
+sprite_frames = SubResource("SpriteFrames_u4y2h")
+offset = Vector2(0.9999995, -2.3841858e-07)
+
+[node name="Area2D" type="Area2D" parent="offset"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="offset/Area2D"]
+shape = SubResource("RectangleShape2D_wm3rq")
+
+[connection signal="body_entered" from="offset/Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="offset/Area2D" to="." method="_on_area_2d_body_exited"]

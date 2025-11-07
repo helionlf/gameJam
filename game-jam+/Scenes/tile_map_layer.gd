@@ -56,47 +56,21 @@ const materialhps = {
 	materials.glass: 0
 }
 
-var mapdamage = {}
-var tiletomapcoll = {}
-
-func damage(glob,dmgvalue = 1): # for some reason, error happens when 
-	Global.spawndestruction(self,glob, globaltocolor(glob))
-	var remainingdmg = dmgvalue
-	var coord = globtomap(glob)
-	if not mapdamage.has(coord): setcoordhp(coord)
-	remainingdmg -= mapdamage[coord]
-	mapdamage[coord] -= dmgvalue
-	tiletomapcoll[coord].setdamage(1-(mapdamage[coord]/float(materialhps[coordtomaterial(coord)])))
-	var ignore = null
-	if mapdamage[coord] <= 0:
-		set_cell(coord)
-		ignore = tiletomapcoll[coord]
-		tiletomapcoll[coord].queue_free()
-		mapdamage.erase(coord)
-	return [max(0,remainingdmg),ignore]
-
-func setcoordhp(coord):
-	if mapdamage.has(coord):
-		return
-	mapdamage.set(coord,materialhps[coordtomaterial(coord)])
+func coordtocolor(mapcoord):
+	var mat = coordtomaterial(mapcoord)
+	return materialcolor[mat]
 
 func coordtomaterial(mapcoord):
 	var atlascoord = Vector2(get_cell_atlas_coords(mapcoord))
 	for i in atlasmaterials.keys():
 		if atlasmaterials[i].has(atlascoord):
 			return i
-	push_warning("atlascoord undefined!: "+str(atlascoord))
 	return 0
-
-func globtomap(glob):
-	return local_to_map(to_local(glob))
-
-func globaltocolor(glob):
-	return materialcolor[coordtomaterial(globtomap(glob))]
 
 func _ready() -> void:
 	for tile in get_used_cells():
 		var a = TILEMAP_COLLISION.instantiate()
 		add_child(a)
 		a.position = map_to_local(tile)
-		tiletomapcoll.set(tile,a)
+		a.sethp(materialhps[coordtomaterial(tile)])
+		a.coord = tile
