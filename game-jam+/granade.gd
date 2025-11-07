@@ -27,6 +27,7 @@ func atirar():
 func boom():
 	for i in 12:
 		Global.fire(get_node("../.."),5,20,50,global_position-Vector2(0,+15),i*30,get_node("../.."))
+	Global.kaboom(get_parent(),global_position)
 	queue_free()
 
 func usar():

@@ -38,3 +38,13 @@ func fire(parent,damage,girth,length,globpos,globrot,player = null):
 	var a = firenull(parent,damage,girth,length,globpos,globrot,player)
 	if a: return a
 	return globpos+Vector2(length*cos(globrot)/10,length*sin(globrot)/10)
+
+const BOOMCLOUD = preload("uid://du0g1ps8bxm16")
+
+func kaboom(parent, globpos):
+	for i in 5:
+		var a = BOOMCLOUD.instantiate()
+		parent.add_child(a)
+		a.global_position = globpos
+		a.global_position += Vector2(randf_range(-30,30),randf_range(-30,30))
+		spawndestruction(parent,a.global_position,Color.ORANGE)
