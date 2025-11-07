@@ -1,62 +1,100 @@
-[gd_scene load_steps=8 format=3 uid="uid://dqmi7jjf50y8b"]
+[gd_scene load_steps=5 format=3 uid="uid://48pxdkpdrt7s"]
 
-[ext_resource type="Script" uid="uid://dtwya1gttmxqe" path="res://kunai.gd" id="1_nxfn2"]
-[ext_resource type="Texture2D" uid="uid://dwwcp4aoj4utj" path="res://Sprites/FlechaPlaceHolder.png" id="2_4cp2t"]
+[ext_resource type="Texture2D" uid="uid://cmbqali2mh2oe" path="res://Sprites/kunai.png" id="1_nxfn2"]
+[ext_resource type="AudioStream" uid="uid://f0k6wulemxhg" path="res://Sounds/22LR Single Isolated MP3.mp3" id="2_4cp2t"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_37qbi"]
-size = Vector2(9, 3)
+[sub_resource type="GDScript" id="GDScript_5b823"]
+resource_name = "kunai"
+script/source = "extends Node2D
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_aixhf"]
-atlas = ExtResource("2_4cp2t")
-region = Rect2(0, 0, 16, 16)
+@onready var offset: Node2D = $offset
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_nqfn7"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_aixhf")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
+var equipada = false
+var voando = 0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_d05gv"]
-size = Vector2(9, 5)
+var player = null
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_qkptx"]
-size = Vector2(9, 3)
+var sprite = \"res://Sprites/kunai.png\"
 
-[node name="Kunai" type="CharacterBody2D" groups=["ArmaNoMundo"]]
-scale = Vector2(1.9200001, 1.9200001)
-script = ExtResource("1_nxfn2")
+func _process(delta: float) -> void:
+	if equipada: offset.rotation += delta*20
+	elif voando:
+		var a = Global.firenull(get_parent(),1,1,10,global_position,global_rotation,player)
+		if a:
+			global_position = a+Vector2(voando*-28,0)
+			voando = 0
+		else:
+			global_position.x+=voando*delta*1500
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0.5, -1.5)
-shape = SubResource("RectangleShape2D_37qbi")
+func equipar(): # tendo muito problema com corrigir o fato que se ela tiver pra esquerda, buga equipando
+	var a = load(\"res://Scenes/kunai.tscn\").instantiate()
+	get_parent().add_child(a)
+	a.equipada = true
+	a.skew = 0
+	a.offset.position = Vector2(-10,-9)
+	a.player = a.get_node(\"../..\")
+	get_node(\"../..\").equipado = a
+	queue_free()
 
-[node name="offset" type="Node2D" parent="." groups=["ArmaNoMundo"]]
+var gasta = false
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="offset"]
-sprite_frames = SubResource("SpriteFrames_nqfn7")
+func atirar():
+	if equipada:
+		offset.rotation = 0
+		offset.position = Vector2(0,0)
+		voando = get_node(\"../..\").orientation
+		global_position+= Vector2(-10*get_node(\"../..\").orientation,-9)
+		equipada = false
+		get_node(\"../..\").velocity.y = -150
+		get_node(\"../..\").speed = -voando*400
+		get_node(\"../..\").desequipar()
+		reparent(get_node(\"../../..\"))
+		global_position.x+=voando*5
+		global_scale = Vector2(1*voando,1)
+		$offset/Area2D/CollisionShape2D.disabled = true
+		await get_tree().create_timer(1).timeout
+		$offset/Area2D/CollisionShape2D.disabled = false
 
-[node name="DamageArea" type="Area2D" parent="."]
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	if body.is_in_group(\"player\") and not voando and not equipada:
+		body.hover(self)
+func _on_area_2d_body_exited(body: Node2D) -> void:
+	if body.is_in_group(\"player\"):
+		body.hovering.erase(self)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea"]
-position = Vector2(0.5, -1.5)
-shape = SubResource("RectangleShape2D_d05gv")
+func usar():
+	atirar()
 
-[node name="PickupArea" type="Area2D" parent="."]
+func arremessar():
+	atirar()
+"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea"]
-position = Vector2(0.5, -1.5)
-shape = SubResource("RectangleShape2D_qkptx")
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wm3rq"]
+size = Vector2(26, 12)
 
-[node name="Timer" type="Timer" parent="."]
+[node name="kunai" type="Node2D"]
+z_index = 1
+script = SubResource("GDScript_5b823")
 
-[node name="RayCast2D" type="RayCast2D" parent="."]
-target_position = Vector2(1000, 0)
+[node name="offset" type="Node2D" parent="."]
 
-[connection signal="body_entered" from="DamageArea" to="." method="_on_damage_area_body_entered"]
-[connection signal="body_entered" from="PickupArea" to="." method="_on_pickup_area_body_entered"]
-[connection signal="body_exited" from="PickupArea" to="." method="_on_pickup_area_body_exited"]
+[node name="Sprite2D" type="Sprite2D" parent="offset"]
+texture_filter = 1
+position = Vector2(-4.7683716e-07, -2.3841858e-07)
+rotation = 0.7853982
+texture = ExtResource("1_nxfn2")
+offset = Vector2(5.014232, -5.014232)
+
+[node name="Area2D" type="Area2D" parent="offset"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="offset/Area2D"]
+position = Vector2(5, 0)
+shape = SubResource("RectangleShape2D_wm3rq")
+
+[node name="Shot" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_4cp2t")
+
+[connection signal="body_entered" from="offset/Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="offset/Area2D" to="." method="_on_area_2d_body_exited"]

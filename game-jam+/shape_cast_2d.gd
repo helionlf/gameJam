@@ -22,4 +22,4 @@ func fire(damage,girth,length,globpos,globrot,player):
 			force_shapecast_update()
 		if damage == 0 and is_colliding():
 			return get_collision_point(0)
-	return global_position+Vector2(target_position.x*cos(rotation)/10,target_position.x*sin(rotation)/10)
+	return null

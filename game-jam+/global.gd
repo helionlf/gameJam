@@ -29,7 +29,12 @@ func spawndestruction(parent,glob, color = Color.WHITE):
 	a.modulate = color
 	a.global_position = glob
 
-func fire(parent,damage,girth,length,globpos,globrot,player = null):
+func firenull(parent,damage,girth,length,globpos,globrot,player = null):
 	var a = SHAPE_CAST_2D.instantiate()
 	parent.add_child(a)
 	return a.fire(damage,girth,length,globpos,globrot, player)
+
+func fire(parent,damage,girth,length,globpos,globrot,player = null):
+	var a = firenull(parent,damage,girth,length,globpos,globrot,player)
+	if a: return a
+	return globpos+Vector2(length*cos(globrot)/10,length*sin(globrot)/10)

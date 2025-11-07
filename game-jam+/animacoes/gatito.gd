@@ -132,11 +132,7 @@ func throw_weapon():
 	if equipado.sprite == "res://Sprites/kunai.png":
 		equipado.arremessar()
 		return
-	
 	var thrown_gun:RigidBody2D = THROWN_GUN.instantiate()
-	
-	print(equipado.sprite)
-	
 	get_parent().add_child(thrown_gun)
 	thrown_gun.set_sprite(equipado.sprite)
 	thrown_gun.global_position = equipado.global_position
@@ -169,7 +165,6 @@ func set_skin(skin_texture: Texture2D):
 
 func take_damage():
 	if not alive: return
-	print_stack()
 	$MeowHit.pitch_scale = randf_range(0.5, 3) ** 0.5
 	$MeowHit.play()
 	life -= 1
@@ -179,9 +174,6 @@ func take_damage():
 	else:
 		LifeManager.p2_life = life
 		LifeManager.life_changed.emit(player_id, life)
-	print(life)
-	print(LifeManager.p1_life)
-	print(LifeManager.p2_life)
 	die()
 
 func die():
@@ -189,6 +181,5 @@ func die():
 	alive = false
 	await get_tree().create_timer(0).timeout
 	$CollisionShape2D.disabled = true
-	print("Player morreu!")
 	player_died.emit(player_id)
 	anim_control.morrer(my_death_texture_path)
