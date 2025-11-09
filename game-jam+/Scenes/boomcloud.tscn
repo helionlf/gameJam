@@ -13,6 +13,7 @@ func _ready() -> void:
 	var time = randf_range(0.5,1.5)*scale.x*0.4
 	tween.tween_property(self,\"scale\",Vector2(0,0),time)
 	tween.tween_property(self,\"rotation\",randf_range(-2,2),time).set_ease(Tween.EASE_OUT)
+	tween.tween_property(self,\"modulate\",Color.BLACK,time)
 	await tween.finished
 	queue_free()
 "

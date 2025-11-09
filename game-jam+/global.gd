@@ -48,3 +48,6 @@ func kaboom(parent, globpos):
 		a.global_position = globpos
 		a.global_position += Vector2(randf_range(-30,30),randf_range(-30,30))
 		spawndestruction(parent,a.global_position,Color.ORANGE)
+
+func impact(n):
+	if camera: camera.zoom -= Vector2(n/10.0,n/10.0)

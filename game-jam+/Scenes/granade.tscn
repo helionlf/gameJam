@@ -7,7 +7,7 @@
 atlas = ExtResource("2_c8hxr")
 region = Rect2(0, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ymrd4"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_hy050"]
 atlas = ExtResource("2_c8hxr")
 region = Rect2(32, 0, 32, 32)
 
@@ -16,12 +16,17 @@ animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ptxpk")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ymrd4")
 }],
-"loop": true,
+"loop": false,
 "name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hy050")
+}],
+"loop": false,
+"name": &"ticking",
 "speed": 5.0
 }]
 
@@ -38,6 +43,7 @@ script = ExtResource("1_hy050")
 texture_filter = 1
 scale = Vector2(0.6, 0.6)
 sprite_frames = SubResource("SpriteFrames_u4y2h")
+autoplay = "default"
 offset = Vector2(0.9999995, -2.3841858e-07)
 
 [node name="Area2D" type="Area2D" parent="offset"]

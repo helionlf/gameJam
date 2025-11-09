@@ -1,0 +1,57 @@
+[gd_scene load_steps=7 format=3 uid="uid://bk5wc8vx17nxv"]
+
+[ext_resource type="Texture2D" uid="uid://d0ibw6gtfyy5b" path="res://granade sheet.png" id="1_6m4ko"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_6m4ko"]
+friction = 0.32
+bounce = 0.15
+
+[sub_resource type="GDScript" id="GDScript_6m4ko"]
+script/source = "extends RigidBody2D
+
+func dothrow(glob,vec,rot,time):
+	angular_velocity = rot
+	linear_velocity = vec
+	global_position = glob+Vector2(0,-10)
+	await get_tree().create_timer(time).timeout
+	boom()
+
+func boom():
+	for i in 12:
+		Global.fire(get_node(\"../..\"),5,20,50,global_position-Vector2(0,+15),i*30,get_node(\"../..\"))
+	Global.kaboom(get_parent(),global_position)
+	Global.impact(1)
+	queue_free()
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6m4ko"]
+radius = 8.062258
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e2cp0"]
+atlas = ExtResource("1_6m4ko")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pyfg8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e2cp0")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="throwngranade" type="RigidBody2D"]
+collision_layer = 0
+physics_material_override = SubResource("PhysicsMaterial_6m4ko")
+script = SubResource("GDScript_6m4ko")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_6m4ko")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0.5, -0.5)
+scale = Vector2(0.6, 0.6)
+sprite_frames = SubResource("SpriteFrames_pyfg8")
+autoplay = "default"
